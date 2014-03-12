@@ -1,0 +1,49 @@
+﻿//criar variaveis globais: 
+global.nomedavariavel = algumacoisa;
+
+//textos na room: 
+events -> draw
+draw_text();
+
+//tipo scanf e printf juntos(para string):
+global.variavel = get_string("Texto", "");
+
+//tipo scanf e printf juntos(para inteiro):
+global.variavel = get_integer("Texto", "");
+
+//printf:
+show_message("Mensagem");
+
+//fazer o jogo reiniciar:
+game_restart();
+
+//virar imagem para onde o mouse está:
+image_angle = point_direction(x, y, mouse_x, mouse_y);
+
+//escolher imagem randomica para um objeto:
+image_index = choose(1,2,3, etc);
+image_speed = 0; //imagem estática
+
+//se hp do inimigo <= 0 destroi ele:
+events -> enemy colide com a bala -> instance_destroy();
+
+//fazer a bala se mexer:
+move_towards_point(mouse_x, mouse_y, 10);
+
+//cooldown para uma ação:
+alarm[numerodoalarme] = numerodeframes;
+
+//depth:
+z-index dos objetos
+
+//fazer o texto seguir a view do player:
+draw_text(view_xview[0], view_yview[0], "mensagem");
+
+//Verifica se tem espaço para ele andar
+if place_free(x - 5, y){
+	x -= 5;
+}
+
+//verifica se a tecla foi pressionada:
+keyboard_check_pressed(ord("d"));
+

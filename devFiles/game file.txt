@@ -1,0 +1,55 @@
+Nome do jogo: Chocolate Jack
+Linguagem: Python
+Tema: Hack'n Slash de plataforma
+	História:
+Fluxo: Pula, bate, movimento em WASD.
+
+
+Quantidade de fases: 5
+Jogo estilo plataforma
+
+
+Personagens:
+- Personagem principal: Chocolate Jack
+- Inimigo principal: Batata
+- Princesa: Algodão Doce
+- 
+- 
+
+Cenários:
+- Oriental
+- Árabe
+- Churrascaria
+- Doceria
+- Fast food genérico
+
+• Primeira fase(Doceria)
+ Chocolate Jack acorda e percebe que a princesa sumiu. Começa então sua jornada para resgatar a princesa.
+ Minions: Formigas
+
+• Segunda fase(Árabe)
+Minions:Esfirra e pastel
+Boss:Quibe enrolado num repolho(tipo árabe)
+
+• Terceira fase(Oriental)
+Minions:Sushi kamikazes e 
+Boss:Brocolis ninja
+
+• Quarta fase(Churrascaria)
+Fase de fogo, jack tem que terminar a fase antes dele derreter
+Minions:carne de one piece e 
+Boss:
+
+• Quinta fase(Fast food genérico)
+Minions:
+Boss: Batata
+
+
+
+
+
+História:
+A princesa candy foi sequestrada pela batata.O objetivo de chocolate jack é resgata-la.
+Jack então parte em sua jornada para salvar a princesa.
+
+

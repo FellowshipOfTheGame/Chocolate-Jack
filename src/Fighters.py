@@ -399,31 +399,31 @@ class ChocoJack(Fighter):
         self.facing = pFacing
 
         #criando frames stopped
-        sFrameR = Frame.Frame('data\\imgs\\painted\\stpJackFR1.png')
+        sFrameR = Frame.Frame('data\\imgs\\ChocolateJack\\stpJackFR1.png')
         sFrameR.addCollision(9,0,64,128)
-        sFrameL = Frame.Frame('data\\imgs\\painted\\stpJackFL1.png')
+        sFrameL = Frame.Frame('data\\imgs\\ChocolateJack\\stpJackFL1.png')
         sFrameL.addCollision(22,0,64,128)
 		
         #atribuindo frames
         self.stopFrames = [sFrameR, sFrameL]
 
         #criando frames de movimento
-        mvFrameR1 = Frame.Frame('data\\imgs\\painted\\mvJackFR1.png')
+        mvFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR1.png')
         mvFrameR1.addCollision(10,0,64,128)
 		
-        mvFrameR2 = Frame.Frame('data\\imgs\\painted\\mvJackFR2.png')
+        mvFrameR2 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR2.png')
         mvFrameR2.addCollision(6,0,64,128)
 		
-        mvFrameR3 = Frame.Frame('data\\imgs\\painted\\mvJackFR3.png')
+        mvFrameR3 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR3.png')
         mvFrameR3.addCollision(6,0,64,128)
 		
-        mvFrameL1 = Frame.Frame('data\\imgs\\painted\\mvJackFL1.png')
+        mvFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL1.png')
         mvFrameL1.addCollision(12,0,64,128)
 		
-        mvFrameL2 = Frame.Frame('data\\imgs\\painted\\mvJackFL2.png')
+        mvFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL2.png')
         mvFrameL2.addCollision(18,0,64,128)
 		
-        mvFrameL3 = Frame.Frame('data\\imgs\\painted\\mvJackFL3.png')
+        mvFrameL3 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL3.png')
         mvFrameL3.addCollision(18,0,64,128)
 
 		
@@ -431,19 +431,19 @@ class ChocoJack(Fighter):
         self.movFrames = [mvFrameR1,mvFrameR2,mvFrameR3,mvFrameR2,mvFrameL1,mvFrameL2,mvFrameL3,mvFrameL2]
 
         #criando frames de soco
-        pcFrameR1 = Frame.Frame('data\\imgs\\painted\\pcJackFR1.png')
+        pcFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\pcJackFR1.png')
         pcFrameR1.addCollision(9,0,64,128) #corpo
         pcFrameR1.addCollision(80,60,20,20) #punho
 		
-        pcFrameR2= Frame.Frame('data\\imgs\\painted\\pcJackFR2.png')
+        pcFrameR2= Frame.Frame('data\\imgs\\ChocolateJack\\pcJackFR2.png')
         pcFrameR2.addCollision(9,0,64,128) #corpo
         pcFrameR2.addCollision(82,64,18,25) #punho
 		
-        pcFrameL1 = Frame.Frame('data\\imgs\\painted\\pcJackFL1.png')
+        pcFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\pcJackFL1.png')
         pcFrameL1.addCollision(29,0,64,128) #corpo
         pcFrameL1.addCollision(0,62,20,20) #punho
 		
-        pcFrameL2 = Frame.Frame('data\\imgs\\painted\\pcJackFL2.png')
+        pcFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\pcJackFL2.png')
         pcFrameL2.addCollision(29,0,64,128) #corpo
         pcFrameL2.addCollision(4,62,18,25) #punho
 
@@ -451,19 +451,19 @@ class ChocoJack(Fighter):
         self.pcFrames = [pcFrameR1,pcFrameR2,pcFrameR1,pcFrameL1,pcFrameL2,pcFrameL1]
 
         #criando frames de chute
-        kcFrameR1 = Frame.Frame('data\\imgs\\painted\\kcJackFR1.png')
+        kcFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\kcJackFR1.png')
         kcFrameR1.addCollision(10,0,64,128) #corpo
         kcFrameR1.addCollision(62,106,20,20) #pe
 		
-        kcFrameR2 = Frame.Frame('data\\imgs\\painted\\kcJackFR2.png')
+        kcFrameR2 = Frame.Frame('data\\imgs\\ChocolateJack\\kcJackFR2.png')
         kcFrameR2.addCollision(10,0,64,128) #corpo
         kcFrameR2.addCollision(68,98,20,20) #pe
 		
-        kcFrameL1 = Frame.Frame('data\\imgs\\painted\\kcJackFL1.png')
+        kcFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\kcJackFL1.png')
         kcFrameL1.addCollision(22,0,64,128) #corpo
         kcFrameL1.addCollision(13,106,20,20) #pe
 		
-        kcFrameL2 = Frame.Frame('data\\imgs\\painted\\kcJackFL2.png')
+        kcFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\kcJackFL2.png')
         kcFrameL2.addCollision(22,0,64,128) #corpo
         kcFrameL2.addCollision(6,98,20,20) #pe
 

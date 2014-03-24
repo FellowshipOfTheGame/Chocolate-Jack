@@ -3,7 +3,7 @@ import pygame
 import threading
 import time
 import math
-
+from utils import safe_load
 class names:
     Start, Config= range(2)
 
@@ -12,7 +12,7 @@ class Button:
         self.control = 0
         self.text = text
         self.Carolingia_20 = pygame.font.Font("data/fontes/Carolingia.ttf", 20)
-        self.image = pygame.image.load("data/buttons/botao.jpg")
+        self.image = safe_load(pygame.image.load, "data/buttons/botao.jpg")
         self.screenCod = screenCod
         self.px = x
         self.py = y

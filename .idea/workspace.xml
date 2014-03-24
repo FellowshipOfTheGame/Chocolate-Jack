@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50402b1e-89b4-4697-b70f-590eefc89030" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Button.py" afterPath="$PROJECT_DIR$/src/Button.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ButtonInter.py" afterPath="$PROJECT_DIR$/src/ButtonInter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fighters.py" afterPath="$PROJECT_DIR$/src/Fighters.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Scenarios.py" afterPath="$PROJECT_DIR$/src/Scenarios.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Chocolate-Jack.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,10 +46,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Scenarios.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Scenarios.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Scenarios.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="0" selection-start="1122" selection-end="1122" vertical-scroll-proportion="0.7175141" vertical-offset="460" max-vertical-offset="1445">
+            <state line="42" column="0" selection-start="1122" selection-end="1122" vertical-scroll-proportion="-8.466666" vertical-offset="460" max-vertical-offset="1445">
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -83,10 +79,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utils.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="utils.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="25" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+            <state line="9" column="12" selection-start="162" selection-end="162" vertical-scroll-proportion="0.3984375" vertical-offset="0" max-vertical-offset="384">
               <folding />
             </state>
           </provider>
@@ -115,10 +111,10 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/ButtonInter.py" />
-        <option value="$PROJECT_DIR$/src/utils.py" />
         <option value="$PROJECT_DIR$/src/Button.py" />
         <option value="$PROJECT_DIR$/src/Fighters.py" />
         <option value="$PROJECT_DIR$/src/Scenarios.py" />
+        <option value="$PROJECT_DIR$/src/utils.py" />
       </list>
     </option>
   </component>
@@ -543,13 +539,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="25" selection-start="268" selection-end="268" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Button.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="27" selection-start="370" selection-end="370" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
@@ -570,10 +559,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Scenarios.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1122" selection-end="1122" vertical-scroll-proportion="0.7175141" vertical-offset="460" max-vertical-offset="1445">
+        <state line="42" column="0" selection-start="1122" selection-end="1122" vertical-scroll-proportion="-8.466666" vertical-offset="460" max-vertical-offset="1445">
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="12" selection-start="162" selection-end="162" vertical-scroll-proportion="0.3984375" vertical-offset="0" max-vertical-offset="384">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,7 +1,9 @@
 import pygame
 import sys
+import os
 import States
 import Frame
+from utils import safe_load
 
 class Scenario:
 
@@ -29,7 +31,7 @@ class Scenario:
 
 
     def draw(self, tela):
-        img = pygame.image.load(self.curFrame.img).convert_alpha()
+        img = safe_load(pygame.image.load, self.curFrame.img).convert_alpha()
         tela.blit(img, (0,0))
 
     #troca de estado
@@ -52,7 +54,7 @@ class Praia(Scenario):
         self.frameNum = 0
         self.cooldown = 0
         
-        frame1 = Frame.Frame('data\\imgs\\praia.png')
+        frame1 = Frame.Frame(os.path.join('data\\imgs\\praia.png'))
         frame2 = Frame.Frame('data\\imgs\\praia2.png')
         self.frames = [frame1,frame2]
         self.curFrame = self.frames[self.frameNum]

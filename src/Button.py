@@ -3,7 +3,7 @@ import pygame
 import threading
 import time
 import math
-
+from utils import safe_load
 class names:
     Start, Config= range(2)
 
@@ -12,7 +12,7 @@ class Button:
         self.control = 0
         self.text = text
         self.Franchise_36 = pygame.font.Font("data/fontes/Franchise-Bold-hinted.ttf", 36)
-        self.image = pygame.image.load("data/buttons/botao2.jpg")
+        self.image = safe_load(pygame.image.load, "data/buttons/botao2.jpg")
         self.screenCod = screenCod
         tamXY = self.Franchise_36.size(str(self.text))
         #self.lx = lx

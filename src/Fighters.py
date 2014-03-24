@@ -3,6 +3,7 @@ import pygame
 import States
 import sys
 import Frame
+from utils import safe_load
 
 ###
 #   Fighters
@@ -164,13 +165,13 @@ class Fighter:
 
     #draw
     def draw(self, tela):
-        img = pygame.image.load(self.curFrame.img).convert_alpha()
+        img = safe_load(pygame.image.load, self.curFrame.img).convert_alpha()
         tela.blit(img, (self.drawPx, self.drawPy))
 
 
         if(self.soco > 0):
             self.soco = self.soco + 1
-            socoImg = pygame.image.load('data\\imgs\\soco2.png').convert_alpha()
+            socoImg = safe_load(pygame.image.load,'data\\imgs\\soco2.png').convert_alpha()
             tela.blit(socoImg, (self.drawPx + self.width - self.facing*int(3*self.width/2), self.drawPy + int(self.height/4)))
 
             if(self.soco > 10):
@@ -178,7 +179,7 @@ class Fighter:
 
             if(self.chute > 0):
                 self.chute = self.chute + 1
-                chuteImg = pygame.image.load('data\\imgs\\chute.png').convert_alpha()
+                chuteImg = safe_load(pygame.image.load, 'data\\imgs\\chute.png').convert_alpha()
                 tela.blit(chuteImg, (self.drawPx + self.width - self.facing*int(3*self.width/2), self.drawPy + int(2*self.height/3)))
 
             if(self.chute > 10):

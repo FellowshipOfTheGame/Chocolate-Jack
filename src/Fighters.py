@@ -77,6 +77,7 @@ class Fighter:
     #State
     curState = None
 	
+    jumping = None
     #Contrutor
     def __init__(self, pPyFloor = 0, pFacing=0, pPlayer = 1):
         self.player = pPlayer
@@ -102,7 +103,7 @@ class Fighter:
         self.px = 32 + pFacing*992
         self.py = pPyFloor - self.heigth
         self.facing = pFacing
-        self.curState = f_stopped(self)
+        self.curState = f_jumping_stopped(self)
         self.curState.Enter(self)
         self.curFrame = None
 
@@ -131,6 +132,8 @@ class Fighter:
         self.kcDist = 0
         self.kcMaxCooldown = 0
         self.kcCooldown = 0
+        
+        self.jumping = False
 		
 
     #troca de estado
@@ -483,3 +486,5 @@ class ChocoJack(Fighter):
 		
         self.curState = States.f_stopped()
         self.curState.Enter(self)
+        
+        self.jumping = False

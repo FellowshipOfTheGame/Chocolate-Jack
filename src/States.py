@@ -18,6 +18,7 @@ class States:
 ###
 #   Fighter States
 ###
+
 class f_stopped(States):
 
     def Enter(self, Fighter):
@@ -42,6 +43,11 @@ class f_stopped(States):
         elif(message == 'mvRKeyPressed'):
             Fighter.mvDir = 0
             Fighter.changeState(f_moving())
+        elif(message == 'mvUKeyPressed'):
+            print ("u")
+            if (Fighter.jumping == False):
+                Fighter.jumping = True
+                Fighter.changeState(f_jumping_stopped())
         elif(message == 'pcKeyPressed'):
             Fighter.changeState(f_punching())
         elif(message == 'kcKeyPressed'):
@@ -81,6 +87,10 @@ class f_moving(States):
         elif(message == 'mvRKeyPressed'):
             Fighter.mvDir = 0
             Fighter.changeState(f_moving())
+        elif(message == 'mvUKeyPressed'):
+            if (Fighter.jumping == False):
+                Fighter.jumping = True
+                Fighter.changeState(f_jumping_moving())
         elif(message == 'pcKeyPressed'):
             Fighter.changeState(f_punching())
         elif(message == 'kcKeyPressed'):
@@ -98,6 +108,95 @@ class f_moving(States):
         
     def Exit(self,Fighter):
         pass
+
+class f_jumping_stopped(States):
+
+    def Enter(self, Fighter):
+        print ("pulando")
+        self.force = 50
+        Fighter.jumping = True
+        #Fighter.mvCooldown = 0 #why?
+        Fighter.drawPx = Fighter.px
+        Fighter.drawPy = Fighter.py
+        Fighter.frameNum = -1;
+        halfQtdFrames = int(len(Fighter.stopFrames)/2)
+        Fighter.curFrame = Fighter.stopFrames[Fighter.facing*halfQtdFrames]
+        
+    def Execute(self,Fighter, message):
+        if(Fighter.mvCooldown <= 0):
+            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+            halfQtdFrames = int(len(Fighter.stopFrames)/2)
+    
+            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.facing*halfQtdFrames
+            Fighter.curFrame = Fighter.stopFrames[Fighter.frameNum]
+            Fighter.drawPy = Fighter.py
+            Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
+    
+            if (self.force >=1):
+                Fighter.py -= self.force
+                self.force = self.force /2
+            elif (self.force <=-50):
+                Fighter.changeState(f_stopped())
+            elif (self.force <0):
+                self.force = self.force *2
+                Fighter.py -= self.force
+                pass
+            else:
+                self.force = -self.force
+            
+        Fighter.mvCooldown = Fighter.mvCooldown - 1
+        #CHANGE STATES
+        #if(message == 'pcKeyPressed'):
+        #    Fighter.changeState(f_punching())
+        #elif(message == 'kcKeyPressed'):
+        #    Fighter.changeState(f_kicking())
+
+    def Exit(self,Fighter):
+        Fighter.jumping = False
+
+###
+class f_jumping_moving(States):
+
+    def Enter(self,Fighter):
+        self.force = 50
+        Fighter.jumping = True
+        
+        Fighter.drawPx = Fighter.px
+        Fighter.drawPy = Fighter.py
+        Fighter.mvCooldown = 0
+        Fighter.frameNum = -1
+
+    def Execute(self,Fighter, message):
+        if(Fighter.mvCooldown <= 0):
+            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+            halfQtdFrames = int(len(Fighter.movFrames)/2)
+
+            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.mvDir*halfQtdFrames
+            Fighter.curFrame = Fighter.movFrames[Fighter.frameNum]
+
+            #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
+            Fighter.px = Fighter.px + (Fighter.mvDir*(-2)+1)*Fighter.mvInc
+            Fighter.drawPx = Fighter.px
+            Fighter.drawPy = Fighter.py
+            Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
+            
+        if (self.force >=1):
+            Fighter.py -= self.force
+            self.force = self.force /2
+        elif (self.force <=-50):
+            Fighter.changeState(f_moving())
+        elif (self.force <0):
+            self.force = self.force *2
+            Fighter.py -= self.force
+            pass
+        else:
+            self.force = -self.force
+
+        Fighter.mvCooldown = Fighter.mvCooldown - 1
+
+        
+    def Exit(self,Fighter):
+        Fighter.jumping = False
 
 ###
 class f_punching(States):

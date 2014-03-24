@@ -85,6 +85,8 @@ class Fight(Screen):
                     self.messageself1 = 'mvLKeyPressed'
                 elif(event.key == pygame.K_RIGHT):
                     self.messageself1 = 'mvRKeyPressed'
+                elif(event.key == pygame.K_UP):
+                    self.messageself1 = 'mvUKeyPressed'
                 #player2
                 elif(event.key == pygame.K_y):
                     self.messageself2 = 'pcKeyPressed'
@@ -94,6 +96,8 @@ class Fight(Screen):
                     self.messageself2 = 'mvLKeyPressed'
                 elif(event.key == pygame.K_l):
                     self.messageself2 = 'mvRKeyPressed'
+                elif(event.key == pygame.K_o):
+                    self.messageself2 = 'mvUKeyPressed'
                     
             elif(event.type == pygame.KEYUP):
                 #player 1

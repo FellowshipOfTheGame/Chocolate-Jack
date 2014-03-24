@@ -13,6 +13,7 @@ def main():
 
     controller = ScreenController(tela)
     clock = pygame.time.Clock()
+
     while controller.execute():
         pygame.display.flip()
         tela.fill((0,0,0))

@@ -2,10 +2,10 @@
 #todo: fazer os enums dos estados das telas
 
 from Screen import *
-from Luta import *
+from Fight import *
 from Menu import *
 class Materials:
-    Menu, Escolha, Luta, Settings = range(4)
+    Menu, Escolha, Fight, Settings = range(4)
 
 class ScreenController():
     def __init__(self, tela):
@@ -22,10 +22,10 @@ class ScreenController():
             pass
             #self.currentScreen = Escolha(control, self.tela)
         elif (tipo ==2):
-            self.currentScreen = Luta(control, self.tela)
+            self.currentScreen = Fight(control, self.tela)
         elif (tipo ==3):
             pass
-        #self.currentScreen = Setings(control, self.tela)
+        #self.currentScreen = Settings(control, self.tela)
 
     def execute (self):
         self.currentScreen.execute()

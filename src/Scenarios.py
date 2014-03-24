@@ -26,8 +26,7 @@ class Scenario:
 
         self.frameCooldown = None
         self.cooldown = None
-        
-        
+
 
     def draw(self, tela):
         img = pygame.image.load(self.curFrame.img).convert_alpha()
@@ -75,3 +74,25 @@ class Training(Scenario):
         self.floorPy = 675
         self.curState = States.s_default()
         self.frameCooldown = 25
+        
+##Tudo novo a partir daqui
+class Menu(Scenario):
+    def __init__(self):
+        self.debugTrue = 0
+        self.frameNum = 0
+        self.cooldown = 0;
+        
+        frame1 = Frame.Frame('data\\imgs\\Menu\\ChocolateMenu.png')
+        frame2 = Frame.Frame('data\\imgs\\Menu\\ChocolateMenu.png')
+
+        self.frames = [frame1, frame2]
+        self.curFrame = self.frames[self.frameNum]
+        self.curState = States.s_default()
+        self.frameCooldown = 25
+class Config(Scenario):
+    def __init__(self):
+        self.debugTrue = 0
+        self.frameNum = 0
+        self.cooldown = 0
+
+        print("nada")

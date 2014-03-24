@@ -1,0 +1,3 @@
+Tamanho da caixa menu inicial: 290 x 73 
+Inicio da caixa 1: 368 x 400
+Inicio da caixa 2: 368 x 515

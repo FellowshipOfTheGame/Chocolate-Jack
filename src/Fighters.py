@@ -26,7 +26,8 @@ class Fighter:
     sp1Cost = None #
     sp2Cost = None # Custo dos especiais, preferencialmente spUlt custarah todo o MP
     spUltCost = None #
-
+    forceJump = None
+    
     #indica se deve mostrar palavra de colisao ou nao, 0 = nao
     soco = None
     chute = None
@@ -387,6 +388,7 @@ class ChocoJack(Fighter):
         self.sp1Cost = 0
         self.sp2Cost = 0
         self.setpUltCost = 0
+        self.forceJump = 100
 
         #outros
         self.debugTrue = 0
@@ -488,3 +490,7 @@ class ChocoJack(Fighter):
         self.curState.Enter(self)
         
         self.jumping = False
+
+    def getForceJump(self):
+        #print(self.forceJump)
+        return self.forceJump

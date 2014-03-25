@@ -113,7 +113,7 @@ class f_jumping_stopped(States):
 
     def Enter(self, Fighter):
         print ("pulando")
-        self.force = 50
+        self.force = Fighter.getForceJump()
         Fighter.jumping = True
         #Fighter.mvCooldown = 0 #why?
         Fighter.drawPx = Fighter.px
@@ -135,7 +135,7 @@ class f_jumping_stopped(States):
             if (self.force >=1):
                 Fighter.py -= self.force
                 self.force = self.force /2
-            elif (self.force <=-50):
+            elif (self.force <=-Fighter.getForceJump()):
                 Fighter.changeState(f_stopped())
             elif (self.force <0):
                 self.force = self.force *2

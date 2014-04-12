@@ -74,6 +74,8 @@ class Fighter:
     kcMaxCooldown = None
     kcCooldown = None
 
+
+    machine = None
     #State
     curState = None
 	
@@ -103,7 +105,7 @@ class Fighter:
         self.px = 32 + pFacing*992
         self.py = pPyFloor - self.heigth
         self.facing = pFacing
-        self.curState = f_jumping_stopped(self)
+        self.curState = States.f_jumping_stopped(self)
         self.curState.Enter(self)
         self.curFrame = None
 
@@ -134,6 +136,8 @@ class Fighter:
         self.kcCooldown = 0
         
         self.jumping = False
+        
+        self.machine = States.StateMachine()
 		
 
     #troca de estado
@@ -162,8 +166,9 @@ class Fighter:
 
     #act
     def Update(self, message):
+        self.machine.execute(message)
         self.facingUpdate()
-        self.curState.Execute(self, message)
+        self.curState.Execute(self, self.machine)
 
 
     #draw
@@ -488,3 +493,4 @@ class ChocoJack(Fighter):
         self.curState.Enter(self)
         
         self.jumping = False
+        self.machine = States.StateMachine()

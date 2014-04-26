@@ -7,14 +7,11 @@ import Scenarios
 import Frame
 import random
 
-
-###
-#   Main
-###
-
 from Screen import *
 from Config import *
-class Fight(Screen):
+from States import *
+
+class FightPC(Screen):
     def __init__(self, controller, tela):
         self.keys = readConfig()
         self.tela = tela
@@ -64,6 +61,15 @@ class Fight(Screen):
         """punchTrue = random.randint(0,25)
         if(punchTrue == 0):
             self.f2.changeState(States.f_punching())"""
+        print(self.f1.px, self.f2.px, self.messageself2)
+##        if((self.messageself2 == 'mvLKeyReleased') or (self.messageself2 == 'null')):
+##            self.messageself2 == 'kcKeyPressed'
+        if((self.f1.px < self.f2.px) and (self.f2.px - self.f1.px > 200)):
+            self.messageself2 = 'mvLKeyPressed'
+        else:
+            self.messageself2 = 'mvLKeyReleased'
+            self.f2.machine.punch = True
+            
         
         for event in pygame.event.get():
             if(event.type == pygame.QUIT):
@@ -89,16 +95,16 @@ class Fight(Screen):
                 elif(event.key == self.keys.getUpControl()):
                     self.messageself1 = 'mvUKeyPressed'
                 #player2
-                elif(event.key == self.keys.getAttack1ControlP2()):
-                    self.messageself2 = 'pcKeyPressed'
-                elif(event.key == self.keys.getAttack2ControlP2()):
-                    self.messageself2 = 'kcKeyPressed'
-                elif(event.key == self.keys.getLeftControlP2()):
-                    self.messageself2 = 'mvLKeyPressed'
-                elif(event.key == self.keys.getRightControlP2()):
-                    self.messageself2 = 'mvRKeyPressed'
-                elif(event.key == self.keys.getUpControlP2()):
-                    self.messageself2 = 'mvUKeyPressed'
+##                elif(event.key == self.keys.getAttack1ControlP2()):
+##                    self.messageself2 = 'pcKeyPressed'
+##                elif(event.key == self.keys.getAttack2ControlP2()):
+##                    self.messageself2 = 'kcKeyPressed'
+##                elif(event.key == self.keys.getLeftControlP2()):
+##                    self.messageself2 = 'mvLKeyPressed'
+##                elif(event.key == self.keys.getRightControlP2()):
+##                    self.messageself2 = 'mvRKeyPressed'
+##                elif(event.key == self.keys.getUpControlP2()):
+##                    self.messageself2 = 'mvUKeyPressed'
                     
             elif(event.type == pygame.KEYUP):
                 #player 1
@@ -107,10 +113,10 @@ class Fight(Screen):
                 elif(event.key == self.keys.getRightControl()):
                     self.messageself1 = 'mvRKeyReleased'
                 #player 2
-                elif(event.key == self.keys.getLeftControlP2()):
-                    self.messageself2 = 'mvLKeyReleased'
-                elif(event.key == self.keys.getRightControlP2()):
-                    self.messageself2 = 'mvRKeyReleased'
+##                elif(event.key == self.keys.getLeftControlP2()):
+##                    self.messageself2 = 'mvLKeyReleased'
+##                elif(event.key == self.keys.getRightControlP2()):
+##                    self.messageself2 = 'mvRKeyReleased'
                     
         self.fundo.update(self.messageScene)
         self.f1.Update(self.messageself1)
@@ -118,4 +124,4 @@ class Fight(Screen):
         
         self.messageself1 = 'null'
         self.messageself2 = 'null'
-        self.messageScene = 'null'
+        self.messageScene = 'null'   

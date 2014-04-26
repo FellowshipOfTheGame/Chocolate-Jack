@@ -23,7 +23,7 @@ class ButtonInter(Button):
         if evento.type == pygame.MOUSEBUTTONUP:
             px , py = pygame.mouse.get_pos()
             print (px, self.px, py, self.py)
-            if self.Bleft == True:#todo: tornar hitbox dinamica
+            if self.Bleft == True:
                 self.Bleft == False
                 if ((px>= self.px)and (px<=self.px+self.lx)) and ((py>= self.py)and (py<=self.py+self.ly)):
                     return self.screenCod

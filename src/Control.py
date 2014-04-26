@@ -3,6 +3,7 @@
 
 from Screen import *
 from Fight import *
+from FightPC import *
 from Menu import *
 class Materials:
     Menu, Escolha, Fight, Settings = range(4)
@@ -24,7 +25,7 @@ class ScreenController():
         elif (tipo ==2):
             self.currentScreen = Fight(control, self.tela)
         elif (tipo ==3):
-            pass
+            self.currentScreen = FightPC(control, self.tela)
         #self.currentScreen = Settings(control, self.tela)
 
     def execute (self):

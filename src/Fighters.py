@@ -194,12 +194,12 @@ class Fighter:
             if(self.chute > 10):
                 self.chute = 0
 
-            if(self.debugTrue == 1):
-                color = pygame.Color(255, 128, 128, 196)
-                for colRect in self.curFrame.getCollisions():
-                    rectParams = (colRect[0] + self.drawPx, colRect[1] + self.drawPy, colRect[2], colRect[3])
-                    rect = pygame.Rect(rectParams)
-                    pygame.draw.rect(tela, color, rect)
+        if(self.debugTrue == 1):
+            color = pygame.Color(255, 128, 128, 196)
+            for colRect in self.curFrame.getCollisions():
+                rectParams = (colRect[0] + self.drawPx, colRect[1] + self.drawPy, colRect[2], colRect[3])
+                rect = pygame.Rect(rectParams)
+                pygame.draw.rect(tela, color, rect)
 
     def toogleDebug(self):
         self.debugTrue = (self.debugTrue + 1)%2 #farah com que troque de 0 para 1 e vice-versa

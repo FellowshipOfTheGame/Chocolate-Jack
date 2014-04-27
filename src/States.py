@@ -434,54 +434,53 @@ class f_punching_3(States):
 class f_kicking(States):
 
     def Enter(self, Fighter):
+        self.stateTime = 10
         Fighter.kcCooldown = Fighter.kcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
         Fighter.frameNum = -1
+        Fighter.machine.kick = False
 
     def Execute(self, Fighter, machine):
-        if(Fighter.kcCooldown <=0):
-            halfQtdFrames = int(len(Fighter.kcFrames)/2)
-
-            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
-            if(Fighter.frameNum >= halfQtdFrames):
-                Fighter.changeState(f_stopped())
-                return
-                
-            Fighter.curFrame = Fighter.kcFrames[Fighter.frameNum+Fighter.facing*halfQtdFrames]
-
-            #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
-            #Fighter.pcPx = Fighter.px - Fighter.facing*Fighter.pcDist
-            Fighter.kcPx = Fighter.px - (Fighter.facing)*(Fighter.kcDist)
-            Fighter.kcPy = Fighter.py
-            Fighter.drawPx = Fighter.kcPx
-            Fighter.drawPy = Fighter.kcPy
-            Fighter.kcCooldown = Fighter.kcMaxCooldown + 1
-
-            #checando colisao
-            for coll in Fighter.curFrame.getCollisionsRect(Fighter.kcPx, Fighter.kcPy):
-                if(coll.collidelist(Fighter.enemy.curFrame.getCollisionsRect(Fighter.enemy.drawPx,
-                                                                             Fighter.enemy.drawPy)) > -1):
-                    Fighter.chute = 1
-                    #fazer enemy.getHit().
-
-        Fighter.kcCooldown = Fighter.kcCooldown - 1
-
-        #CHANGE STATES
-        #CHANGE STATE
-        if (machine.isMovingLeft()):
-            Fighter.mvDir = 1
-            Fighter.changeState(f_moving())
-        elif(machine.isMovingRight()):
-            Fighter.mvDir = 0
-            Fighter.changeState(f_moving())
-        elif(machine.isJumping()):
-            if (Fighter.jumping == False):
-                Fighter.jumping = True
-                Fighter.changeState(f_jumping_moving())
-        elif(machine.isPunching()):
-            Fighter.changeState(f_punching())
-        elif(machine.isKicking()):
-            Fighter.changeState(f_kicking())
-        elif(machine.isStopped()):
+        self.stateTime = self.stateTime -1
+        if (self.stateTime > 0):
+            if(Fighter.kcCooldown <=0):
+                Fighter.kcCooldown = Fighter.kcMaxCooldown + 1 #esse +1 serah removido na linha seguinte
+                halfQtdFrames = int(len(Fighter.kcFrames)/2)
+    
+                Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
+                if(Fighter.frameNum < halfQtdFrames):
+                    Fighter.curFrame = Fighter.kcFrames[Fighter.frameNum+Fighter.facing*halfQtdFrames]
+        
+                    #Caso o char esteja socando apara a esquerda da tela, decrementa kcDist da posicao de soco.
+                    #Fighter.kcPx = Fighter.px - Fighter.facing*Fighter.kcDist
+                    Fighter.kcPx = Fighter.px - (Fighter.facing)*(Fighter.kcDist)
+                    Fighter.kcPy = Fighter.py
+                    Fighter.drawPx = Fighter.kcPx
+                    Fighter.drawPy = Fighter.kcPy
+                    
+                    #checando colisao
+                    for coll in Fighter.curFrame.getCollisionsRect(Fighter.kcPx, Fighter.kcPy):
+                        if(coll.collidelist(Fighter.enemy.curFrame.getCollisionsRect(Fighter.enemy.drawPx,
+                                                                                     Fighter.enemy.drawPy)) > -1):
+                            Fighter.chute = 1
+                            Fighter.enemy.hp = Fighter.enemy.hp - (Fighter.attack - Fighter.enemy.defense)
+                else:
+                    #CHANGE STATE
+                    if (machine.isMovingLeft()):
+                        Fighter.mvDir = 1
+                        Fighter.changeState(f_moving())
+                    elif(machine.isMovingRight()):
+                        Fighter.mvDir = 0
+                        Fighter.changeState(f_moving())
+                    elif(machine.isJumping()):
+                        if (Fighter.jumping == False):
+                            Fighter.jumping = True
+                            Fighter.changeState(f_jumping_moving())
+                    elif(machine.isPunching()):
+                        Fighter.changeState(f_punching())
+                    elif(machine.isKicking()):
+                        Fighter.changeState(f_kicking())
+            Fighter.kcCooldown = Fighter.kcCooldown - 1
+        else:
             Fighter.changeState(f_stopped())
         
 

@@ -140,36 +140,35 @@ class f_moving(States):
         Fighter.frameNum = -1
 
     def Execute(self,Fighter, machine):
-        if(Fighter.mvCooldown <= 0):
-            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-            halfQtdFrames = int(len(Fighter.movFrames)/2)
-
-            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.mvDir*halfQtdFrames
-            Fighter.curFrame = Fighter.movFrames[Fighter.frameNum]
-
+        halfQtdFrames = int(len(Fighter.movFrames)/2)
+        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
+        if(Fighter.frameNum < halfQtdFrames):
+            Fighter.curFrame = Fighter.movFrames[Fighter.frameNum+Fighter.mvDir*halfQtdFrames]
+            
             #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
             Fighter.px = Fighter.px + (Fighter.mvDir*(-2)+1)*Fighter.mvInc
             Fighter.drawPx = Fighter.px
-            Fighter.mvCooldown = Fighter.mvMaxCooldown + 2 #esse +1 serah removido na linha seguinte
-
-        Fighter.mvCooldown = Fighter.mvCooldown - 1
-        #CHANGE STATE
-        if (machine.isJumping()):
-            if (Fighter.jumping == False):
-                Fighter.jumping = True
-                Fighter.changeState(f_jumping_moving())
-        elif (machine.isMovingLeft()):
-            Fighter.mvDir = 1
-            Fighter.changeState(f_moving())
-        elif(machine.isMovingRight()):
-            Fighter.mvDir = 0
-            Fighter.changeState(f_moving())
-        elif(machine.isPunching()):
-            Fighter.changeState(f_punching())
-        elif(machine.isKicking()):
-            Fighter.changeState(f_kicking())
-        elif(machine.isStopped()):
-            Fighter.changeState(f_stopped())
+            if (Fighter.frameNum == halfQtdFrames):
+                Fighter.changeState(f_stopped())
+        else:
+            #CHANGE STATE
+            if (machine.isJumping()):
+                if (Fighter.jumping == False):
+                    Fighter.jumping = True
+                    Fighter.changeState(f_jumping_moving())
+            elif (machine.isMovingLeft()):
+                Fighter.mvDir = 1
+                Fighter.changeState(f_moving())
+            elif(machine.isMovingRight()):
+                Fighter.mvDir = 0
+                Fighter.changeState(f_moving())
+            elif(machine.isPunching()):
+                Fighter.changeState(f_punching())
+            elif(machine.isKicking()):
+                Fighter.changeState(f_kicking())
+            elif(machine.isStopped()):
+                Fighter.changeState(f_stopped())
 
 
         
@@ -245,7 +244,7 @@ class f_jumping_moving(States):
             Fighter.px = Fighter.px + (Fighter.mvDir*(-2)+1)*Fighter.mvInc
             Fighter.drawPx = Fighter.px
             Fighter.drawPy = Fighter.py
-            Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
+
             
         if (self.force >=1):
             Fighter.py -= self.force

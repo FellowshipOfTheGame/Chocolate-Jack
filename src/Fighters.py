@@ -428,18 +428,102 @@ class ChocoJack(Fighter):
         mvFrameR3 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR3.png')
         mvFrameR3.addCollision(6,0,64,128)
 		
+        mvFrameR4 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR4.png')
+        mvFrameR4.addCollision(6,0,64,128)
+		
+        mvFrameR5 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR5.png')
+        mvFrameR5.addCollision(6,0,64,128)
+		
+        mvFrameR6 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR6.png')
+        mvFrameR6.addCollision(6,0,64,128)
+		
+        mvFrameR7 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR7.png')
+        mvFrameR7.addCollision(6,0,64,128)
+		
+        mvFrameR8 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR8.png')
+        mvFrameR8.addCollision(6,0,64,128)
+		
+        mvFrameR9 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR9.png')
+        mvFrameR9.addCollision(6,0,64,128)
+		
+        mvFrameR10 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR10.png')
+        mvFrameR10.addCollision(6,0,64,128)
+		
+        mvFrameR11 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR11.png')
+        mvFrameR11.addCollision(6,0,64,128)
+		
+        mvFrameR12 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR12.png')
+        mvFrameR12.addCollision(6,0,64,128)
+		
+        mvFrameR13 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR13.png')
+        mvFrameR13.addCollision(6,0,64,128)
+		
+        mvFrameR14 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR14.png')
+        mvFrameR14.addCollision(6,0,64,128)
+		
+        mvFrameR15 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR15.png')
+        mvFrameR15.addCollision(6,0,64,128)
+		
+        mvFrameR16 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFR16.png')
+        mvFrameR16.addCollision(6,0,64,128)
+		
         mvFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL1.png')
         mvFrameL1.addCollision(12,0,64,128)
-		
+        
         mvFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL2.png')
         mvFrameL2.addCollision(18,0,64,128)
-		
+        
         mvFrameL3 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL3.png')
         mvFrameL3.addCollision(18,0,64,128)
+        
+        mvFrameL4 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL4.png')
+        mvFrameL4.addCollision(18,0,64,128)
+        
+        mvFrameL5 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL5.png')
+        mvFrameL5.addCollision(18,0,64,128)
+        
+        mvFrameL6 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL6.png')
+        mvFrameL6.addCollision(18,0,64,128)
+        
+        mvFrameL7 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL7.png')
+        mvFrameL7.addCollision(18,0,64,128)
+        
+        mvFrameL8 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL8.png')
+        mvFrameL8.addCollision(18,0,64,128)
+        
+        mvFrameL9 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL9.png')
+        mvFrameL9.addCollision(18,0,64,128)
+        
+        mvFrameL10 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL10.png')
+        mvFrameL10.addCollision(18,0,64,128)
+        
+        mvFrameL11 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL11.png')
+        mvFrameL11.addCollision(18,0,64,128)
+        
+        mvFrameL12 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL12.png')
+        mvFrameL12.addCollision(18,0,64,128)
+        
+        mvFrameL13 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL13.png')
+        mvFrameL13.addCollision(18,0,64,128)
+        
+        mvFrameL14 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL14.png')
+        mvFrameL14.addCollision(18,0,64,128)
+        
+        mvFrameL15 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL15.png')
+        mvFrameL15.addCollision(18,0,64,128)
+        
+        mvFrameL16 = Frame.Frame('data\\imgs\\ChocolateJack\\mvJackFL16.png')
+        mvFrameL16.addCollision(18,0,64,128)
+
 
 		
         #atribuindo frames
-        self.movFrames = [mvFrameR1,mvFrameR2,mvFrameR3,mvFrameR2,mvFrameL1,mvFrameL2,mvFrameL3,mvFrameL2]
+        self.movFrames = [mvFrameR1,mvFrameR2,mvFrameR3,mvFrameR4,mvFrameR5 \
+,mvFrameR6,mvFrameR7,mvFrameR8,mvFrameR9,mvFrameR10 \
+,mvFrameR11,mvFrameR12,mvFrameR13,mvFrameR14,mvFrameR15,mvFrameR16 \
+,mvFrameL1,mvFrameL2,mvFrameL3,mvFrameL4,mvFrameL5 \
+,mvFrameL6,mvFrameL7,mvFrameL8,mvFrameL9,mvFrameL10 \
+,mvFrameL11,mvFrameL12,mvFrameL13,mvFrameL14,mvFrameL15,mvFrameL16 ]
 
         #criando frames de soco
         pcFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\pcJackFR1.png')
@@ -481,7 +565,7 @@ class ChocoJack(Fighter):
         #atribuindo frames
         self.kcFrames = [kcFrameR1, kcFrameR2, kcFrameR1, kcFrameL1, kcFrameL2, kcFrameL1]
 		
-        self.mvInc = 64
+        self.mvInc = 12
         self.pcDist = 8
         self.mvMaxCooldown = 3
         self.mvCooldown = 0

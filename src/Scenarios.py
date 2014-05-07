@@ -84,8 +84,8 @@ class Menu(Scenario):
         self.frameNum = 0
         self.cooldown = 0;
         
-        frame1 = Frame.Frame('data\\imgs\\Menu\\ChocolateMenu.png')
-        frame2 = Frame.Frame('data\\imgs\\Menu\\ChocolateMenu.png')
+        frame1 = Frame.Frame('data\\imgs\\Menu\\ChoiseMenu.png')
+        frame2 = Frame.Frame('data\\imgs\\Menu\\ChoiseMenu.png')
 
         self.frames = [frame1, frame2]
         self.curFrame = self.frames[self.frameNum]
@@ -97,4 +97,16 @@ class Config(Scenario):
         self.frameNum = 0
         self.cooldown = 0
 
-        print("nada")
+class ChoiseMenu(Scenario):
+    def __init__(self):
+        self.debugTrue = 0
+        self.frameNum = 0
+        self.cooldown = 0;
+        
+        frame1 = Frame.Frame('data\\imgs\\Menu\\ChoiseMenu.png')
+        frame2 = Frame.Frame('data\\imgs\\Menu\\ChoiseMenu.png')
+
+        self.frames = [frame1, frame2]
+        self.curFrame = self.frames[self.frameNum]
+        self.curState = States.s_default()
+        self.frameCooldown = 25

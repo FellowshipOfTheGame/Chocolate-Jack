@@ -61,16 +61,16 @@ class FightPC(Screen):
         """punchTrue = random.randint(0,25)
         if(punchTrue == 0):
             self.f2.changeState(States.f_punching())"""
-        print(self.f1.px, self.f2.px, self.messageself2)
-##        if((self.messageself2 == 'mvLKeyReleased') or (self.messageself2 == 'null')):
-##            self.messageself2 == 'kcKeyPressed'
+        ##AI
         if((self.f1.px < self.f2.px) and (self.f2.px - self.f1.px > 200)):
             self.messageself2 = 'mvLKeyPressed'
-        else:
+        elif(self.f2.px - self.f1.px > 0):
             self.messageself2 = 'mvLKeyReleased'
             self.f2.machine.punch = True
+        elif(self.f2.px - self.f1.px > -200):
+            self.messageself2 = 'mvRKeyPressed'
             
-        
+        ##
         for event in pygame.event.get():
             if(event.type == pygame.QUIT):
                 pygame.quit()

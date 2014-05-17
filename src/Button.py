@@ -12,7 +12,7 @@ class Button:
         self.control = 0
         self.text = text
         self.Franchise_36 = pygame.font.Font("data/fontes/Franchise-Bold-hinted.ttf", 36)
-        self.image = safe_load(pygame.image.load, "data/buttons/botao2.jpg")
+        self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/botao2.jpg"), (lx,ly))
         self.screenCod = screenCod
         tamXY = self.Franchise_36.size(str(self.text))
         #self.lx = lx

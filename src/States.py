@@ -151,6 +151,8 @@ class f_moving(States):
             Fighter.drawPx = Fighter.px
             if (Fighter.frameNum == halfQtdFrames):
                 Fighter.changeState(f_stopped())
+            if(machine.isStopped()):
+                Fighter.changeState(f_stopped())
         else:
             #CHANGE STATE
             if (machine.isJumping()):

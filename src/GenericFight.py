@@ -9,6 +9,7 @@ import random
 import copy
 from Button import *
 from ButtonInter import *
+import Fights
 ###
 #   Main
 ###
@@ -36,8 +37,6 @@ class GenericFight(Screen):
         self.buttons.append(ButtonInter(500, 500, 400, 73, 0, "Sair"))
     
     def setFighters(self, f1, f2):
-        print ("criando combatemyes")
-        print (f1.__class__.__name__)
         self.f1 = f1(self.fundo.floorPy, 0, 1)
         self.f2 = f2(self.fundo.floorPy, 1, 2)
         
@@ -66,7 +65,7 @@ class GenericFight(Screen):
             self.f1_victory +=1
         if ((self.f1.hp <=0) or (self.f2.hp <=0)):
             if (self.f1_victory < 2 and self.f2_victory < 2):
-                self.control.changeScreen(4)
+                self.control.setCurrentScreen(getattr(Fights.Fights,self.__class__.__name__))
                 self.control.getCurrentScreen().setVictorys([self.f1_victory, self.f2_victory])
             else:
                 self.control.changeScreen(0)

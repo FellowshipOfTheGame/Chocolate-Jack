@@ -49,7 +49,7 @@ class ChoiseMenu(Screen):
             i.desenha(self.screen)
         if (self.ok.getState()):
             self.control.changeScreen(self.next)
-            self.control.getCurrentScreen().setFighters(self.fighters[0],self.fighters[1]);
+            self.control.getCurrentScreen().setFighters(getattr(Fighters, self.fighters[0]), getattr(Fighters, self.fighters[1]))
         count = 0
         for i in self.chars:
             i.drawChoise(self.screen, 50 +(count*200), 250)

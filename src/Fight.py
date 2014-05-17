@@ -15,7 +15,7 @@ import random
 from Screen import *
 from Config import *
 class Fight(Screen):
-    def __init__(self, controller, tela):
+    def __init__(self, controller, tela, fighter1, fighter2):
         self.keys = readConfig()
         self.tela = tela
         self.control=controller

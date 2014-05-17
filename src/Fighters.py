@@ -215,6 +215,7 @@ class Fighter:
         self.enemy = pEnemy
     def drawChoise(self, tela, pdx, pdy):
         img = safe_load(pygame.image.load, self.curFrame.img).convert_alpha()
+        img = pygame.transform.scale(img, (86, 86))
         #print(self.pcx, self.pcy)
         tela.blit(img, (pdx, pdy))
   
@@ -520,3 +521,52 @@ class ChocoJack(Fighter):
     def getForceJump(self):
         #print(self.forceJump)
         return self.forceJump
+
+class BrocolisNinja(Fighter):
+    def __init__(self, pPyFloor=0, pFacing=0, pPlayer = 1):
+        #player
+        self.player = pPlayer
+		
+        #atributos/habilidades
+        self.hp = 320
+        self.maxHp = 320
+        self.mp = 0
+        self.maxMP = 0
+        self.attack = 0
+        self.defense = 80
+        self.sp1DMG = 0
+        self.sp2DMG = 0
+        self.spUltDMG = 0
+        self.sp1Cost = 0
+        self.sp2Cost = 0
+        self.setpUltCost = 0
+
+        #outros
+        self.debugTrue = 0
+        self.soco = 0
+        self.chute = 0
+		
+        self.px = 420
+        self.height = 288
+        self.width = 195
+        self.py = pPyFloor - self.height + 18
+        self.drawPx = self.px
+        self.drawPy = self.py
+        self.facing = pFacing
+        frame = Frame.Frame('data\\imgs\\BrocoliNinja\\NinjaBroccoli.png')
+        frame.addCollision(10,10, 185,278)
+        self.stopFrames = [frame,frame]
+        self.movFrames = [frame,frame]
+        self.pcFrames = [frame,frame]
+        self.kcFrames = [frame,frame]
+        self.mvInc = 0
+        self.pcDist = 0
+        self.mvMaxCooldown = 0
+        self.mvCooldown = 0
+        self.pcMaxCooldown = 0
+        self.pcCooldown = 0
+        self.curState = States.f_stopped()
+        self.curState.Enter(self)
+        self.kcDist = 0
+        self.kcMaxCooldown = 0
+        self.kcCooldown = 0

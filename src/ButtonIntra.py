@@ -5,12 +5,13 @@ import time
 import math
 from Button import *
 class ButtonIntra(Button):
-    def __init__(self, x=0, y=0, lx=0, ly=0, screenCod =0, text=None):
-        super().__init__(x, y, screenCod, text)
+    def __init__(self, x = 0, y = 0, lx = 0, ly = 0, screenCod = 0, char = 0, text=None):
+        super().__init__(x, y, lx, ly, screenCod, text)
         self.px = x
         self.py = y
         self.lx = lx
         self.ly = ly
+        self.char = char
         self.screenCod = screenCod
 
     def click(self, evento):
@@ -22,5 +23,7 @@ class ButtonIntra(Button):
             if self.Bleft == True:
                 self.Bleft == False
                 if ((px>= self.px)and (px<=self.px+self.lx)) and ((py>= self.py)and (py<=self.py+self.ly)):
-                    return 1
+                    return self.char
         return None
+    def getType(self):
+        return self.char

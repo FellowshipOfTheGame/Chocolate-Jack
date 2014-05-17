@@ -15,18 +15,19 @@ class ChoiseMenu(Screen):
         self.chars = []
         self.screen = screen
         self.control=controller
-        self.buttons.append(ButtonInter(700, 500, 290, 73, 3, "Comecar"))
+        self.buttons.append(ButtonInter(700, 600, 290, 73, 3, "Comecar"))
+        self.buttons.append(ButtonIntra(10, 400, 50, 25, 0, 0, "Escolher"))
+        self.buttons.append(ButtonIntra(70, 400, 50, 25, 0, 1, "Escolher"))
         self.chars.append(ChocoJack(300))
-        self.chars.append(Alvo2(400))
-        self.chars.append(Alvo(500))
-        self.chars.append(Tank(600))
+        self.chars.append(BrocolisNinja(400))
         self.ok = self.buttons[0]
         self.Bleft = self.Bright = self.Bmiddle = False
         self.background = Scenarios.ChoiseMenu()
         self.count = 0
         self.p1 = None
         self.p2 = None
-
+        self.fighters = []
+        
     def execute(self):
 
         self.background.draw(self.screen)
@@ -35,9 +36,15 @@ class ChoiseMenu(Screen):
             for i in self.buttons:
                 resp = i.click(evento)
                 if(isinstance(i, ButtonInter) and resp!=None):
-                    self.control.changeScreen(resp)
+                    if len(self.fighters) == 2:
+                        self.control.changeScreen(resp)
+                    else:
+                       print('Escolha 2 personagens')
                 elif(isinstance(i, ButtonIntra) and resp!=None):
-                    pass
+                    if( i.getType() == 0):
+                        self.fighters.append(ChocoJack(300))
+                    elif( i.getType() == 1):
+                        self.fighters.append(BrocolisNinja(400))
                 if evento.type == pygame.QUIT:
                     sys.exit(0)
         for i in self.buttons:
@@ -48,3 +55,4 @@ class ChoiseMenu(Screen):
         for i in self.chars:
             i.drawChoise(self.screen, 50 +(count*200), 250)
             count = count+1
+        print(len(self.fighters))

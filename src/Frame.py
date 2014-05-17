@@ -3,13 +3,16 @@ import pygame
 
 #classe que terah uma imagem e a lista de areas de colisao
 class Frame:
-    img = None
+    imgOrin = None
+    #imgResc = None
     collision = None
 
     #pImg deve ser na forma de string indicando o endereco da imagem.
     #as colisoes serao adicionadas uma a uma, com o metodo addColision()
-    def __init__(self, pImg):
+    def __init__(self, pImg, rescale = 0):
         self.img = pImg
+        #if(rescale == 0):
+            #self.imgResc = pygame.transform.scale(pygame.image.load(pImg), (86, 86))
         self.collision = []          
 
     def addCollision(self, pPx, pPy, pWidth, pHeight):

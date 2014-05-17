@@ -27,7 +27,6 @@ class Fight(GenericFight):
             if (self.pause):
                 for i in self.buttons:
                     resp = i.click(event)
-                    print("sad")
                     if(isinstance(i, ButtonInter) and resp!=None):
                         self.control.changeScreen(resp)
             if(event.type == pygame.QUIT):
@@ -76,11 +75,13 @@ class Fight(GenericFight):
                     self.messageself2 = 'mvLKeyReleased'
                 elif(event.key == self.keys.getRightControlP2()):
                     self.messageself2 = 'mvRKeyReleased'
-                    
-        self.fundo.update(self.messageScene)
-        self.f1.Update(self.messageself1)
-        self.f2.Update(self.messageself2)
         
-        self.messageself1 = 'null'
-        self.messageself2 = 'null'
-        self.messageScene = 'null'
+        if (not self.pause):
+            print (self.pause)
+            self.fundo.update(self.messageScene)
+            self.f1.Update(self.messageself1)
+            self.f2.Update(self.messageself2)
+            
+            self.messageself1 = 'null'
+            self.messageself2 = 'null'
+            self.messageScene = 'null'

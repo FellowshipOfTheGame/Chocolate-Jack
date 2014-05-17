@@ -15,10 +15,12 @@ class ChoiseMenu(Screen):
         self.chars = []
         self.screen = screen
         self.control=controller
-
+        self.count = 0
+        self.pdx = 200
         self.buttons.append(ButtonInter(700, 600, 290, 73, 4, "Comecar"))
-        self.buttons.append(ButtonIntra(10, 400, 50, 25, 0, 0, "Escolher"))
-        self.buttons.append(ButtonIntra(70, 400, 50, 25, 0, 1, "Escolher"))
+        self.buttons.append(ButtonInter(100, 600, 290, 73, 0, "Voltar"))
+        self.buttons.append(ButtonIntra(self.pdx*0 + 10, 400, 100, 30, 0, 0, "Escolher"))
+        self.buttons.append(ButtonIntra(self.pdx*1 + 10, 400, 100, 30, 0, 1, "Escolher"))
         self.chars.append(Fighters.ChocoJack(300))
         self.chars.append(Fighters.ChocoJack(400))
         #self.chars.append(Fighters.BrocolisNinja(400))
@@ -37,19 +39,21 @@ class ChoiseMenu(Screen):
             for i in self.buttons:
                 resp = i.click(evento)
                 if(isinstance(i, ButtonInter) and resp!=None):
-                    if len(self.fighters) == 2:
+                    if i.getScreenCode() == 4 and len(self.fighters) == 2:
                         #self.control.changeScreen(self.nextS)
                         self.control.changeScreen(resp)
                         self.control.getCurrentScreen().setFighters(getattr(Fighters, self.fighters[0]),getattr(Fighters, self.fighters[1]));
-                    else:
+                    elif i.getScreenCode() == 4 and len(self.fighters) != 2:
                        print('Escolha 2 personagens')
+                    else:
+                        self.control.changeScreen(resp)
                 elif(isinstance(i, ButtonIntra) and resp!=None and len(self.fighters) < 2):
                     self.fighters.append(self.chars[i.getType()].getName())
                 if evento.type == pygame.QUIT:
                     sys.exit(0)
         for i in self.buttons:
             i.desenha(self.screen)
-        count = 0
+        self.count = 0
         for i in self.chars:
-            i.drawChoise(self.screen, 50 +(count*200), 250)
-            count = count+1
+            i.drawChoise(self.screen, 50 +(self.count*150), 250)
+            self.count = self.count+1

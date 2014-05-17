@@ -214,7 +214,7 @@ class Fighters:
             self.enemy = pEnemy
         def drawChoise(self, tela, pdx, pdy):
             img = safe_load(pygame.image.load, self.curFrame.img).convert_alpha()
-            img = pygame.transform.scale(img, (86, 86))
+            img = pygame.transform.scale(img, (94, 128))
             #print(self.pcx, self.pcy)
             tela.blit(img, (pdx, pdy))
       

@@ -36,3 +36,5 @@ class Button:
 
     def click(self, evento):#retorna 1 caso o botao esteja pressionado, 0 caso contrario
         pass
+    def getScreenCode(self):
+        return self.screenCod

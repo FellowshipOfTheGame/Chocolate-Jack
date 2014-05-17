@@ -17,7 +17,7 @@ def main():
     while controller.execute():
         pygame.display.flip()
         tela.fill((0,0,0))
-        clock.tick(30)
+        clock.tick(60)
 
     pygame.quit()
 

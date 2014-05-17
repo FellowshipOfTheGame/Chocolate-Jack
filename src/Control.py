@@ -26,8 +26,13 @@ class ScreenController():
             self.currentScreen = Fight(control, self.tela)
         elif (tipo ==3):
             self.currentScreen = FightPC(control, self.tela)
+        elif (tipo ==4):
+            self.currentScreen = Fight(control, self.tela)
         #self.currentScreen = Settings(control, self.tela)
 
     def execute (self):
         self.currentScreen.execute()
         return self.status
+    
+    def getCurrentScreen(self):
+        return self.currentScreen

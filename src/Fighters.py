@@ -565,7 +565,7 @@ class ChocoJack(Fighter):
         #atribuindo frames
         self.kcFrames = [kcFrameR1, kcFrameR2, kcFrameR1, kcFrameL1, kcFrameL2, kcFrameL1]
 		
-        self.mvInc = 12
+        self.mvInc = 4
         self.pcDist = 8
         self.mvMaxCooldown = 3
         self.mvCooldown = 0

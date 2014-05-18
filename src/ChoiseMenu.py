@@ -21,9 +21,10 @@ class ChoiseMenu(Screen):
         self.buttons.append(ButtonInter(100, 600, 290, 73, 0, "Voltar"))
         self.buttons.append(ButtonIntra(self.pdx*0 + 10, 400, 100, 30, 0, 0, "Escolher"))
         self.buttons.append(ButtonIntra(self.pdx*1 + 10, 400, 100, 30, 0, 1, "Escolher"))
+        self.buttons.append(ButtonIntra(self.pdx*2 + 10, 400, 100, 30, 0, 2, "Escolher"))
         self.chars.append(Fighters.ChocoJack(300))
         self.chars.append(Fighters.ChocoJack(400))
-        #self.chars.append(Fighters.BrocolisNinja(400))
+        self.chars.append(Fighters.BrocolisNinja(400))
         self.ok = self.buttons[0]
         self.Bleft = self.Bright = self.Bmiddle = False
         self.background = Scenarios.ChoiseMenu()

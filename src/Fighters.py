@@ -125,6 +125,7 @@ class Fighters:
             self.pcFrames = []
             self.stopFrames = []
             self.kcFrames = []
+            self.jpFrames = []
     
             self.mvInc = 0
             self.mvDir = 0
@@ -543,23 +544,23 @@ class Fighters:
 ,mvFrameL1,mvFrameL2,mvFrameL3,mvFrameL4,mvFrameL5 \
 ,mvFrameL6,mvFrameL7,mvFrameL8,mvFrameL9,mvFrameL10 \
 ,mvFrameL11,mvFrameL12,mvFrameL13,mvFrameL14,mvFrameL15,mvFrameL16 ]
-    
+            
             #criando frames de soco
             pcFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchRight\\pcJackFR1.png')
             pcFrameR1.addCollision(9,0,64,128) #corpo
-            pcFrameR1.addCollision(80,60,20,20) #punho
+            pcFrameR1.addCollision(92,54,34,32) #punho
             
             pcFrameR2= Frame.Frame('data\\imgs\\ChocolateJack\\PunchRight\\pcJackFR2.png')
             pcFrameR2.addCollision(9,0,64,128) #corpo
-            pcFrameR2.addCollision(82,64,18,25) #punho
-            
+            pcFrameR2.addCollision(92,54,34,32) #punho
+    
             pcFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchLeft\\pcJackFL1.png')
             pcFrameL1.addCollision(29,0,64,128) #corpo
-            pcFrameL1.addCollision(0,62,20,20) #punho
+            pcFrameL1.addCollision(0,53,34,32) #punho
             
             pcFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchLeft\\pcJackFL2.png')
             pcFrameL2.addCollision(29,0,64,128) #corpo
-            pcFrameL2.addCollision(4,62,18,25) #punho
+            pcFrameL2.addCollision(0,53,34,32) #punho
     
             #atribuindo frames
             self.pcFrames = [pcFrameR1,pcFrameR2,pcFrameR1,pcFrameL1,pcFrameL2,pcFrameL1]
@@ -580,9 +581,19 @@ class Fighters:
             kcFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\KickLeft\\kcJackFL2.png')
             kcFrameL2.addCollision(22,0,64,128) #corpo
             kcFrameL2.addCollision(6,98,20,20) #pe
-    
+
             #atribuindo frames
             self.kcFrames = [kcFrameR1, kcFrameR2, kcFrameR1, kcFrameL1, kcFrameL2, kcFrameL1]
+
+            
+            #criando frames do pulo
+            jpFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\JumpRight\\jpJackFR1.png')
+
+            jpFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\JumpLeft\\jpJackFL1.png')
+            
+
+            #atribuindo frames
+            self.jpFrames = [jpFrameR1, jpFrameL1]
             
             self.mvInc = 4
             self.pcDist = 8
@@ -642,6 +653,7 @@ class Fighters:
             self.movFrames = [frame,frame]
             self.pcFrames = [frame,frame]
             self.kcFrames = [frame,frame]
+            self.jpFrames = [frame, frame]
             self.mvInc = 0
             self.pcDist = 0
             self.mvMaxCooldown = 0

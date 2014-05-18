@@ -189,17 +189,17 @@ class f_jumping_stopped(States):
         Fighter.drawPx = Fighter.px
         Fighter.drawPy = Fighter.py
         Fighter.frameNum = -1;
-        halfQtdFrames = int(len(Fighter.stopFrames)/2)
-        Fighter.curFrame = Fighter.stopFrames[Fighter.facing*halfQtdFrames]
+        halfQtdFrames = int(len(Fighter.jpFrames)/2)
+        Fighter.curFrame = Fighter.jpFrames[Fighter.facing*halfQtdFrames]
         
     def Execute(self,Fighter, message):
         
         if(Fighter.mvCooldown <= 0):
             #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-            halfQtdFrames = int(len(Fighter.stopFrames)/2)
+            halfQtdFrames = int(len(Fighter.jpFrames)/2)
     
             Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.facing*halfQtdFrames
-            Fighter.curFrame = Fighter.stopFrames[Fighter.frameNum]
+            Fighter.curFrame = Fighter.jpFrames[Fighter.frameNum]
             Fighter.drawPy = Fighter.py
             Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
     
@@ -237,10 +237,10 @@ class f_jumping_moving(States):
     def Execute(self,Fighter, machine):
         if(Fighter.mvCooldown <= 0):
             #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-            halfQtdFrames = int(len(Fighter.movFrames)/2)
+            halfQtdFrames = int(len(Fighter.jpFrames)/2)
 
             Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.mvDir*halfQtdFrames
-            Fighter.curFrame = Fighter.movFrames[Fighter.frameNum]
+            Fighter.curFrame = Fighter.jpFrames[Fighter.frameNum]
 
             #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
             Fighter.px = Fighter.px + (Fighter.mvDir*(-2)+1)*Fighter.mvInc

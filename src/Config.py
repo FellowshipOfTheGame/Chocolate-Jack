@@ -1,5 +1,39 @@
 #coding: utf-8
+# -*- coding: iso-8859-15 -*-
 
+import pygame
+import sys
+import Scenarios
+
+from Screen import *
+from Button import *
+from ButtonInter import *
+from ButtonIntra import *
+
+class setConfig():
+    def __init__(self, controller, screen):
+        self.buttons = []
+        self.screen = screen
+        self.control=controller
+        self.buttons.append(ButtonIntra(100, 200, 50, 50, 1, "Jump"))
+        self.buttons.append(ButtonIntra(150, 260, 50, 50, 2, "Right"))
+        self.buttons.append(ButtonIntra(50, 260, 50, 50, 3, "Left"))
+        self.buttons.append(ButtonInter(700, 600, 290, 73, 0, "Voltar"))
+        self.background = Scenarios.Config()
+        
+    def execute(self):
+        self.background.draw(self.screen)
+        for evento in pygame.event.get():
+            for i in self.buttons:
+                resp = i.click(evento)
+                if(isinstance(i, ButtonInter) and resp!=None):
+                    self.control.changeScreen(resp)
+                if evento.type == pygame.QUIT:
+                    sys.exit(0)
+        for i in self.buttons:
+            i.desenha(self.screen)
+
+                            
 class readConfig():
     def __init__(self):
         f = open('data\\config.cjk', 'r')

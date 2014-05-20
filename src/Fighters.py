@@ -689,7 +689,7 @@ class Fighters:
             pcFrameR4.addCollision(92,54,34,32) #espada
             pcFrameR4.addCollision(92,54,34,32) #espada
             
-            pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRLeft1.png')
+            pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft1.png')
             pcFrameL1.addCollision(9,0,64,128) #corpo
             pcFrameL1.addCollision(92,54,34,32) #espada
             pcFrameL1.addCollision(92,54,34,32) #espada

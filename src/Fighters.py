@@ -215,7 +215,7 @@ class Fighters:
             self.enemy = pEnemy
         def drawChoise(self, tela, pdx, pdy):
             img = safe_load(pygame.image.load, self.curFrame.img).convert_alpha()
-            img = pygame.transform.scale(img, (94, 128))
+            #img = pygame.transform.scale(img, (94, 128))
             #print(self.pcx, self.pcy)
             tela.blit(img, (pdx, pdy))
       
@@ -626,8 +626,8 @@ class Fighters:
             self.maxHp = 320
             self.mp = 0
             self.maxMP = 0
-            self.attack = 0
-            self.defense = 80
+            self.attack = 1
+            self.defense = 0
             self.sp1DMG = 0
             self.sp2DMG = 0
             self.spUltDMG = 0
@@ -665,49 +665,49 @@ class Fighters:
             self.movFrames = [sFrameR,sFrameL]
 
             #criando frames de attack1
-            pcFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRightBrocoli1.png')
+            pcFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight1.png')
             pcFrameR1.addCollision(9,0,64,128) #corpo
             pcFrameR1.addCollision(92,54,34,32) #espada
             pcFrameR1.addCollision(92,54,34,32) #espada
             pcFrameR1.addCollision(92,54,34,32) #espada
             
-            pcFrameR2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRightBrocoli2.png')
+            pcFrameR2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight2.png')
             pcFrameR2.addCollision(9,0,64,128) #corpo
             pcFrameR2.addCollision(92,54,34,32) #espada
             pcFrameR2.addCollision(92,54,34,32) #espada
             pcFrameR2.addCollision(92,54,34,32) #espada
             
-            pcFrameR3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRightBrocoli3.png')
+            pcFrameR3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight3.png')
             pcFrameR3.addCollision(9,0,64,128) #corpo
             pcFrameR3.addCollision(92,54,34,32) #espada
             pcFrameR3.addCollision(92,54,34,32) #espada
             pcFrameR3.addCollision(92,54,34,32) #espada
 
-            pcFrameR4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRightBrocoli4.png')
+            pcFrameR4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight4.png')
             pcFrameR4.addCollision(9,0,64,128) #corpo
             pcFrameR4.addCollision(92,54,34,32) #espada
             pcFrameR4.addCollision(92,54,34,32) #espada
             pcFrameR4.addCollision(92,54,34,32) #espada
             
-            pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRightBrocoli1.png')
+            pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRLeft1.png')
             pcFrameL1.addCollision(9,0,64,128) #corpo
             pcFrameL1.addCollision(92,54,34,32) #espada
             pcFrameL1.addCollision(92,54,34,32) #espada
             pcFrameL1.addCollision(92,54,34,32) #espada
             
-            pcFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRightBrocoli2.png')
+            pcFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft2.png')
             pcFrameL2.addCollision(9,0,64,128) #corpo
             pcFrameL2.addCollision(92,54,34,32) #espada
             pcFrameL2.addCollision(92,54,34,32) #espada
             pcFrameL2.addCollision(92,54,34,32) #espada
             
-            pcFrameL3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRightBrocoli3.png')
+            pcFrameL3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft3.png')
             pcFrameL3.addCollision(9,0,64,128) #corpo
             pcFrameL3.addCollision(92,54,34,32) #espada
             pcFrameL3.addCollision(92,54,34,32) #espada
             pcFrameL3.addCollision(92,54,34,32) #espada
             
-            pcFrameL4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRightBrocoli4.png')    
+            pcFrameL4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft4.png')    
             pcFrameL4.addCollision(9,0,64,128) #corpo
             pcFrameL4.addCollision(92,54,34,32) #espada
             pcFrameL4.addCollision(92,54,34,32) #espada

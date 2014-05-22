@@ -595,7 +595,7 @@ class Fighters:
             #atribuindo frames
             self.jpFrames = [jpFrameR1, jpFrameL1]
             
-            self.mvInc = 4
+            self.mvInc = 8
             self.pcDist = 8
             self.mvMaxCooldown = 3
             self.mvCooldown = 0
@@ -718,7 +718,7 @@ class Fighters:
             self.kcFrames = [pcFrameR1,pcFrameR2, pcFrameR3, pcFrameR4, pcFrameL1, pcFrameL2, pcFrameL3, pcFrameL4]
             self.jpFrames = [sFrameR,sFrameL]
 
-            self.mvInc = 4
+            self.mvInc = 8
             self.pcDist = 8
             self.mvMaxCooldown = 3
             self.mvCooldown = 0

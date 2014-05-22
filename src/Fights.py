@@ -77,7 +77,6 @@ class Fights:
                         self.messageself2 = 'mvRKeyReleased'
             
             if (not self.pause):
-                print (self.pause)
                 self.fundo.update(self.messageScene)
                 self.f1.Update(self.messageself1)
                 self.f2.Update(self.messageself2)

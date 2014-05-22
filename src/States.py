@@ -203,18 +203,18 @@ class f_jumping_stopped(States):
             Fighter.drawPy = Fighter.py
             Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
     
-            if (self.force >=1):
-                Fighter.py -= self.force
-                self.force = self.force /2
-            elif (self.force <=-Fighter.getForceJump()):
-                Fighter.machine.jump = False
-                Fighter.changeState(f_stopped())
-            elif (self.force <0):
-                self.force = self.force *2
-                Fighter.py -= self.force
-                pass
-            else:
-                self.force = -self.force
+        if (self.force >=1):
+            Fighter.py -= self.force
+            self.force = self.force /2
+        elif (self.force <=-Fighter.getForceJump()):
+            Fighter.machine.jump = False
+            Fighter.changeState(f_stopped())
+        elif (self.force <0):
+            self.force = self.force *2
+            Fighter.py -= self.force
+            pass
+        else:
+            self.force = -self.force
             
         Fighter.mvCooldown = Fighter.mvCooldown - 1
 

@@ -91,11 +91,20 @@ class Menu(Scenario):
         self.curFrame = self.frames[self.frameNum]
         self.curState = States.s_default()
         self.frameCooldown = 25
+        
 class Config(Scenario):
     def __init__(self):
         self.debugTrue = 0
         self.frameNum = 0
         self.cooldown = 0
+
+        frame1 = Frame.Frame('data\\imgs\\Menu\\ChoiseMenu.png')
+        frame2 = Frame.Frame('data\\imgs\\Menu\\ChoiseMenu.png')
+
+        self.frames = [frame1, frame2]
+        self.curFrame = self.frames[self.frameNum]
+        self.curState = States.s_default()
+        self.frameCooldown = 25
 
 class ChoiseMenu(Scenario):
     def __init__(self):

@@ -660,9 +660,13 @@ class Fighters:
             self.stopFrames = [sFrameR, sFrameL]
 
             #criando frames movimento
-    
+            mvFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkRight\\walk1right.png')
+            mvFrameR2 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkRight\\walk2right.png')
+            mvFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkLeft\\walk1left.png')
+            mvFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkLeft\\walk2left.png')
+            
             #atribuindo frames 
-            self.movFrames = [sFrameR,sFrameL]
+            self.movFrames = [mvFrameR1,mvFrameR2, mvFrameL1, mvFrameL2]
 
             #criando frames de attack1
             pcFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight1.png')
@@ -689,7 +693,7 @@ class Fighters:
             pcFrameR4.addCollision(92,54,34,32) #espada
             pcFrameR4.addCollision(92,54,34,32) #espada
             
-            pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpRLeft1.png')
+            pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft1.png')
             pcFrameL1.addCollision(9,0,64,128) #corpo
             pcFrameL1.addCollision(92,54,34,32) #espada
             pcFrameL1.addCollision(92,54,34,32) #espada
@@ -720,7 +724,7 @@ class Fighters:
 
             self.mvInc = 8
             self.pcDist = 8
-            self.mvMaxCooldown = 3
+            self.mvMaxCooldown = 5
             self.mvCooldown = 0
             self.pcMaxCooldown = 0
             self.pcCooldown = 0

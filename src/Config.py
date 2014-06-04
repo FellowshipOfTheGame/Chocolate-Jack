@@ -17,9 +17,16 @@ class setConfig():
         self.screen = screen
         self.flag = False
         self.control=controller
-        self.buttons.append(ButtonIntra(100, 200, 50, 50, 1, "Jump"))
-        self.buttons.append(ButtonIntra(150, 260, 50, 50, 2, "Right"))
-        self.buttons.append(ButtonIntra(50, 260, 50, 50, 3, "Left"))
+        self.buttons.append(ButtonIntra(100, 220, 95, 50, 1, "Jump"))
+        self.buttons.append(ButtonIntra(150, 280, 95, 50, 2, "Right"))
+        self.buttons.append(ButtonIntra(50, 280, 95, 50, 3, "Left"))
+        self.buttons.append(ButtonIntra(50, 360, 120, 50, 4, "Attack1"))
+        self.buttons.append(ButtonIntra(170, 360, 120, 50, 5, "Attack2"))
+        self.buttons.append(ButtonIntra(500, 220, 95, 50, 6, "Jump P2"))
+        self.buttons.append(ButtonIntra(550, 280, 95, 50, 7, "Right P2"))
+        self.buttons.append(ButtonIntra(450, 280, 95, 50, 8, "Left P2"))
+        self.buttons.append(ButtonIntra(400, 360, 120, 50, 9, "Attack1 P2"))
+        self.buttons.append(ButtonIntra(600, 360, 120, 50, 10, "Attack2 P2"))
         self.buttons.append(ButtonInter(700, 600, 290, 73, 0, "Voltar"))
         self.background = Scenarios.Config()
         self.up = None
@@ -44,8 +51,18 @@ class setConfig():
                 self.left = value
         elif(command == 4):#Attack1 P1
                 self.attack1 = value
-        elif(command == 5):#Attack2 P2
+        elif(command == 5):#Attack2 P1
                 self.attack2 = value
+        elif(command == 6):#Jump P2
+                self.upp2 = value
+        elif(command == 7):#Right P2
+                self.rightp2 = value
+        elif(command == 8):#Left P2
+                self.leftp2 = value
+        elif(command == 9):#Attack1 P2
+                self.attack1p2 = value
+        elif(command == 10):#Attack2 P2
+                self.attack2p2 = value
     
     def execute(self):
         notPressed = True
@@ -58,7 +75,9 @@ class setConfig():
                         self.control.changeScreen(resp)
                     elif(isinstance(i, ButtonIntra) and resp!= None):
                         cont = 0
-                        if i.getType() == 1:
+                        self.currentCmd = i.getType()
+                        self.flag = True
+                        '''if i.getType() == 1:
                             self.currentCmd = 1
                             self.flag = True
                             print ('Catching jump')
@@ -73,6 +92,7 @@ class setConfig():
                             self.flag = True
                             print ('Catching left')
                             break;
+                        '''
             elif (self.flag == True):
                 if evento.type is pygame.KEYDOWN:
                     keyname = pygame.key.name(evento.key)
@@ -88,6 +108,16 @@ class setConfig():
                             self.attack1 = evento.key
                         elif(self.currentCmd == 5):#Attack2 P2
                             self.attack2 = evento.key
+                        elif(self.currentCmd == 6):#Jump P1
+                            self.upp2 = evento.key
+                        elif(self.currentCmd == 7):#Right P1
+                            self.rightp2 = evento.key
+                        elif(self.currentCmd == 8):#Left P1
+                            self.leftp2 = evento.key
+                        elif(self.currentCmd == 9):#Attack1 P1
+                            self.attack1p2 = evento.key
+                        elif(self.currentCmd == 10):#Attack2 P2
+                            self.attack2p2 = evento.key
                         self.saveData();
                         self.currentCmd = 0
                         print(evento.key)

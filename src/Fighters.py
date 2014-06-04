@@ -546,19 +546,19 @@ class Fighters:
 ,mvFrameL11,mvFrameL12,mvFrameL13,mvFrameL14,mvFrameL15,mvFrameL16 ]
             
             #criando frames de soco
-            pcFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchRight\\pcJackFR1.png')
+            pcFrameR1 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchRight\\pc2JackFR1.png')
             pcFrameR1.addCollision(9,0,64,128) #corpo
             pcFrameR1.addCollision(92,54,34,32) #punho
             
-            pcFrameR2= Frame.Frame('data\\imgs\\ChocolateJack\\PunchRight\\pcJackFR2.png')
+            pcFrameR2= Frame.Frame('data\\imgs\\ChocolateJack\\PunchRight\\pc2JackFR2.png')
             pcFrameR2.addCollision(9,0,64,128) #corpo
             pcFrameR2.addCollision(92,54,34,32) #punho
     
-            pcFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchLeft\\pcJackFL1.png')
+            pcFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchLeft\\pc2JackFL1.png')
             pcFrameL1.addCollision(29,0,64,128) #corpo
             pcFrameL1.addCollision(0,53,34,32) #punho
             
-            pcFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchLeft\\pcJackFL2.png')
+            pcFrameL2 = Frame.Frame('data\\imgs\\ChocolateJack\\PunchLeft\\pc2JackFL2.png')
             pcFrameL2.addCollision(29,0,64,128) #corpo
             pcFrameL2.addCollision(0,53,34,32) #punho
     
@@ -573,6 +573,18 @@ class Fighters:
             kcFrameR2 = Frame.Frame('data\\imgs\\ChocolateJack\\KickRight\\kcJackFR2.png')
             kcFrameR2.addCollision(10,0,64,128) #corpo
             kcFrameR2.addCollision(68,98,20,20) #pe
+
+            kcFrameR3 = Frame.Frame('data\\imgs\\ChocolateJack\\KickRight\\kcJackFR3.png')
+            kcFrameR3.addCollision(10,0,64,128) #corpo
+            kcFrameR3.addCollision(62,106,20,20) #pe
+            
+            kcFrameR4 = Frame.Frame('data\\imgs\\ChocolateJack\\KickRight\\kcJackFR4.png')
+            kcFrameR4.addCollision(10,0,64,128) #corpo
+            kcFrameR4.addCollision(68,98,20,20) #pe
+            
+            kcFrameR5 = Frame.Frame('data\\imgs\\ChocolateJack\\KickRight\\kcJackFR5.png')
+            kcFrameR5.addCollision(10,0,64,128) #corpo
+            kcFrameR5.addCollision(68,98,20,20) #pe            
             
             kcFrameL1 = Frame.Frame('data\\imgs\\ChocolateJack\\KickLeft\\kcJackFL1.png')
             kcFrameL1.addCollision(22,0,64,128) #corpo
@@ -582,8 +594,21 @@ class Fighters:
             kcFrameL2.addCollision(22,0,64,128) #corpo
             kcFrameL2.addCollision(6,98,20,20) #pe
 
+            kcFrameL3 = Frame.Frame('data\\imgs\\ChocolateJack\\KickLeft\\kcJackFL3.png')
+            kcFrameL3.addCollision(10,0,64,128) #corpo
+            kcFrameL3.addCollision(62,106,20,20) #pe
+            
+            kcFrameL4 = Frame.Frame('data\\imgs\\ChocolateJack\\KickLeft\\kcJackFL4.png')
+            kcFrameL4.addCollision(10,0,64,128) #corpo
+            kcFrameL4.addCollision(68,98,20,20) #pe
+            
+            kcFrameL5 = Frame.Frame('data\\imgs\\ChocolateJack\\KickLeft\\kcJackFL5.png')
+            kcFrameL5.addCollision(10,0,64,128) #corpo
+            kcFrameL5.addCollision(68,98,20,20) #pe            
+            
             #atribuindo frames
-            self.kcFrames = [kcFrameR1, kcFrameR2, kcFrameR1, kcFrameL1, kcFrameL2, kcFrameL1]
+            self.kcFrames = [kcFrameR1, kcFrameR2, kcFrameR3, kcFrameR4, kcFrameR5,
+                             kcFrameL1, kcFrameL2, kcFrameL3, kcFrameL4, kcFrameL5]
 
             
             #criando frames do pulo
@@ -595,7 +620,7 @@ class Fighters:
             #atribuindo frames
             self.jpFrames = [jpFrameR1, jpFrameL1]
             
-            self.mvInc = 4
+            self.mvInc = 8
             self.pcDist = 8
             self.mvMaxCooldown = 3
             self.mvCooldown = 0
@@ -652,17 +677,21 @@ class Fighters:
 
             #criando frames stopped
             sFrameR = Frame.Frame('data\\imgs\\BrocolisNinja\\IdleRight\\idle.png')
-            sFrameR.addCollision(49,26,48,116)
+            sFrameR.addCollision(77,41, 48,99)
             sFrameL = Frame.Frame('data\\imgs\\BrocolisNinja\\IdleLeft\\idle.png')
-            sFrameL.addCollision(55,29,46,116)
+            sFrameL.addCollision(77,41, 48,99)
 
             #atribuindo frames            
             self.stopFrames = [sFrameR, sFrameL]
 
             #criando frames movimento
-    
+            mvFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkRight\\walk1right.png')
+            mvFrameR2 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkRight\\walk2right.png')
+            mvFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkLeft\\walk1left.png')
+            mvFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkLeft\\walk2left.png')
+            
             #atribuindo frames 
-            self.movFrames = [sFrameR,sFrameL]
+            self.movFrames = [mvFrameR1,mvFrameR2, mvFrameL1, mvFrameL2]
 
             #criando frames de attack1
             pcFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight1.png')
@@ -690,25 +719,25 @@ class Fighters:
             pcFrameR4.addCollision(92,54,34,32) #espada
             
             pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft1.png')
-            pcFrameL1.addCollision(82,28,46,116) #corpo
+            pcFrameL1.addCollision(9,0,64,128) #corpo
             pcFrameL1.addCollision(92,54,34,32) #espada
             pcFrameL1.addCollision(92,54,34,32) #espada
             pcFrameL1.addCollision(92,54,34,32) #espada
             
             pcFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft2.png')
-            pcFrameL2.addCollision(82,28,46,116) #corpo
+            pcFrameL2.addCollision(9,0,64,128) #corpo
             pcFrameL2.addCollision(92,54,34,32) #espada
             pcFrameL2.addCollision(92,54,34,32) #espada
             pcFrameL2.addCollision(92,54,34,32) #espada
             
             pcFrameL3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft3.png')
-            pcFrameL3.addCollision(82,28,46,116) #corpo
+            pcFrameL3.addCollision(9,0,64,128) #corpo
             pcFrameL3.addCollision(92,54,34,32) #espada
             pcFrameL3.addCollision(92,54,34,32) #espada
             pcFrameL3.addCollision(92,54,34,32) #espada
             
             pcFrameL4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft4.png')    
-            pcFrameL4.addCollision(82,28,46,116) #corpo
+            pcFrameL4.addCollision(9,0,64,128) #corpo
             pcFrameL4.addCollision(92,54,34,32) #espada
             pcFrameL4.addCollision(92,54,34,32) #espada
             pcFrameL4.addCollision(92,54,34,32) #espada
@@ -718,9 +747,9 @@ class Fighters:
             self.kcFrames = [pcFrameR1,pcFrameR2, pcFrameR3, pcFrameR4, pcFrameL1, pcFrameL2, pcFrameL3, pcFrameL4]
             self.jpFrames = [sFrameR,sFrameL]
 
-            self.mvInc = 4
+            self.mvInc = 8
             self.pcDist = 8
-            self.mvMaxCooldown = 3
+            self.mvMaxCooldown = 5
             self.mvCooldown = 0
             self.pcMaxCooldown = 0
             self.pcCooldown = 0

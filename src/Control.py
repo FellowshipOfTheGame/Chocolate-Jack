@@ -21,8 +21,7 @@ class ScreenController():
         if (tipo==0):
             self.currentScreen = Menu(control, self.tela)
         elif (tipo ==1):
-            pass
-            #self.currentScreen = Escolha(control, self.tela)
+            self.currentScreen = setConfig(control, self.tela)
         elif (tipo ==2):
             #self.currentScreen = Fight(control, self.tela)
             self.currentScreen = ChoiseMenu(control, self.tela, 2)

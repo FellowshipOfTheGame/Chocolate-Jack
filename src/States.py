@@ -180,7 +180,7 @@ class f_moving(States):
 class f_jumping_stopped(States):
 
     def Enter(self, Fighter):
-
+        '''
         print ("pulando")
         self.force = Fighter.getForceJump()
         Fighter.jumping = True
@@ -191,7 +191,17 @@ class f_jumping_stopped(States):
         Fighter.frameNum = -1;
         halfQtdFrames = int(len(Fighter.jpFrames)/2)
         Fighter.curFrame = Fighter.jpFrames[Fighter.facing*halfQtdFrames]
-        
+        '''
+        self.force = Fighter.getForceJump()
+        Fighter.jumping = True
+        Fighter.machine.jump = False
+        Fighter.drawPx = Fighter.px
+        Fighter.drawPy = Fighter.py
+        Fighter.mvCooldown = 0
+        Fighter.frameNum = -1
+        halfQtdFrames = int(len(Fighter.jpFrames)/2)
+        Fighter.curFrame = Fighter.jpFrames[Fighter.facing*halfQtdFrames]
+        #'''
     def Execute(self,Fighter, message):
         
         if(Fighter.mvCooldown <= 0):
@@ -203,18 +213,18 @@ class f_jumping_stopped(States):
             Fighter.drawPy = Fighter.py
             Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
     
-            if (self.force >=1):
-                Fighter.py -= self.force
-                self.force = self.force /2
-            elif (self.force <=-Fighter.getForceJump()):
-                Fighter.machine.jump = False
-                Fighter.changeState(f_stopped())
-            elif (self.force <0):
-                self.force = self.force *2
-                Fighter.py -= self.force
-                pass
-            else:
-                self.force = -self.force
+        if (self.force >=1):
+            Fighter.py -= self.force
+            self.force = self.force /2
+        elif (self.force <=-Fighter.getForceJump()):
+            Fighter.machine.jump = False
+            Fighter.changeState(f_stopped())
+        elif (self.force <0):
+            self.force = self.force *2
+            Fighter.py -= self.force
+            pass
+        else:
+            self.force = -self.force
             
         Fighter.mvCooldown = Fighter.mvCooldown - 1
 
@@ -436,7 +446,7 @@ class f_punching_3(States):
 class f_kicking(States):
 
     def Enter(self, Fighter):
-        self.stateTime = 10
+        self.stateTime = 7
         Fighter.kcCooldown = Fighter.kcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
         Fighter.frameNum = -1
         Fighter.machine.kick = False

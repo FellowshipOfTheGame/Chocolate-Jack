@@ -19,9 +19,9 @@ class ChoiseMenu(Screen):
         self.pdx = 200
         self.buttons.append(ButtonInter(700, 600, 290, 73, 4, "Comecar"))
         self.buttons.append(ButtonInter(100, 600, 290, 73, 0, "Voltar"))
-        self.buttons.append(ButtonIntra(self.pdx*0 + 10, 400, 100, 30, 0, 0, "Escolher"))
-        self.buttons.append(ButtonIntra(self.pdx*1 + 10, 400, 100, 30, 0, 1, "Escolher"))
-        self.buttons.append(ButtonIntra(self.pdx*2 + 10, 400, 100, 30, 0, 2, "Escolher"))
+        self.buttons.append(ButtonIntra(self.pdx*0 + 10, 400, 100, 30, 0, "Escolher"))
+        self.buttons.append(ButtonIntra(self.pdx*1 + 10, 400, 100, 30, 1, "Escolher"))
+        self.buttons.append(ButtonIntra(self.pdx*2 + 10, 400, 100, 30, 2, "Escolher"))
         self.chars.append(Fighters.ChocoJack(300))
         self.chars.append(Fighters.ChocoJack(400))
         self.chars.append(Fighters.BrocolisNinja(400))

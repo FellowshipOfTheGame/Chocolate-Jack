@@ -666,9 +666,9 @@ class Fighters:
             self.soco = 0
             self.chute = 0
             
-            self.px = 420
             self.height = 148
             self.width = 195
+            self.px = 32 + pFacing*(1024 - 64 - self.width)
             self.py = pPyFloor - self.height + 18
             self.drawPx = self.px
             self.drawPy = self.py

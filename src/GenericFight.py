@@ -35,6 +35,8 @@ class GenericFight(Screen):
         self.buttons = []
         self.buttons.append(ButtonInter(500, 300, 400, 73, None, "Pausado"))
         self.buttons.append(ButtonInter(500, 500, 400, 73, 0, "Sair"))
+
+        self.animations = []
     
     def setFighters(self, f1, f2):
         self.f1 = f1(self.fundo.floorPy, 0, 1)
@@ -92,7 +94,14 @@ class GenericFight(Screen):
         
         self.f2.draw(self.tela)
         self.f1.draw(self.tela)
-        
+        #executa as animaçoes
+        for animation in self.animations:
+            animation.execuite();
+            animation.desenha();
+        #remove as animações mortas
+        self.animations = [animation for animation in self.animations if not
+            animation.isAlive()]
+
         if (self.pause):
             for i in self.buttons:
                 i.desenha(self.tela)
@@ -104,3 +113,8 @@ class GenericFight(Screen):
         for i in range(victorys):
             pygame.draw.circle(self.tela, pygame.Color(255,255,0,128), (newpos.x, newpos.y), 10)
             newpos.x += 50
+    def addAnimation(self, new):
+        self.animations.append(new)
+
+    def delAnimation(self, old):
+        self.animations.remove(old)

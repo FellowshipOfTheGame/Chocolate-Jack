@@ -677,9 +677,9 @@ class Fighters:
 
             #criando frames stopped
             sFrameR = Frame.Frame('data\\imgs\\BrocolisNinja\\IdleRight\\idle.png')
-            sFrameR.addCollision(77,41, 48,99)
+            sFrameR.addCollision(58,46, 48,99)
             sFrameL = Frame.Frame('data\\imgs\\BrocolisNinja\\IdleLeft\\idle.png')
-            sFrameL.addCollision(77,41, 48,99)
+            sFrameL.addCollision(58,46, 48,99)
 
             #atribuindo frames            
             self.stopFrames = [sFrameR, sFrameL]
@@ -695,64 +695,37 @@ class Fighters:
 
             #criando frames de attack1
             pcFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight1.png')
-            pcFrameR1.addCollision(9,0,64,128) #corpo
-            #TODO arrumar caixa de colisão da espada, cada linha deve ter a
-            # caixa de uma parte da espada
-            pcFrameR1.addCollision(92,54,34,32) #espada
-            pcFrameR1.addCollision(92,54,34,32) #espada
-            pcFrameR1.addCollision(92,54,34,32) #espada
+            pcFrameR1.addCollision(77,43,49,99) #corpo
             
             pcFrameR2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight2.png')
-            pcFrameR2.addCollision(9,0,64,128) #corpo
-            #TODO arrumar caixa de colisão da espada, cada linha deve ter a
-            # caixa de uma parte da espada
-            pcFrameR2.addCollision(92,54,34,32) #espada
-            pcFrameR2.addCollision(92,54,34,32) #espada
-            pcFrameR2.addCollision(92,54,34,32) #espada
+            pcFrameR2.addCollision(77,43,49,99) #corpo
             
             pcFrameR3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight3.png')
-            pcFrameR3.addCollision(9,0,64,128) #corpo
-            pcFrameR3.addCollision(92,54,34,32) #espada
-            pcFrameR3.addCollision(92,54,34,32) #espada
-            pcFrameR3.addCollision(92,54,34,32) #espada
+            pcFrameR3.addCollision(77,43,49,99) #corpo
+            pcFrameR3.addCollision(125,30,9,19) #espada
+            pcFrameR3.addCollision(133,1,12,28) #espada
 
             pcFrameR4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight4.png')
-            pcFrameR4.addCollision(9,0,64,128) #corpo
-            pcFrameR4.addCollision(92,54,34,32) #espada
-            pcFrameR4.addCollision(92,54,34,32) #espada
-            pcFrameR4.addCollision(92,54,34,32) #espada
+            pcFrameR4.addCollision(77,43,49,99) #corpo
+            pcFrameR4.addCollision(123,114,25,14) #espada
+            pcFrameR4.addCollision(148,121,43,18) #espada
             
             pcFrameL1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft1.png')
-            pcFrameL1.addCollision(9,0,64,128) #corpo
-            #TODO arrumar caixa de colisão da espada, cada linha deve ter a
-            # caixa de uma parte da espada
-            pcFrameL1.addCollision(92,54,34,32) #espada
-            pcFrameL1.addCollision(92,54,34,32) #espada
-            pcFrameL1.addCollision(92,54,34,32) #espada
+            pcFrameL1.addCollision(77,43,49,99) #corpo
             
             pcFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft2.png')
-            pcFrameL2.addCollision(9,0,64,128) #corpo
-            #TODO arrumar caixa de colisão da espada, cada linha deve ter a
-            # caixa de uma parte da espada
-            pcFrameL2.addCollision(92,54,34,32) #espada
-            pcFrameL2.addCollision(92,54,34,32) #espada
-            pcFrameL2.addCollision(92,54,34,32) #espada
+            pcFrameL2.addCollision(77,43,49,99) #corpo
             
             pcFrameL3 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft3.png')
-            pcFrameL3.addCollision(9,0,64,128) #corpo
-            #TODO arrumar caixa de colisão da espada, cada linha deve ter a
-            # caixa de uma parte da espada
-            pcFrameL3.addCollision(92,54,34,32) #espada
-            pcFrameL3.addCollision(92,54,34,32) #espada
-            pcFrameL3.addCollision(92,54,34,32) #espada
+            pcFrameL3.addCollision(77,43,49,99) #corpo
+            pcFrameL3.addCollision(52,1,17,30) #espada
+            pcFrameL3.addCollision(61,30,18,26) #espada
             
             pcFrameL4 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackLeft\\hpLeft4.png')    
-            pcFrameL4.addCollision(9,0,64,128) #corpo
-            #TODO arrumar caixa de colisão da espada, cada linha deve ter a
-            # caixa de uma parte da espada
-            pcFrameL4.addCollision(92,54,34,32) #espada
-            pcFrameL4.addCollision(92,54,34,32) #espada
-            pcFrameL4.addCollision(92,54,34,32) #espada
+            pcFrameL4.addCollision(77,43,49,99) #corpo
+            pcFrameL4.addCollision(9,125,33,14) #espada
+            pcFrameL4.addCollision(42,118,29,13) #espada
+
             
             #atribuindo frames attack1
             self.pcFrames = [pcFrameR1,pcFrameR2, pcFrameR3, pcFrameR4, pcFrameL1, pcFrameL2, pcFrameL3, pcFrameL4]

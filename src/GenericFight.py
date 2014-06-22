@@ -13,7 +13,7 @@ import Fights
 ###
 #   Main
 ###
-
+from Animations import *
 from Screen import *
 from Config import *
 class GenericFight(Screen):
@@ -36,7 +36,8 @@ class GenericFight(Screen):
         self.buttons.append(ButtonInter(500, 300, 400, 73, None, "Pausado"))
         self.buttons.append(ButtonInter(500, 500, 400, 73, 0, "Sair"))
 
-        self.animations = []
+        self.startAnimation = Animations.StartAnimation(self.tela)
+        self.animations = [self.startAnimation]
     
     def setFighters(self, f1, f2):
         self.f1 = f1(self.fundo.floorPy, 0, 1)
@@ -96,11 +97,12 @@ class GenericFight(Screen):
         self.f1.draw(self.tela)
         #executa as animaçoes
         for animation in self.animations:
-            animation.execuite();
+            animation.execute(not self.pause);
             animation.desenha();
         #remove as animações mortas
-        self.animations = [animation for animation in self.animations if not
-            animation.isAlive()]
+        self.animations = [animation for animation in self.animations if animation.isAlive()]
+        if (self.startAnimation != None and not self.startAnimation.isAlive()):
+            self.startAnimation = None
 
         if (self.pause):
             for i in self.buttons:

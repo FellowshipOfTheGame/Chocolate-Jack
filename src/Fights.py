@@ -76,7 +76,7 @@ class Fights:
                     elif(event.key == self.keys.getRightControlP2()):
                         self.messageself2 = 'mvRKeyReleased'
             
-            if (not self.pause):
+            if (not self.pause and self.startAnimation == None):
                 self.fundo.update(self.messageScene)
                 self.f1.Update(self.messageself1)
                 self.f2.Update(self.messageself2)
@@ -139,7 +139,7 @@ class Fights:
                     elif(event.key == self.keys.getRightControl()):
                         self.messageself1 = 'mvRKeyReleased'
             
-            if (not self.pause):
+            if (not self.pause and self.startAnimation == None):
                 self.fundo.update(self.messageScene)
                 self.f1.Update(self.messageself1)
                 self.f2.Update(self.messageself2)

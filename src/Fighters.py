@@ -790,7 +790,7 @@ class Fighters:
             self.states.add('f_stopped','mvUKeyPressed','f_jumping_stopped',
                             self.jpFrames)
             self.states.add('f_jumping_stopped','*','f_stopped',
-                            self.jpFrames)
+                            self.stopFrames)
 
             self.states.add('f_stopped','pcKeyPressed','f_punching',
                             self.pcFrames)

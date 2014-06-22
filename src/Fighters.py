@@ -8,209 +8,140 @@ from utils import safe_load
 ###
 #   Fighters
 ###
-class Fighters:
-    class Fighter:
-        """#Define qual eh o jogador, player 1 ou player 2
-        player = None
-        #atributos/habilidades
-        hp = None
-        maxHp = None
-        mp = None
-        maxMP = None
-        attack = None
-        defense = None
-        sp1DMG = None #
-        sp2DMG = None # dano dos especiais
-        spUltDMG = None #
-        sp1Cost = None #
-        sp2Cost = None # Custo dos especiais, preferencialmente spUlt custarah todo o MP
-        spUltCost = None #
-        forceJump = None
-        
-        #indica se deve mostrar palavra de colisao ou nao, 0 = nao
-        soco = None
-        chute = None
-    
-        #ponteiro para oponente
-        enemy = None
-        
-        #debugg
-        debugTrue = None #qdo 1 ativa modo debugg do fighter
-        
-        #dimensoes
-        height = None
-        weight = None
-    
-        #pose
-        px, py = None, None
-        pcPx, pcPy = None, None #posicao qdo soca, sera alterada caso de socos para a esquerda.
-        kcPx, kcPy = None, None #posicao qdo chuta.
-        drawPx, drawPy = None, None
-        facing = None # 0 right 1 left
-        pcx, pcy = 100, 500#posicao atual para desenha o personagem na escolha
-        
-        #Image Stuff
-        curFrame = None #tipo Frame
-        frameNum = None #valor de 0 a X-1, indicando o frame do cinj de imagens q o fighter estah
-        
-        #array com os 'frames' usados em cada estado, segue a seguinte forma
-        #array[idx] = o endereco da imagem; idx e um inteirro da forma facing*frameOrder
-        #ex: o segundo passo de um movimento olhando para a direita 2 : 'mvRImg.png'
-        movFrames = None
-        pcFrames = None
-        kcFrames = None
-        stopFrames = None
-    
-        #Parametros
-        mvInc = None #distancia percorrida a cada passo.
-        mvDir = None #0 = indo para dir, 1 = indo para esq.
-        mvMaxCooldown = None #cooldown maximo para troca de img de movimento
-        mvCooldown = None #cooldown atual para movimento.
-    
-        pcDist = None #indica a distancia para soco, usado para posicionar o fighter quando ele soca para a esquerda
-        pcMaxCooldown = None
-        pcCooldown = None
-    
-        kcDist = None
-        kcMaxCooldown = None
-        kcCooldown = None
-    
-    
-        ##
-        cont = 0
-        
-        machine = None
-        #State
-        curState = None
-        
-        jumping = None"""
-        #Contrutor
+class FighterStates:
+    def __init__(self):
+        self.states = {}
+        self.frames = {}
+        self.lastState = None
+    def add(self,thisState, key, action='f_stopped', frames=[]):
+        if ((key != 'null' and key != '*')and action == 'f_stopped'):
+            print ('['+thisState+','+key+'] => '+ action)
+            exit('não pode haver um estado parado com key didferente de null')
+        self.states[(thisState, key)] = action
+        self.frames[(thisState, key)] = frames
+    def getAction(self,thisState, key, optional = False):
+        self.lastState = getattr(States.States(),thisState)()
+        if (hasattr(self.lastState, 'isMovimentState') and optional):
+            temp =  [state_key for state_key, state_value in self.states
+                .items()  if state_value == thisState][0]
+            return self.states.get(temp), self.frames.get(temp)
+
+        if (key == "null" or 'Released' in key):
+            temp =  [state_key for state_key, state_value in self.states
+                .items()  if state_value == 'f_stopped'][0]
+            return self.states.get(temp), self.frames.get(temp)
+
+        if (key == '*'):
+            temp =  [state_key for state_key, state_value in self.states
+                .items()  if thisState in state_key][0]
+            return self.states.get(temp), self.frames.get(temp)
+
+        if ((thisState, key) in self.states):
+            return self.states.get((thisState, key)), self.frames.get((
+                thisState, key))
+
+        temp =  [state_key for state_key, state_value in self.states
+                .items()  if state_value == 'f_stopped'][0]
+        return self.states.get(temp), self.frames.get(temp)
+
+class VitalAtrr:
+    def __init__(self):
+        self.hp = 1
+        self.maxHp = 1
+        self.mp = 0
+        self.maxMP = 0
+
+class CombatAtrr:
+    def __init__(self):
+        self.attack = 0
+        self.defense = 0
+        self.sp1DG = 0
+        self.sp2DMG = 0
+        self.spUltDMG = 0
+        self.sp1Cost = 0
+        self.sp2Cost = 0
+        self.setpUltCost = 0
+
+class MovimentAttr:
+    def __init__(self):
+        self.mvInc = 0
+        self.mvDir = 0
+
+        self.jumping = False
+
+class Fighter:
+         #Contrutor
         def __init__(self, pPyFloor = 0, pFacing=0, pPlayer = 1):
             self.player = pPlayer
-            
-            #atributos/habilidades
-            self.hp = 1
-            self.maxHp = 1
-            self.mp = 0
-            self.maxMP = 0
-            self.attack = 0
-            self.defense = 0
-            self.sp1DG = 0
-            self.sp2DMG = 0
-            self.spUltDMG = 0
-            self.sp1Cost = 0
-            self.sp2Cost = 0
-            self.setpUltCost = 0
-            
-            #outros
-            self.soco = 0
-            self.chute = 0
             self.enemy = None
+
             self.px = 32 + pFacing*992
+            self.heigth = 32
             self.py = pPyFloor - self.heigth
             self.facing = pFacing
-            self.curState = States.f_jumping_stopped(self)
-            self.curState.Enter(self)
-            self.curFrame = None
-    
+            self.curFrame = 0
+
             self.debugTrue = 0
             self.height = 0
             self.width = 0
-    
+
             self.drawPx = self.px
             self.drawPy = self.py
-    
+
             self.frameNum = 0
-            self.movFrames = []
-            self.pcFrames = []
-            self.stopFrames = []
-            self.kcFrames = []
-            self.jpFrames = []
-    
-            self.mvInc = 0
-            self.mvDir = 0
-            self.mvMaxCooldown = 0
-            self.mvCooldown = 0
-    
-            self.pcDist = 0
-            self.pcMaxCooldown = 0
-            self.pcCooldown = 0
-    
-            self.kcDist = 0
-            self.kcMaxCooldown = 0
-            self.kcCooldown = 0
-            
-            self.jumping = False
-    
-    ##        self.pcx = 50
-    ##        self.pcy = 500
-            
+
             self.machine = States.StateMachine()
-            
-    
+            self.vital = VitalAtrr()
+            self.combat = CombatAtrr
+            self.moviment = MovimentAttr()
+            self.states = FighterStates()
+
         #troca de estado
         def changeState(self, pNewState):
-            self.curState.Exit(self)
-            self.curState = pNewState
-            self.curState.Enter(self)
-    
+            self.curState.Exit()
+            self.curState = getattr(States.States,pNewState[0])()
+            self.curState.Enter(self, pNewState[1])
+
         #atualiza a posicao que o char olha
         #estah simplificada, o char olha sempre pro meio da tela.
         def facingUpdate(self):
             if(self.enemy != None):
-    
+
                 if(self.px > self.enemy.px):
                     self.facing = 1
                 else:
                     self.facing = 0
-    
+
             else:
                 if(self.px > 512):
                     self.facing = 1
                 else:
                     self.facing = 0
-    
-    
-    
+
+
+
         #act
         def Update(self, message):
             self.machine.execute(message)
             self.facingUpdate()
-            self.curState.Execute(self, self.machine)
-    
-    
+            self.curState.Execute(message)
+
+
         #draw
         def draw(self, tela):
             img = safe_load(pygame.image.load, self.curFrame.img).convert_alpha()
             tela.blit(img, (self.drawPx, self.drawPy))
-    
-    
-            if(self.soco > 0):
-                self.soco = self.soco + 1
-                socoImg = safe_load(pygame.image.load,'data\\imgs\\soco2.png').convert_alpha()
-                tela.blit(socoImg, (self.drawPx + self.width - self.facing*int(3*self.width/2), self.drawPy + int(self.height/4)))
-    
-                if(self.soco > 10):
-                    self.soco = 0
-    
-                if(self.chute > 0):
-                    self.chute = self.chute + 1
-                    chuteImg = safe_load(pygame.image.load, 'data\\imgs\\chute.png').convert_alpha()
-                    tela.blit(chuteImg, (self.drawPx + self.width - self.facing*int(3*self.width/2), self.drawPy + int(2*self.height/3)))
-    
-                if(self.chute > 10):
-                    self.chute = 0
-    
+
             if(self.debugTrue == 1):
                 color = pygame.Color(255, 128, 128, 196)
                 for colRect in self.curFrame.getCollisions():
                     rectParams = (colRect[0] + self.drawPx, colRect[1] + self.drawPy, colRect[2], colRect[3])
                     rect = pygame.Rect(rectParams)
                     pygame.draw.rect(tela, color, rect)
-    
+
         def toogleDebug(self):
             self.debugTrue = (self.debugTrue + 1)%2 #farah com que troque de 0 para 1 e vice-versa
-    
+
         def setEnemy(self, pEnemy):
             self.enemy = pEnemy
         def drawChoise(self, tela, pdx, pdy):
@@ -218,8 +149,8 @@ class Fighters:
             #img = pygame.transform.scale(img, (94, 128))
             #print(self.pcx, self.pcy)
             tela.blit(img, (pdx, pdy))
-      
-    
+
+
             if(self.debugTrue == 1):
                 color = pygame.Color(255, 128, 128, 196)
                 for colRect in self.curFrame.getCollisions():
@@ -228,32 +159,13 @@ class Fighters:
                     pygame.draw.rect(tela, color, rect)
         def getName(self):
             return self.__class__.__name__
-                    
+
+class Fighters:
     class Tank(Fighter):
     
         def __init__(self, pPyFloor = 0, pFacing=0, pPlayer=1):
-            #player
-            self.player = pPlayer
-            
-            #atributos/habilidades
-            self.hp = 1
-            self.maxHp = 1
-            self.mp = 0
-            self.maxMP = 0
-            self.attack = 0
-            self.defense = 0
-            self.sp1DMG = 0
-            self.sp2DMG = 0
-            self.spUltDMG = 0
-            self.sp1Cost = 0
-            self.sp2Cost = 0
-            self.setpUltCost = 0
-    
-            #outros
-            self.debugTrue = 0
-            self.soco = 0
-            self.chute = 0
-            
+            super().__init__(pPyFloor, pFacing, pPlayer)
+
             self.px = 32 + pFacing*992
             self.width = 128
             self.height = 128
@@ -267,6 +179,8 @@ class Fighters:
     
             #atribuindo frames
             self.stopFrames = [sFrame1, sFrame1]
+
+            self.states.add('*', 'null', 'f_stopped', self.stopFrames)
     
             #criando frames de movimento
             mvFrameR1 = Frame.Frame('data\\imgs\\tankMvFR1.png')
@@ -278,27 +192,40 @@ class Fighters:
             
             #atribuindo frames
             self.movFrames = (mvFrameR1,mvFrameR2,mvFrameR3,mvFrameL1,mvFrameL2,mvFrameL3)
-    
+
+            self.states.add('f_stopped','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_kicking','mvLKeyPressed','f_moving',
+                            self.movFrames)
+
+            self.states.add('f_stopped','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_kicking','mvRKeyPressed','f_moving',
+                            self.movFrames)
+
+
             #criando frames de soco
             pcFrame1 = Frame.Frame('data\\imgs\\punchtankR.png')
             pcFrame2 = Frame.Frame('data\\imgs\\punchtankL.png')
     
             #atribuindo frames
-            self.pcFrames = [pcFrame1,pcFrame2]
-    
-            self.kcDist = 0
-            self.kcMaxCooldown = 0
-            self.kcCooldown = 0
-            self.mvInc = 64
-            self.pcDist = 16
-            self.mvMaxCooldown = 7 #aprox 0.25 sec
-            self.mvCooldown = 0
-            self.pcMaxCooldown = 5
-            self.pcCooldown = 0
-            self.curState = States.f_stopped()
-            self.curState.Enter(self)
-            
-    
+            self.pcFrames = (pcFrame1,pcFrame2)
+
+            self.states.add('f_stopped','pcKeyPressed','f_punching',
+                            self.movFrames)
+            self.states.add('f_moving','pcKeyPressed','f_punching',
+                            self.movFrames)
+
+            self.moviment.mvInc = 64
+
     class Alvo(Fighter):
         def __init__(self, pPyFloor=0, pFacing=0, pPlayer = 1):
             #player
@@ -342,7 +269,7 @@ class Fighters:
             self.mvCooldown = 0
             self.pcMaxCooldown = 0
             self.pcCooldown = 0
-            self.curState = States.f_stopped()
+            self.curState = States.States.f_stopped()
             self.curState.Enter(self)
             self.kcDist = 0
             self.kcMaxCooldown = 0
@@ -391,7 +318,7 @@ class Fighters:
             self.mvCooldown = 0
             self.pcMaxCooldown = 0
             self.pcCooldown = 0
-            self.curState = States.f_stopped()
+            self.curState = States.States.f_stopped()
             self.curState.Enter(self)
             self.kcDist = 0
             self.kcMaxCooldown = 0
@@ -399,6 +326,7 @@ class Fighters:
     
     class ChocoJack(Fighter):
         def __init__(self, pPyFloor=0, pFacing=0, pPlayer=1):
+            Fighter.__init__(self)
             #player
             self.player = pPlayer
             
@@ -629,13 +557,64 @@ class Fighters:
             self.kcDist = 0
             self.kcMaxCooldown = 0
             self.kcCooldown = 0
+
+            self.moviment.mvInc = 12;
             
-            self.curState = States.f_stopped()
-            self.curState.Enter(self)
-            
-            self.jumping = False
+            self.moviment.jumping = False
             self.machine = States.StateMachine()
-    
+
+            self.states.add('*','null','f_stopped',
+                            self.stopFrames)
+
+            self.states.add('f_stopped','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_kicking','mvLKeyPressed','f_moving',
+                            self.movFrames)
+
+            self.states.add('f_stopped','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_kicking','mvRKeyPressed','f_moving',
+                            self.movFrames)
+
+            self.states.add('f_moving','mvUKeyPressed','f_jumping_moving',
+                            self.movFrames)
+            self.states.add('f_jumping_moving','*','f_moving',
+                            self.movFrames)
+            self.states.add('f_stopped','mvUKeyPressed','f_jumping_stopped',
+                            self.jpFrames)
+            self.states.add('f_jumping_stopped','*','f_stopped',
+                            self.stopFrames)
+
+            self.states.add('f_stopped','pcKeyPressed','f_punching',
+                            self.pcFrames)
+            self.states.add('f_punching','pcKeyPressed','f_punching_2',
+                            self.pcFrames)
+            self.states.add('f_punching_2','pcKeyPressed','f_punching_3',
+                            self.pcFrames)
+            self.states.add('f_punching_3','null','f_stopped',
+                            self.stopFrames)
+
+            self.states.add('f_stopped','kcKeyPressed','f_kicking',
+                            self.kcFrames)
+            self.states.add('f_punching','kcKeyPressed','f_kicking',
+                            self.kcFrames)
+
+            self.curState = States.States.f_stopped()
+            self.curState.Enter(self, self.stopFrames)
+            self.curFrame = self.stopFrames[0]
+
     
         def getForceJump(self):
             #print(self.forceJump)
@@ -643,6 +622,7 @@ class Fighters:
     
     class BrocolisNinja(Fighter):
         def __init__(self, pPyFloor=0, pFacing=0, pPlayer = 1):
+            Fighter.__init__(self)
             #player
             self.player = pPlayer
             
@@ -673,6 +653,8 @@ class Fighters:
             self.drawPx = self.px
             self.drawPy = self.py
             self.facing = pFacing
+
+            self.moviment.mvInc = 12;
 
 
             #criando frames stopped
@@ -765,17 +747,64 @@ class Fighters:
             self.mvCooldown = 0
             self.pcMaxCooldown = 0
             self.pcCooldown = 0
-            self.curState = States.f_stopped()
-            self.curState.Enter(self)
             self.kcDist = 0
             self.kcMaxCooldown = 0
             self.kcCooldown = 0
             
-            self.curState = States.f_stopped()
-            self.curState.Enter(self)
-            
             self.jumping = False
             self.machine = States.StateMachine()
+
+            self.curState = States.States.f_stopped()
+            self.curState.Enter(self, self.stopFrames)
+            self.curFrame = self.stopFrames[0]
+
+            self.states.add('*','null','f_stopped',
+                            self.stopFrames)
+
+            self.states.add('f_stopped','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_kicking','mvLKeyPressed','f_moving',
+                            self.movFrames)
+
+            self.states.add('f_stopped','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_kicking','mvRKeyPressed','f_moving',
+                            self.movFrames)
+
+            self.states.add('f_moving','mvUKeyPressed','f_jumping_moving',
+                            self.movFrames)
+            self.states.add('f_jumping_moving','*','f_moving',
+                            self.movFrames)
+            self.states.add('f_stopped','mvUKeyPressed','f_jumping_stopped',
+                            self.jpFrames)
+            self.states.add('f_jumping_stopped','*','f_stopped',
+                            self.jpFrames)
+
+            self.states.add('f_stopped','pcKeyPressed','f_punching',
+                            self.pcFrames)
+            self.states.add('f_punching','pcKeyPressed','f_punching_2',
+                            self.pcFrames)
+            self.states.add('f_punching_2','pcKeyPressed','f_punching_3',
+                            self.pcFrames)
+            self.states.add('f_punching_3','null','f_stopped',
+                            self.stopFrames)
+
+            self.states.add('f_stopped','kcKeyPressed','f_kicking',
+                            self.kcFrames)
+            self.states.add('f_punching','kcKeyPressed','f_kicking',
+                            self.kcFrames)
 
         def getForceJump(self):
             #print(self.forceJump)

@@ -15,8 +15,8 @@ class Button:
         self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/botao2.jpg"), (lx,ly))
         self.screenCod = screenCod
         tamXY = self.Franchise_36.size(str(self.text))
-        #self.lx = lx
-        #self.ly = ly
+        self.lx = lx
+        self.ly = ly
         self.px = x
         self.py = y
         self.posTX = (x + (lx/2) - (tamXY[0]/2))

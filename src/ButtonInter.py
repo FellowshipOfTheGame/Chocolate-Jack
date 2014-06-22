@@ -7,14 +7,8 @@ import math
 from Button import *
 class ButtonInter(Button):
     def __init__(self, x=0, y=0, lx=0, ly=0, screenCod=0, text=None, screen=None):
-        Button.__init__(self, x, y, lx, ly, screenCod, text)
+        super().__init__(x, y, lx, ly, screenCod, text)
         self.control = 0
-        self.px = x
-        self.py = y
-        self.lx = lx
-        self.ly = ly
-        self.screen = screen
-        self.screenCod = screenCod
 
     def click(self, evento):
         if evento.type == pygame.MOUSEBUTTONDOWN:

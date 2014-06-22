@@ -7,10 +7,6 @@ from Button import *
 class ButtonIntra(Button):
     def __init__(self, x = 0, y = 0, lx = 0, ly = 0, char = 0, text=None):
         super().__init__(x, y, lx, ly, 0, text)
-        self.px = x
-        self.py = y
-        self.lx = lx
-        self.ly = ly
         self.char = char
 
     def click(self, evento):

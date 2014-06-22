@@ -1,7 +1,7 @@
 import pygame
 import sys
 import os
-import States
+from States import *
 import Frame
 from utils import safe_load
 
@@ -41,7 +41,7 @@ class Scenario:
         self.curState.Enter(self)
 
     def update(self, message):
-        self.curState.Execute(self, message)
+        self.curState.Execute(message)
 
     def toogleDebug(self):
         self.debugTrue = (self.debugTrue + 1)%2 #farah com que troque de 0 para 1 e vice-versa
@@ -60,6 +60,7 @@ class Praia(Scenario):
         self.curFrame = self.frames[self.frameNum]
         self.floorPy = 611
         self.curState = States.s_default()
+        self.curState.Enter(self)
         self.frameCooldown = 45
 
 class Training(Scenario):
@@ -75,6 +76,7 @@ class Training(Scenario):
         self.curFrame = self.frames[self.frameNum]
         self.floorPy = 675
         self.curState = States.s_default()
+        self.curState.Enter(self)
         self.frameCooldown = 25
         
 ##Tudo novo a partir daqui
@@ -90,6 +92,7 @@ class Menu(Scenario):
         self.frames = [frame1, frame2]
         self.curFrame = self.frames[self.frameNum]
         self.curState = States.s_default()
+        self.curState.Enter(self)
         self.frameCooldown = 25
         
 class Config(Scenario):
@@ -104,6 +107,7 @@ class Config(Scenario):
         self.frames = [frame1, frame2]
         self.curFrame = self.frames[self.frameNum]
         self.curState = States.s_default()
+        self.curState.Enter(self)
         self.frameCooldown = 25
 
 class ChoiseMenu(Scenario):
@@ -118,4 +122,5 @@ class ChoiseMenu(Scenario):
         self.frames = [frame1, frame2]
         self.curFrame = self.frames[self.frameNum]
         self.curState = States.s_default()
+        self.curState.Enter(self)
         self.frameCooldown = 25

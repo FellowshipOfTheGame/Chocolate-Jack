@@ -126,20 +126,6 @@ class States:
 
                 #CHANGE STATES
                 self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
-                """if (self.Fighter.machine.isMovingLeft()):
-                    self.Fighter.moviment.mvDir = 1
-                    self.Fighter.changeState(States.f_moving())
-                elif(self.Fighter.machine.isMovingRight()):
-                    self.Fighter.moviment.mvDir = 0
-                    self.Fighter.changeState(States.f_moving())
-                elif(self.Fighter.machine.isJumping()):
-                    if (self.Fighter.moviment.jumping == False):
-                        self.Fighter.moviment.jumping = True
-                        self.Fighter.changeState(States.f_jumping_stopped())
-                elif(self.Fighter.machine.isPunching()):
-                    self.Fighter.changeState(States.f_punching())
-                elif(self.Fighter.machine.isKicking()):
-                    self.Fighter.changeState(States.f_kicking())"""
 
         def Exit(self):
             pass
@@ -183,28 +169,7 @@ class States:
                     #self.Fighter.changeState(States.f_stopped())
             else:
                 #CHANGE STATE
-                halp = self.Fighter.states.getAction(self.__class__.__name__,message, True)
-                print("halp")
-                print(halp)
-                self.Fighter.changeState(halp)
-                """if (self.Fighter.machine.isJumping()):
-                    if (self.Fighter.moviment.jumping == False):
-                        self.Fighter.moviment.jumping = True
-                        self.Fighter.changeState(States.f_jumping_moving())
-                elif (self.Fighter.machine.isMovingLeft()):
-                    self.Fighter.moviment.mvDir = 1
-                    self.Fighter.changeState(States.f_moving())
-                elif(self.Fighter.machine.isMovingRight()):
-                    self.Fighter.moviment.mvDir = 0
-                    self.Fighter.changeState(States.f_moving())
-                elif(self.Fighter.machine.isPunching()):
-                    self.Fighter.changeState(States.f_punching())
-                elif(self.Fighter.machine.isKicking()):
-                    self.Fighter.changeState(States.f_kicking())
-                elif(self.Fighter.machine.isStopped()):
-                    self.Fighter.changeState(States.f_stopped())"""
-
-
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message, True))
 
         def Exit(self):
             pass

@@ -83,13 +83,17 @@ class Fights:
 
                 if(self.f1.px < 0):
                     self.f1.px = self.f1.px + self.f1.width
+                    self.f1.Update('null')
                 elif(self.f1.px > 1024):
                     self.f1.px = self.f1.px - self.f1.width
+                    self.f1.Update('null')
                     
                 if(self.f2.px < 0):
                     self.f2.px = self.f2.px + self.f2.width
+                    self.f2.Update('null')
                 elif(self.f2.px > 1024):
                     self.f2.px = self.f2.px - self.f2.width
+                    self.f2.Update('null')
                 self.messageself1 = 'null'
                 self.messageself2 = 'null'
                 self.messageScene = 'null'

@@ -1,5 +1,7 @@
-.hg/
-.settings/org.eclipse.core.resources.prefs
+.hg
+.git
+.idea
+.settings
 .pydevproject
 .project
 *.pyc

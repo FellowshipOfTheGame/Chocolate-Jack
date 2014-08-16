@@ -691,7 +691,7 @@ class Fighters:
             mvFrameL2 = Frame.Frame('data\\imgs\\BrocolisNinja\\WalkLeft\\walk2left.png')
             
             #atribuindo frames 
-            self.movFrames = [mvFrameR1,mvFrameR2, mvFrameL1, mvFrameL2]
+            self.movFrames = [mvFrameR1,mvFrameR1,mvFrameR2,mvFrameR2, mvFrameL1, mvFrameL1, mvFrameL2, mvFrameL2]
 
             #criando frames de attack1
             pcFrameR1 = Frame.Frame('data\\imgs\\BrocolisNinja\\AttackRight\\hpRight1.png')

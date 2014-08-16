@@ -409,6 +409,9 @@ class States:
                 for coll in self.Fighter.curFrame.getCollisionsRect(self.Fighter.pcPx, self.Fighter.pcPy):
                     if(coll.collidelist(self.Fighter.enemy.curFrame.getCollisionsRect(self.Fighter.enemy.drawPx,
                                                                                  self.Fighter.enemy.drawPy)) > -1):
+                        #declarando que usara a tela global
+                        global tela # ignore que é gloal
+
                         self.Fighter.soco = 1
                         self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
             else:

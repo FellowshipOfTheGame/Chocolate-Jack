@@ -6,9 +6,11 @@ from Control import *
 ###
 #   Main
 ###
+tela = None
 def main():
     pygame.init()
     resolucao = (1024,720)
+    global tela
     tela = pygame.display.set_mode(resolucao)
 
     controller = ScreenController(tela)

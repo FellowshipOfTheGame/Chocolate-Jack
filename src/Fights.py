@@ -80,7 +80,16 @@ class Fights:
                 self.fundo.update(self.messageScene)
                 self.f1.Update(self.messageself1)
                 self.f2.Update(self.messageself2)
-                
+
+                if(self.f1.px < 0):
+                    self.f1.px = self.f1.px + self.f1.width
+                elif(self.f1.px > 1024):
+                    self.f1.px = self.f1.px - self.f1.width
+                    
+                if(self.f2.px < 0):
+                    self.f2.px = self.f2.px + self.f2.width
+                elif(self.f2.px > 1024):
+                    self.f2.px = self.f2.px - self.f2.width
                 self.messageself1 = 'null'
                 self.messageself2 = 'null'
                 self.messageScene = 'null'
@@ -96,7 +105,7 @@ class Fights:
                     self.messageself2 = 'mvLKeyPressed'
                 elif(self.f2.px - self.f1.px > 0):
                     self.messageself2 = 'mvLKeyReleased'
-                    self.f2.machine.punch = True
+                    #self.f2.machine.punch = True
                 elif(self.f2.px - self.f1.px > -200):
                     self.messageself2 = 'mvRKeyPressed'
                 

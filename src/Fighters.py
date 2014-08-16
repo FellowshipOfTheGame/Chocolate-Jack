@@ -9,10 +9,11 @@ from utils import safe_load
 #   Fighters
 ###
 class FighterStates:
-    def __init__(self):
+    def __init__(self, player):
         self.states = {}
         self.frames = {}
         self.lastState = None
+        self.player = player
     def add(self,thisState, key, action='f_stopped', frames=[]):
         if ((key != 'null' and key != '*')and action == 'f_stopped'):
             print ('['+thisState+','+key+'] => '+ action)
@@ -20,28 +21,48 @@ class FighterStates:
         self.states[(thisState, key)] = action
         self.frames[(thisState, key)] = frames
     def getAction(self,thisState, key, optional = False):
+      #  if(self.player == 1):
+            #print(thisState)
+            #print(key)
+            #print(" ")
+        
         self.lastState = getattr(States.States(),thisState)()
         if (hasattr(self.lastState, 'isMovimentState') and optional):
             temp =  [state_key for state_key, state_value in self.states
                 .items()  if state_value == thisState][0]
+            if(self.player == 1):
+                print("retornou no isMoviment")
+                print(self.states.get(temp), self.frames.get(temp))
             return self.states.get(temp), self.frames.get(temp)
 
         if (key == "null" or 'Released' in key):
             temp =  [state_key for state_key, state_value in self.states
                 .items()  if state_value == 'f_stopped'][0]
+            if(self.player == 1):
+                print("retornou no release")
+                print(self.states.get(temp), self.frames.get(temp))
             return self.states.get(temp), self.frames.get(temp)
 
         if (key == '*'):
             temp =  [state_key for state_key, state_value in self.states
                 .items()  if thisState in state_key][0]
+            if(self.player == 1):
+                print("retornou no *")
+                print(self.states.get(temp), self.frames.get(temp))
             return self.states.get(temp), self.frames.get(temp)
 
         if ((thisState, key) in self.states):
+            if(self.player == 1):
+                print("fez busca")
+                print(self.states.get((thisState, key)), self.frames.get((thisState, key)))
             return self.states.get((thisState, key)), self.frames.get((
                 thisState, key))
 
         temp =  [state_key for state_key, state_value in self.states
                 .items()  if state_value == 'f_stopped'][0]
+        if(self.player == 1):
+            print("retnrou no default")
+            print(self.states.get(temp), self.frames.get(temp))
         return self.states.get(temp), self.frames.get(temp)
 
 class VitalAtrr:
@@ -90,14 +111,16 @@ class Fighter:
 
             self.frameNum = 0
 
-            self.machine = States.StateMachine()
             self.vital = VitalAtrr()
             self.combat = CombatAtrr
             self.moviment = MovimentAttr()
-            self.states = FighterStates()
+            self.states = FighterStates(self.player)
 
         #troca de estado
         def changeState(self, pNewState):
+            if(self.player == 1):
+                print(" "+"no changeState")
+                print(pNewState)
             self.curState.Exit()
             self.curState = getattr(States.States,pNewState[0])()
             self.curState.Enter(self, pNewState[1])
@@ -122,7 +145,6 @@ class Fighter:
 
         #act
         def Update(self, message):
-            self.machine.execute(message)
             self.facingUpdate()
             self.curState.Execute(message)
 
@@ -561,44 +583,51 @@ class Fighters:
             self.moviment.mvInc = 12;
             
             self.moviment.jumping = False
-            self.machine = States.StateMachine()
 
             self.states.add('*','null','f_stopped',
                             self.stopFrames)
 
             self.states.add('f_stopped','mvLKeyPressed','f_moving',
                             self.movFrames)
-            self.states.add('f_moving','mvLKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_moving','mvRKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_punching','mvLKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_kicking','mvLKeyPressed','f_moving',
-                            self.movFrames)
-
             self.states.add('f_stopped','mvRKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_moving','mvRKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_moving','mvLKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_punching','mvRKeyPressed','f_moving',
-                            self.movFrames)
-            self.states.add('f_kicking','mvRKeyPressed','f_moving',
-                            self.movFrames)
-
-            self.states.add('f_moving','mvUKeyPressed','f_jumping_moving',
-                            self.movFrames)
-            self.states.add('f_jumping_moving','*','f_moving',
                             self.movFrames)
             self.states.add('f_stopped','mvUKeyPressed','f_jumping_stopped',
                             self.jpFrames)
+            self.states.add('f_stopped','pcKeyPressed','f_punching',
+                            self.pcFrames)
+            self.states.add('f_stopped','kcKeyPressed','f_kicking',
+                            self.kcFrames)
+            
+            self.states.add('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_moving','mvUKeyPressed','f_jumping_moving',
+                            self.movFrames)
+            self.states.add('f_moving','pcKeyPressed','f_punching',
+                            self.movFrames)
+            self.states.add('f_moving','kcKeyPressed','f_kicking',
+                            self.movFrames)
+            
+
+            self.states.add('f_punching','mvRKeyPressed','f_moving',
+                            self.movFrames)
+            self.states.add('f_punching','mvLKeyPressed','f_moving',
+                            self.movFrames)
+            
+            self.states.add('f_kicking','mvLKeyPressed','f_moving',
+                            self.movFrames)       
+            self.states.add('f_kicking','mvRKeyPressed','f_moving',
+                            self.movFrames)
+
+            
+            self.states.add('f_jumping_moving','*','f_moving',
+                            self.movFrames)
+            
             self.states.add('f_jumping_stopped','*','f_stopped',
                             self.stopFrames)
 
-            self.states.add('f_stopped','pcKeyPressed','f_punching',
-                            self.pcFrames)
+            #combos
             self.states.add('f_punching','pcKeyPressed','f_punching_2',
                             self.pcFrames)
             self.states.add('f_punching_2','pcKeyPressed','f_punching_3',
@@ -606,10 +635,8 @@ class Fighters:
             self.states.add('f_punching_3','null','f_stopped',
                             self.stopFrames)
 
-            self.states.add('f_stopped','kcKeyPressed','f_kicking',
-                            self.kcFrames)
-            self.states.add('f_punching','kcKeyPressed','f_kicking',
-                            self.kcFrames)
+            
+            
 
             self.curState = States.States.f_stopped()
             self.curState.Enter(self, self.stopFrames)
@@ -752,7 +779,7 @@ class Fighters:
             self.kcCooldown = 0
             
             self.jumping = False
-            self.machine = States.StateMachine()
+
 
             self.curState = States.States.f_stopped()
             self.curState.Enter(self, self.stopFrames)

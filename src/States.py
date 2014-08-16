@@ -13,7 +13,11 @@ class StateMachine:
         self.kick = False
     def execute(self, message):
         #CHANGE STATES
-        if(message == 'mvLKeyPressed' and not self.right):
+        if(message == 'mvLKeyReleased' or (message == 'mvRKeyPressed' and self.left)):
+            self.left = False
+        elif (message == 'mvRKeyReleased' or (message == 'mvLKeyPressed' and self.right)):
+            self.right = False
+        elif(message == 'mvLKeyPressed' and not self.right):
             self.left = True
         elif(message == 'mvRKeyPressed' and not self.left):
             self.right = True
@@ -21,12 +25,13 @@ class StateMachine:
             self.jump =True
         elif(message == 'pcKeyPressed'):
             self.punch = True
+            self.left = False
+            self.right = False
         elif(message == 'kcKeyPressed'):
             self.kick = True
-        elif(message == 'mvLKeyReleased' or message == 'mvRKeyPressed'):
             self.left = False
-        elif (message == 'mvRKeyReleased' or message == 'mvLKeyPressed'):
             self.right = False
+        
     def isPunching(self):
         return self.punch
     def isKicking(self):
@@ -149,10 +154,10 @@ class States:
             self.Fighter.frameNum = -1
             self.frames = frames
 
-            if (self.Fighter.machine.isMovingLeft()):
-                self.Fighter.moviment.mvDir = 1
-            elif(self.Fighter.machine.isMovingRight()):
-                self.Fighter.moviment.mvDir = 0
+#            if (self.Fighter.machine.isMovingLeft()):
+ #               self.Fighter.moviment.mvDir = 1
+#            elif(self.Fighter.machine.isMovingRight()):
+ #               self.Fighter.moviment.mvDir = 0
 
             self.halfQtdFrames = int(len(self.frames)/2)
             self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
@@ -171,15 +176,17 @@ class States:
                 if (self.Fighter.frameNum == self.halfQtdFrames):
                     self.Fighter.changeState(States.f_stopped())
 
-                if(self.Fighter.machine.isStopped()):
-                    self.Fighter.changeState(self.Fighter.states.getAction(self
-                                                                  .__class__
-                                                         .__name__,'null'))
+                #if(self.Fighter.machine.isStopped()):
+                 #   self.Fighter.changeState(self.Fighter.states.getAction(self
+                  #                                                .__class__
+                   #                                      .__name__,'null'))
                     #self.Fighter.changeState(States.f_stopped())
             else:
                 #CHANGE STATE
-                self.Fighter.changeState(self.Fighter.states.getAction(self
-                                                                       .__class__.__name__,message, True))
+                halp = self.Fighter.states.getAction(self.__class__.__name__,message, True)
+                print("halp")
+                print(halp)
+                self.Fighter.changeState(halp)
                 """if (self.Fighter.machine.isJumping()):
                     if (self.Fighter.moviment.jumping == False):
                         self.Fighter.moviment.jumping = True
@@ -220,7 +227,6 @@ class States:
             '''
             self.force = self.Fighter.getForceJump()
             self.Fighter.moviment.jumping = True
-            self.Fighter.machine.jump = False
             self.Fighter.drawPx = self.Fighter.px
             self.Fighter.drawPy = self.Fighter.py
             self.Fighter.mvCooldown = 0
@@ -245,7 +251,6 @@ class States:
                 self.Fighter.py -= self.force
                 self.force = self.force /2
             elif (self.force <=-self.Fighter.getForceJump()):
-                self.Fighter.machine.jump = False
                 self.Fighter.changeState(self.Fighter.states.getAction(self
                                                                   .__class__
                                                          .__name__,'*'))
@@ -260,7 +265,6 @@ class States:
 
         def Exit(self):
             self.Fighter.moviment.jumping = False
-            self.Fighter.machine.jump = False
 
     ###
     class f_jumping_moving(State):
@@ -269,7 +273,6 @@ class States:
             self.Fighter = Fighter
             self.force = 50
             self.Fighter.moviment.jumping = True
-            self.Fighter.machine.jump = False
             self.Fighter.drawPx = self.Fighter.px
             self.Fighter.drawPy = self.Fighter.py
             self.Fighter.mvCooldown = 0
@@ -298,7 +301,6 @@ class States:
                 self.Fighter.py -= self.force
                 self.force = self.force /2
             elif (self.force <=-50):
-                self.Fighter.machine.jump = False
                 self.Fighter.changeState(self.Fighter.states.getAction(self
                                                                   .__class__
                                                          .__name__,'*'))
@@ -323,8 +325,6 @@ class States:
             self.stateTime = 10
             self.Fighter.pcCooldown = self.Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
             self.Fighter.frameNum = -1
-            self.Fighter.machine.punch = False
-
             self.frames = frames
 
             self.halfQtdFrames = int(len(self.frames)/2)
@@ -384,7 +384,6 @@ class States:
             self.stateTime = 10
             self.Fighter.pcCooldown = self.Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
             self.Fighter.frameNum = -1
-            self.Fighter.machine.punch = False
 
             self.frames = frames
 
@@ -440,7 +439,7 @@ class States:
             self.stateTime = 10
             self.Fighter.pcCooldown = self.Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
             self.Fighter.frameNum = -1
-            self.Fighter.machine.punch = False
+
 
             self.frames = frames
 
@@ -496,7 +495,7 @@ class States:
             self.stateTime = 7
             self.Fighter.kcCooldown = self.Fighter.kcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
             self.Fighter.frameNum = -1
-            self.Fighter.machine.kick = False
+
 
             self.frames = frames
 

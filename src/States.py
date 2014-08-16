@@ -351,6 +351,7 @@ class States:
                                                                                  self.Fighter.enemy.drawPy)) > -1):
                         self.Fighter.soco = 1
                         self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
+                        animation = GenericAnimation.StartChocoPunchAnimation()
             else:
                 #CHANGE STATE
                 self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))

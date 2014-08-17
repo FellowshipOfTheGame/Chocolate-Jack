@@ -88,7 +88,7 @@ class ChocoLake(Scenario):
         frame2 = Frame.Frame('data\\imgs\\ChocoLake2.png')
         self.frames = [frame1, frame2]
         self.curFrame = self.frames[self.frameNum]
-        self.floorPy = 480
+        self.floorPy = 485
         self.curState = States.s_default()
         self.frameCooldown = 25
         

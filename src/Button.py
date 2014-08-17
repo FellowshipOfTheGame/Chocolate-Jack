@@ -16,7 +16,7 @@ class Button:
         if(type == 0):
             self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoPvC.png"), (lx,ly))
         elif(type == 1):
-            self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoPvC.png"), (lx,ly))
+            self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoPvP.png"), (lx,ly))
         elif(type == 2):
             self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoConfig.png"), (lx,ly))
         else:

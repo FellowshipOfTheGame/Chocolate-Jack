@@ -24,7 +24,8 @@ class GenericFight(Screen):
         self.messageScene = 'null'
         self.messageself1 = 'null'
         self.messageself2 = 'null'
-        self.fundo = Scenarios.Training()   
+#        self.fundo = Scenarios.Training()
+        self.fundo = Scenarios.ChocoLake()
 
         self.f1 = None
         self.f2 = None

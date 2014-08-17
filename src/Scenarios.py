@@ -73,7 +73,7 @@ class Training(Scenario):
         frame2 = Frame.Frame('data\\imgs\\trainingRoom2.png')
         self.frames = [frame1, frame2]
         self.curFrame = self.frames[self.frameNum]
-        self.floorPy = 675
+        self.floorPy = 480
         self.curState = States.s_default()
         self.frameCooldown = 25
         

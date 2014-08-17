@@ -19,9 +19,12 @@ class Menu(Screen):
         self.buttons = []
         self.screen = screen
         self.control=controller
-        self.buttons.append(ButtonInter(248, 400, 290, 73, 3, "Comecar PVC"))
-        self.buttons.append(ButtonInter(544, 400, 290, 73, 2, "Comecar PVP"))
-        self.buttons.append(ButtonInter(368, 515, 290, 73, 1, "Configuracoes"))
+#        self.buttons.append(ButtonInter(248, 400, 290, 73, 3, "Comecar PVC", 0))
+#        self.buttons.append(ButtonInter(544, 400, 290, 73, 2, "Comecar PVP", 1))
+#        self.buttons.append(ButtonInter(368, 515, 290, 73, 1, "Configuracoes", 2))
+        self.buttons.append(ButtonInter(248, 400, 290, 73, 3, " ", 0))
+        self.buttons.append(ButtonInter(544, 400, 290, 73, 2, " ", 1))
+        self.buttons.append(ButtonInter(368, 515, 290, 73, 1, " ", 2))
         self.ok = self.buttons[0]
         self.config = self.buttons[1]
         self.Bleft = self.Bright = self.Bmiddle = False

@@ -8,11 +8,19 @@ class names:
     Start, Config= range(2)
 
 class Button:
-    def __init__ (self, x=0, y=0, lx=0, ly=0, screenCod=0, text=None):
+    def __init__ (self, x=0, y=0, lx=0, ly=0, screenCod=0, text=None, type=3):
         self.control = 0
         self.text = text
         self.Franchise_36 = pygame.font.Font("data/fontes/Franchise-Bold-hinted.ttf", 36)
-        self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/botao2.jpg"), (lx,ly))
+        print(type)
+        if(type == 0):
+            self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoPvC.png"), (lx,ly))
+        elif(type == 1):
+            self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoPvC.png"), (lx,ly))
+        elif(type == 2):
+            self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/BotaoConfig.png"), (lx,ly))
+        else:
+            self.image = pygame.transform.scale(safe_load(pygame.image.load, "data/buttons/botao2.jpg"), (lx,ly))
         self.screenCod = screenCod
         tamXY = self.Franchise_36.size(str(self.text))
         #self.lx = lx

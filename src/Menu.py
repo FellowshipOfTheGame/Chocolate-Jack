@@ -22,18 +22,23 @@ class Menu(Screen):
 #        self.buttons.append(ButtonInter(248, 400, 290, 73, 3, "Comecar PVC", 0))
 #        self.buttons.append(ButtonInter(544, 400, 290, 73, 2, "Comecar PVP", 1))
 #        self.buttons.append(ButtonInter(368, 515, 290, 73, 1, "Configuracoes", 2))
-        self.buttons.append(ButtonInter(248, 400, 290, 73, 3, " ", 0))
-        self.buttons.append(ButtonInter(544, 400, 290, 73, 2, " ", 1))
-        self.buttons.append(ButtonInter(368, 515, 290, 73, 1, " ", 2))
+        self.buttons.append(ButtonInter(694, 427, 290, 73, 3, " ", 0))
+        self.buttons.append(ButtonInter(694, 517, 290, 73, 2, " ", 1))
+        self.buttons.append(ButtonInter(694, 607, 290, 73, 1, " ", 2))
+        self.music = pygame.mixer.music.load('data\\audio\\Cjack2.mid')
         self.ok = self.buttons[0]
         self.config = self.buttons[1]
         self.Bleft = self.Bright = self.Bmiddle = False
         self.background = Scenarios.Menu()
 
+        self.music = pygame.mixer.music.play(10, 0.0)
+        if not(pygame.mixer.music.get_busy()):
+            pygame.mixer.music.set_volume(1.0)
+
     def execute(self):
 
         self.background.draw(self.screen)
-
+        
         for evento in pygame.event.get():
             for i in self.buttons:
                 resp = i.click(evento)

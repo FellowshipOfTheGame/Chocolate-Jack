@@ -91,6 +91,9 @@ class ChocoLake(Scenario):
         self.floorPy = 485
         self.curState = States.s_default()
         self.frameCooldown = 25
+
+        if(pygame.mixer.music.get_busy()):
+            pygame.mixer.music.stop()
         
 ##Tudo novo a partir daqui
 class Menu(Scenario):

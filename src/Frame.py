@@ -1,5 +1,6 @@
 import sys
 import pygame
+import globals
 
 #classe que terah uma imagem e a lista de areas de colisao
 class Frame:

@@ -12,6 +12,7 @@ from Button import *
 from ButtonInter import *
 from Screen import *
 from Config import *
+import globals
 ###
 #   Main
 ###

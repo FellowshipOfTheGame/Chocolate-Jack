@@ -16,8 +16,7 @@ import Fights
 from Animations import *
 from Screen import *
 from Config import *
-
-global animations
+import globals
 
 class AnimationList:
     def __init__(self, animations): self.animations = animations
@@ -44,10 +43,8 @@ class GenericFight(Screen):
         self.buttons.append(ButtonInter(500, 500, 400, 73, 0, "Sair"))
 
         self.startAnimation = Animations.StartAnimation(self.tela)
-        global animations
-        animations = AnimationList([self.startAnimation])
-        self.animations = animations
-    
+        globals.globAnimations = [self.startAnimation]
+
     def setFighters(self, f1, f2):
         self.f1 = f1(self.fundo.floorPy, 0, 1)
         self.f2 = f2(self.fundo.floorPy, 1, 2)
@@ -105,13 +102,13 @@ class GenericFight(Screen):
         self.f2.draw(self.tela)
         self.f1.draw(self.tela)
         #executa as animaçoes
-        global animations
-        print(str(animations.get())+""+str(self.animations.get()))
-        for animation in self.animations.get():
+
+        for animation in globals.globAnimations:
             animation.execute(not self.pause);
             animation.desenha();
         #remove as animações mortas
-        self.animations.set([animation for animation in self.animations.get() if animation.isAlive()])
+        globals.globAnimations = [animation for animation in globals.globAnimations if animation.isAlive()]
+
         if (self.startAnimation != None and not self.startAnimation.isAlive()):
             self.startAnimation = None
 

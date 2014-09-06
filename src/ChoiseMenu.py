@@ -9,6 +9,8 @@ from Button import *
 from ButtonInter import *
 from ButtonIntra import *
 from Fighters import *
+import globals
+
 class ChoiseMenu(Screen):
     def __init__(self, controller, screen, nextS):
         self.buttons = []

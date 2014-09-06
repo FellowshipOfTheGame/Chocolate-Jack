@@ -4,6 +4,7 @@ import States
 import sys
 import Frame
 from utils import safe_load
+import globals
 
 ###
 #   Fighters

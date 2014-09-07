@@ -6,6 +6,8 @@ from Fights import *
 from Menu import *
 from ChoiseMenu import *
 from Fighters import *
+import globals
+
 class Materials:
     Menu, Escolha, Fight, Settings = range(4)
 

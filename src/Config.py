@@ -9,6 +9,7 @@ from Screen import *
 from Button import *
 from ButtonInter import *
 from ButtonIntra import *
+import globals
 
 class setConfig():
     def __init__(self, controller, screen):

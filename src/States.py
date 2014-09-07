@@ -1,8 +1,10 @@
 #coding: utf-8
+import builtins
 import pygame
 import sys
 import Fighters
-
+import globals
+from Animations import *
 
 class StateMachine:
     def __init__(self):
@@ -13,7 +15,11 @@ class StateMachine:
         self.kick = False
     def execute(self, message):
         #CHANGE STATES
-        if(message == 'mvLKeyPressed' and not self.right):
+        if(message == 'mvLKeyReleased' or (message == 'mvRKeyPressed' and self.left)):
+            self.left = False
+        elif (message == 'mvRKeyReleased' or (message == 'mvLKeyPressed' and self.right)):
+            self.right = False
+        elif(message == 'mvLKeyPressed' and not self.right):
             self.left = True
         elif(message == 'mvRKeyPressed' and not self.left):
             self.right = True
@@ -21,12 +27,13 @@ class StateMachine:
             self.jump =True
         elif(message == 'pcKeyPressed'):
             self.punch = True
+            self.left = False
+            self.right = False
         elif(message == 'kcKeyPressed'):
             self.kick = True
-        elif(message == 'mvLKeyReleased' or message == 'mvRKeyPressed'):
             self.left = False
-        elif (message == 'mvRKeyReleased' or message == 'mvLKeyPressed'):
             self.right = False
+        
     def isPunching(self):
         return self.punch
     def isKicking(self):
@@ -42,449 +49,475 @@ class StateMachine:
 ###
 #   State "Machine"
 ###
+class State:
+    def Enter(self,Object, frames):
+        pass
+    def Execute(self, message):
+        pass
+    def Exit(self):
+        pass
+
+###
+#   self.Fighter States
+###
 class States:
+    class f_stopped(State):
 
-    def Enter(self,Object):
-        pass
-    def Execute(self,Object, message):
-        pass
-    def Exit(self,Object):
-        pass
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            #self.Fighter.mvCooldown = 0 #why?
+            self.Fighter.drawPx = self.Fighter.px
+            self.Fighter.drawPy = self.Fighter.py
+            self.Fighter.frameNum = -1;
 
-###
-#   Fighter States
-###
+            self.frames = frames
 
-class f_stopped(States):
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
 
-    def Enter(self, Fighter):
-        #Fighter.mvCooldown = 0 #why?
-        Fighter.drawPx = Fighter.px
-        Fighter.drawPy = Fighter.py
-        Fighter.frameNum = -1;
-        halfQtdFrames = int(len(Fighter.stopFrames)/2)
-        Fighter.curFrame = Fighter.stopFrames[Fighter.facing*halfQtdFrames]
-        
-    def Execute(self,Fighter, machine):
-        
-        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-        halfQtdFrames = int(len(Fighter.stopFrames)/2)
+        def Execute(self, message):
 
-        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.facing*halfQtdFrames
-        Fighter.curFrame = Fighter.stopFrames[Fighter.frameNum]
-
-        #CHANGE STATES
-        if (machine.isMovingLeft()):
-            Fighter.mvDir = 1
-            Fighter.changeState(f_moving())
-        elif(machine.isMovingRight()):
-            Fighter.mvDir = 0
-            Fighter.changeState(f_moving())
-        elif(machine.isJumping()):
-            if (Fighter.jumping == False):
-                Fighter.jumping = True
-                Fighter.changeState(f_jumping_stopped())
-        elif(machine.isPunching()):
-            Fighter.changeState(f_punching())
-        elif(machine.isKicking()):
-            Fighter.changeState(f_kicking())
-
-    def Exit(self,Fighter):
-        pass
-
-class f_dazzed(States):
-
-    def Enter(self, Fighter):
-        self.dazzed = 10
-        #Fighter.mvCooldown = 0 #why?
-        Fighter.drawPx = Fighter.px
-        Fighter.drawPy = Fighter.py
-        Fighter.frameNum = -1;
-        halfQtdFrames = int(len(Fighter.stopFrames)/2)
-        Fighter.curFrame = Fighter.stopFrames[Fighter.facing*halfQtdFrames]
-        
-    def Execute(self,Fighter, machine):
-        self.dazzed = self.dazzed -1
-        if (self.dazzed <= 0):
             #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-            halfQtdFrames = int(len(Fighter.stopFrames)/2)
-    
-            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.facing*halfQtdFrames
-            Fighter.curFrame = Fighter.stopFrames[Fighter.frameNum]
-    
+            self.halfQtdFrames = int(len(self.frames)/2)
+
+            self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames) + self.Fighter.facing*self.halfQtdFrames
+            self.Fighter.curFrame = self.frames[self.Fighter.frameNum]
+
             #CHANGE STATES
-            if (machine.isMovingLeft()):
-                Fighter.mvDir = 1
-                Fighter.changeState(f_moving())
-            elif(machine.isMovingRight()):
-                Fighter.mvDir = 0
-                Fighter.changeState(f_moving())
-            elif(machine.isJumping()):
-                if (Fighter.jumping == False):
-                    Fighter.jumping = True
-                    Fighter.changeState(f_jumping_stopped())
-            elif(machine.isPunching()):
-                Fighter.changeState(f_punching())
-            elif(machine.isKicking()):
-                Fighter.changeState(f_kicking())
+            self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
+            """if (self.Fighter.machine.isMovingLeft()):
+                self.Fighter.moviment.mvDir = 1
+                self.Fighter.changeState(States.f_moving())
+            elif(self.Fighter.machine.isMovingRight()):
+                self.Fighter.moviment.mvDir = 0
+                self.Fighter.changeState(States.f_moving())
+            elif(self.Fighter.machine.isJumping()):
+                if (self.Fighter.moviment.jumping == False):
+                    self.Fighter.moviment.jumping = True
+                    self.Fighter.changeState(States.f_jumping_stopped())
+            elif(self.Fighter.machine.isPunching()):
+                self.Fighter.changeState(States.f_punching())
+            elif(self.Fighter.machine.isKicking()):
+                self.Fighter.changeState(States.f_kicking())"""
 
-    def Exit(self,Fighter):
-        pass
-###
-class f_moving(States):
-
-    def Enter(self,Fighter):
-        Fighter.drawPx = Fighter.px
-        Fighter.drawPy = Fighter.py
-        Fighter.mvCooldown = 0
-        Fighter.frameNum = -1
-
-    def Execute(self,Fighter, machine):
-        halfQtdFrames = int(len(Fighter.movFrames)/2)
-        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
-        if(Fighter.frameNum < halfQtdFrames):
-            Fighter.curFrame = Fighter.movFrames[Fighter.frameNum+Fighter.mvDir*halfQtdFrames]
-            
-            #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
-            Fighter.px = Fighter.px + (Fighter.mvDir*(-2)+1)*Fighter.mvInc
-            Fighter.drawPx = Fighter.px
-            if (Fighter.frameNum == halfQtdFrames):
-                Fighter.changeState(f_stopped())
-            if(machine.isStopped()):
-                Fighter.changeState(f_stopped())
-        else:
-            #CHANGE STATE
-            if (machine.isJumping()):
-                if (Fighter.jumping == False):
-                    Fighter.jumping = True
-                    Fighter.changeState(f_jumping_moving())
-            elif (machine.isMovingLeft()):
-                Fighter.mvDir = 1
-                Fighter.changeState(f_moving())
-            elif(machine.isMovingRight()):
-                Fighter.mvDir = 0
-                Fighter.changeState(f_moving())
-            elif(machine.isPunching()):
-                Fighter.changeState(f_punching())
-            elif(machine.isKicking()):
-                Fighter.changeState(f_kicking())
-            elif(machine.isStopped()):
-                Fighter.changeState(f_stopped())
-
-
-        
-    def Exit(self,Fighter):
-        pass
-
-class f_jumping_stopped(States):
-
-    def Enter(self, Fighter):
-        '''
-        print ("pulando")
-        self.force = Fighter.getForceJump()
-        Fighter.jumping = True
-        Fighter.machine.jump = False
-        #Fighter.mvCooldown = 0 #why?
-        Fighter.drawPx = Fighter.px
-        Fighter.drawPy = Fighter.py
-        Fighter.frameNum = -1;
-        halfQtdFrames = int(len(Fighter.jpFrames)/2)
-        Fighter.curFrame = Fighter.jpFrames[Fighter.facing*halfQtdFrames]
-        '''
-        self.force = Fighter.getForceJump()
-        Fighter.jumping = True
-        Fighter.machine.jump = False
-        Fighter.drawPx = Fighter.px
-        Fighter.drawPy = Fighter.py
-        Fighter.mvCooldown = 0
-        Fighter.frameNum = -1
-        halfQtdFrames = int(len(Fighter.jpFrames)/2)
-        Fighter.curFrame = Fighter.jpFrames[Fighter.facing*halfQtdFrames]
-        #'''
-    def Execute(self,Fighter, message):
-        
-        if(Fighter.mvCooldown <= 0):
-            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-            halfQtdFrames = int(len(Fighter.jpFrames)/2)
-    
-            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.facing*halfQtdFrames
-            Fighter.curFrame = Fighter.jpFrames[Fighter.frameNum]
-            Fighter.drawPy = Fighter.py
-            Fighter.mvCooldown = Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
-    
-        if (self.force >=1):
-            Fighter.py -= self.force
-            self.force = self.force /2
-        elif (self.force <=-Fighter.getForceJump()):
-            Fighter.machine.jump = False
-            Fighter.changeState(f_stopped())
-        elif (self.force <0):
-            self.force = self.force *2
-            Fighter.py -= self.force
+        def Exit(self):
             pass
-        else:
-            self.force = -self.force
-            
-        Fighter.mvCooldown = Fighter.mvCooldown - 1
 
-    def Exit(self,Fighter):
-        Fighter.jumping = False
-        Fighter.machine.jump = False
+    class f_dazzed(State):
 
-###
-class f_jumping_moving(States):
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.dazzed = 10
+            #self.Fighter.mvCooldown = 0 #why?
+            self.Fighter.drawPx = self.Fighter.px
+            self.Fighter.drawPy = self.Fighter.py
+            self.Fighter.frameNum = -1;
+            self.frames = frames
 
-    def Enter(self,Fighter):
-        self.force = 50
-        Fighter.jumping = True
-        Fighter.machine.jump = False
-        Fighter.drawPx = Fighter.px
-        Fighter.drawPy = Fighter.py
-        Fighter.mvCooldown = 0
-        Fighter.frameNum = -1
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
 
-    def Execute(self,Fighter, machine):
-        if(Fighter.mvCooldown <= 0):
-            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-            halfQtdFrames = int(len(Fighter.jpFrames)/2)
+        def Execute(self, message):
+            self.dazzed = self.dazzed -1
+            if (self.dazzed <= 0):
+                #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+                self.halfQtdFrames = int(len(self.frames)/2)
 
-            Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames) + Fighter.mvDir*halfQtdFrames
-            Fighter.curFrame = Fighter.jpFrames[Fighter.frameNum]
+                self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames) + self.Fighter.facing*self.halfQtdFrames
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum]
 
-            #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
-            Fighter.px = Fighter.px + (Fighter.mvDir*(-2)+1)*Fighter.mvInc
-            Fighter.drawPx = Fighter.px
-            Fighter.drawPy = Fighter.py
+                #CHANGE STATES
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
 
-            
-        if (self.force >=1):
-            Fighter.py -= self.force
-            self.force = self.force /2
-        elif (self.force <=-50):
-            Fighter.machine.jump = False
-            Fighter.changeState(f_moving())
-        elif (self.force <0):
-            self.force = self.force *2
-            Fighter.py -= self.force
+        def Exit(self):
             pass
-        else:
-            self.force = -self.force
+    ###
+    class f_moving(State):
+        isMovimentState = True
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.Fighter.drawPx = self.Fighter.px
+            self.Fighter.drawPy = self.Fighter.py
+            self.Fighter.mvCooldown = 0
+            #self.Fighter.frameNum = -1
+            self.frames = frames
 
-        Fighter.mvCooldown = Fighter.mvCooldown - 1
+#            if (self.Fighter.machine.isMovingLeft()):
+ #               self.Fighter.moviment.mvDir = 1
+#            elif(self.Fighter.machine.isMovingRight()):
+ #               self.Fighter.moviment.mvDir = 0
 
-        
-    def Exit(self,Fighter):
-        Fighter.jumping = False
+            self.halfQtdFrames = int(len(self.frames)/2)
+            #self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
 
-###
-class f_punching(States):
+        def Execute(self, message):
+            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+            self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames+1)
+            if(self.Fighter.frameNum < self.halfQtdFrames):
+                self.Fighter.curFrame = self.frames[self.Fighter
+                                                        .frameNum+self
+                    .Fighter.moviment.mvDir*self.halfQtdFrames]
 
-    def Enter(self, Fighter):
-        self.stateTime = 10
-        Fighter.pcCooldown = Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
-        Fighter.frameNum = -1
-        Fighter.machine.punch = False
+                #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
+                self.Fighter.px = self.Fighter.px + (self.Fighter.moviment.mvDir*(-2)+1)*self.Fighter.moviment.mvInc
+                self.Fighter.drawPx = self.Fighter.px
+                if (self.Fighter.frameNum == self.halfQtdFrames):
+                    self.Fighter.changeState(States.f_stopped())
 
-    def Execute(self, Fighter, machine):
-        halfQtdFrames = int(len(Fighter.pcFrames)/2)
-        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
-        if(Fighter.frameNum < halfQtdFrames):
-            Fighter.curFrame = Fighter.pcFrames[Fighter.frameNum+Fighter.facing*halfQtdFrames]
-
-            #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
-            #Fighter.pcPx = Fighter.px - Fighter.facing*Fighter.pcDist
-            Fighter.pcPx = Fighter.px - (Fighter.facing)*(Fighter.pcDist)
-            Fighter.pcPy = Fighter.py
-            Fighter.drawPx = Fighter.pcPx
-            Fighter.drawPy = Fighter.pcPy
-
-            #checando colisao
-            for coll in Fighter.curFrame.getCollisionsRect(Fighter.pcPx, Fighter.pcPy):
-                if(coll.collidelist(Fighter.enemy.curFrame.getCollisionsRect(Fighter.enemy.drawPx,
-                                                                             Fighter.enemy.drawPy)) > -1):
-                    Fighter.soco = 1
-                    Fighter.enemy.hp = Fighter.enemy.hp - (Fighter.attack - Fighter.enemy.defense)
-        else:
-            #CHANGE STATE
-            if (machine.isMovingLeft()):
-                Fighter.mvDir = 1
-                Fighter.changeState(f_moving())
-            elif(machine.isMovingRight()):
-                Fighter.mvDir = 0
-                Fighter.changeState(f_moving())
-            elif(machine.isJumping()):
-                if (Fighter.jumping == False):
-                    Fighter.jumping = True
-                    Fighter.changeState(f_jumping_moving())
-            elif(machine.isPunching()):
-                Fighter.changeState(f_punching_2())
-            elif(machine.isKicking()):
-                Fighter.changeState(f_kicking())
+                #if(self.Fighter.machine.isStopped()):
+                 #   self.Fighter.changeState(self.Fighter.states.getAction(self
+                  #                                                .__class__
+                   #                                      .__name__,'null'))
+                    #self.Fighter.changeState(States.f_stopped())
             else:
-                Fighter.changeState(f_stopped())
-            
-            
+                pass
+                #CHANGE STATE
+            self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message, True))
 
-    def Exit(self, Fighter):
-        pass
+        def Exit(self):
+            pass
 
+    class f_jumping_stopped(State):
 
-class f_punching_2(States):
+        def Enter(self, Fighter, zframes):
+            self.Fighter = Fighter
+            '''
+            print ("pulando")
+            self.force = self.Fighter.getForceJump()
+            self.Fighter.moviment.jumping = True
+            self.Fighter.machine.jump = False
+            #self.Fighter.mvCooldown = 0 #why?
+            self.Fighter.drawPx = self.Fighter.px
+            self.Fighter.drawPy = self.Fighter.py
+            self.Fighter.frameNum = -1;
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+            '''
+            self.force = self.Fighter.getForceJump()
+            self.Fighter.moviment.jumping = True
+            self.Fighter.drawPx = self.Fighter.px
+            self.Fighter.drawPy = self.Fighter.py
+            self.Fighter.mvCooldown = 0
+            self.Fighter.frameNum = -1
+            self.frames = frames
 
-    def Enter(self, Fighter):
-        self.stateTime = 10
-        Fighter.pcCooldown = Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
-        Fighter.frameNum = -1
-        Fighter.machine.punch = False
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+            #'''
+        def Execute(self, message):
 
-    def Execute(self, Fighter, machine):
-        halfQtdFrames = int(len(Fighter.pcFrames)/2)
-        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
-        if(Fighter.frameNum < halfQtdFrames):
-            Fighter.curFrame = Fighter.pcFrames[Fighter.frameNum+Fighter.facing*halfQtdFrames]
+            if(self.Fighter.mvCooldown <= 0):
+                #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+                self.halfQtdFrames = int(len(self.frames)/2)
 
-            #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
-            #Fighter.pcPx = Fighter.px - Fighter.facing*Fighter.pcDist
-            Fighter.pcPx = Fighter.px - (Fighter.facing)*(Fighter.pcDist)
-            Fighter.pcPy = Fighter.py
-            Fighter.drawPx = Fighter.pcPx
-            Fighter.drawPy = Fighter.pcPy
+                self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames) + self.Fighter.facing*self.halfQtdFrames
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum]
+                self.Fighter.drawPy = self.Fighter.py
+                self.Fighter.mvCooldown = self.Fighter.mvMaxCooldown + 1 #esse +1 serah removido na linha seguinte
 
-            #checando colisao
-            for coll in Fighter.curFrame.getCollisionsRect(Fighter.pcPx, Fighter.pcPy):
-                if(coll.collidelist(Fighter.enemy.curFrame.getCollisionsRect(Fighter.enemy.drawPx,
-                                                                             Fighter.enemy.drawPy)) > -1):
-                    Fighter.soco = 1
-                    Fighter.enemy.hp = Fighter.enemy.hp - (Fighter.attack - Fighter.enemy.defense)
-        else:
-            #CHANGE STATE
-            if (machine.isMovingLeft()):
-                Fighter.mvDir = 1
-                Fighter.changeState(f_moving())
-            elif(machine.isMovingRight()):
-                Fighter.mvDir = 0
-                Fighter.changeState(f_moving())
-            elif(machine.isJumping()):
-                if (Fighter.jumping == False):
-                    Fighter.jumping = True
-                    Fighter.changeState(f_jumping_moving())
-            elif(machine.isPunching()):
-                Fighter.changeState(f_punching_3())
-            elif(machine.isKicking()):
-                Fighter.changeState(f_kicking())
+            if (self.force >=1):
+                self.Fighter.py -= self.force
+                self.force = self.force /2
+            elif (self.force <=-self.Fighter.getForceJump()):
+                self.Fighter.changeState(self.Fighter.states.getAction(self
+                                                                  .__class__
+                                                         .__name__,'*'))
+            elif (self.force <0):
+                self.force = self.force *2
+                self.Fighter.py -= self.force
+                pass
             else:
-                Fighter.changeState(f_stopped())
+                self.force = -self.force
 
-    def Exit(self, Fighter):
-        pass
+            self.Fighter.mvCooldown = self.Fighter.mvCooldown - 1
 
-class f_punching_3(States):
+        def Exit(self):
+            self.Fighter.moviment.jumping = False
 
-    def Enter(self, Fighter):
-        self.stateTime = 10
-        Fighter.pcCooldown = Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
-        Fighter.frameNum = -1
-        Fighter.machine.punch = False
+    ###
+    class f_jumping_moving(State):
 
-    def Execute(self, Fighter, machine):
-        halfQtdFrames = int(len(Fighter.pcFrames)/2)
-        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
-        if(Fighter.frameNum < halfQtdFrames):
-            Fighter.curFrame = Fighter.pcFrames[Fighter.frameNum+Fighter.facing*halfQtdFrames]
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.force = 50
+            self.Fighter.moviment.jumping = True
+            self.Fighter.drawPx = self.Fighter.px
+            self.Fighter.drawPy = self.Fighter.py
+            self.Fighter.mvCooldown = 0
+            self.Fighter.frameNum = -1
 
-            #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
-            #Fighter.pcPx = Fighter.px - Fighter.facing*Fighter.pcDist
-            Fighter.pcPx = Fighter.px - (Fighter.facing)*(Fighter.pcDist)
-            Fighter.pcPy = Fighter.py
-            Fighter.drawPx = Fighter.pcPx
-            Fighter.drawPy = Fighter.pcPy
+            self.frames = frames
 
-            #checando colisao
-            for coll in Fighter.curFrame.getCollisionsRect(Fighter.pcPx, Fighter.pcPy):
-                if(coll.collidelist(Fighter.enemy.curFrame.getCollisionsRect(Fighter.enemy.drawPx,
-                                                                             Fighter.enemy.drawPy)) > -1):
-                    Fighter.soco = 1
-                    Fighter.enemy.hp = Fighter.enemy.hp - (Fighter.attack - Fighter.enemy.defense)
-        else:
-            #CHANGE STATE
-            if (machine.isMovingLeft()):
-                Fighter.mvDir = 1
-                Fighter.changeState(f_moving())
-            elif(machine.isMovingRight()):
-                Fighter.mvDir = 0
-                Fighter.changeState(f_moving())
-            elif(machine.isJumping()):
-                if (Fighter.jumping == False):
-                    Fighter.jumping = True
-                    Fighter.changeState(f_jumping_moving())
-            elif(machine.isPunching()):
-                machine.punch = False
-            elif(machine.isKicking()):
-                Fighter.changeState(f_kicking())
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+
+        def Execute(self, message, optional =0):
+            if(self.Fighter.mvCooldown <= 0):
+                #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+                self.halfQtdFrames = int(len(self.frames)/2)
+
+                self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames) + self.Fighter.moviment.mvDir*self.halfQtdFrames
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum]
+
+                #Posicao aumenta em mvInc caso dir igual a 0 (indo para a dir), caso contrario decrementa.
+                self.Fighter.px = self.Fighter.px + (self.Fighter.moviment.mvDir*(-2)+1)*self.Fighter.moviment.mvInc
+                self.Fighter.drawPx = self.Fighter.px
+                self.Fighter.drawPy = self.Fighter.py
+
+
+            if (self.force >=1):
+                self.Fighter.py -= self.force
+                self.force = self.force /2
+            elif (self.force <=-50):
+                #self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message, True))
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,'*'))
+            elif (self.force <0):
+                self.force = self.force *2
+                self.Fighter.py -= self.force
+                pass
             else:
-                Fighter.changeState(f_stopped())
+                self.force = -self.force
 
-    def Exit(self, Fighter):
-        pass
-###
-class f_kicking(States):
+            self.Fighter.mvCooldown = self.Fighter.mvCooldown - 1
 
-    def Enter(self, Fighter):
-        self.stateTime = 7
-        Fighter.kcCooldown = Fighter.kcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
-        Fighter.frameNum = -1
-        Fighter.machine.kick = False
 
-    def Execute(self, Fighter, machine):
-        halfQtdFrames = int(len(Fighter.kcFrames)/2)
-        #considerando que a primeira metade tem movimentos facing right e a segunda facing left
-        Fighter.frameNum = (Fighter.frameNum + 1)%(halfQtdFrames+1)
-        if(Fighter.frameNum < halfQtdFrames):
-            Fighter.curFrame = Fighter.kcFrames[Fighter.frameNum+Fighter
-                .facing*halfQtdFrames]
+        def Exit(self):
+            self.Fighter.moviment.jumping = False
 
-            #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
-            #Fighter.pcPx = Fighter.px - Fighter.facing*Fighter.pcDist
-            Fighter.pcPx = Fighter.px - (Fighter.facing)*(Fighter.pcDist)
-            Fighter.pcPy = Fighter.py
-            Fighter.drawPx = Fighter.pcPx
-            Fighter.drawPy = Fighter.pcPy
+    ###
+    class f_punching(State):
 
-            #checando colisao
-            for coll in Fighter.curFrame.getCollisionsRect(Fighter.pcPx, Fighter.pcPy):
-                if(coll.collidelist(Fighter.enemy.curFrame.getCollisionsRect(Fighter.enemy.drawPx,
-                                                                             Fighter.enemy.drawPy)) > -1):
-                    Fighter.soco = 1
-                    Fighter.enemy.hp = Fighter.enemy.hp - (Fighter.attack - Fighter.enemy.defense)
-        else:
-            #CHANGE STATE
-            if (machine.isMovingLeft()):
-                Fighter.mvDir = 1
-                Fighter.changeState(f_moving())
-            elif(machine.isMovingRight()):
-                Fighter.mvDir = 0
-                Fighter.changeState(f_moving())
-            elif(machine.isJumping()):
-                if (Fighter.jumping == False):
-                    Fighter.jumping = True
-                    Fighter.changeState(f_jumping_moving())
-            elif(machine.isPunching()):
-                Fighter.changeState(f_punching())
-            elif(machine.isKicking()):
-                machine.kick = False
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.stateTime = 10
+            self.Fighter.pcCooldown = self.Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
+            self.Fighter.frameNum = -1
+            self.frames = frames
+
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+
+        def Execute(self, message):
+            self.halfQtdFrames = int(len(self.frames)/2)
+            #considerando que a primeira metade tem movimentos facing right e a segunda facing left
+            self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames+1)
+            if(self.Fighter.frameNum < self.halfQtdFrames):
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum+self.Fighter
+                    .facing*self.halfQtdFrames]
+
+                #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
+                #self.Fighter.pcPx = self.Fighter.px - self.Fighter.facing*self.Fighter.pcDist
+                self.Fighter.pcPx = self.Fighter.px - (self.Fighter.facing)*(self.Fighter.pcDist)
+                self.Fighter.pcPy = self.Fighter.py
+                self.Fighter.drawPx = self.Fighter.pcPx
+                self.Fighter.drawPy = self.Fighter.pcPy
+
+                #checando colisao
+                for coll in self.Fighter.curFrame.getCollisionsRect(self.Fighter.pcPx, self.Fighter.pcPy):
+                    if(coll.collidelist(self.Fighter.enemy.curFrame.getSelfRect(self.Fighter.enemy.drawPx,
+                                                                                 self.Fighter.enemy.drawPy)) > -1):
+                        self.Fighter.soco = 1
+                        self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
+
+                        globals.globAnimations.append(Animations.StartChocoPunchAnimation(globals.globTela,
+                                  (self.Fighter.pcPx, self.Fighter.pcPy), self.Fighter.player))
             else:
-                Fighter.changeState(f_stopped())
-        
+                #CHANGE STATE
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
+                """if (self.Fighter.machine.isMovingLeft()):
+                    self.Fighter.moviment.mvDir = 1
+                    self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isMovingRight()):
+                    self.Fighter.moviment.mvDir = 0
+                    self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isJumping()):
+                    if (self.Fighter.moviment.jumping == False):
+                        self.Fighter.moviment.jumping = True
+                        self.Fighter.changeState(States.f_jumping_moving())
+                elif(self.Fighter.machine.isPunching()):
+                    self.Fighter.changeState(States.f_punching_2())
+                elif(self.Fighter.machine.isKicking()):
+                    self.Fighter.changeState(States.f_kicking())
+                else:
+                    self.Fighter.changeState(States.f_stopped())"""
 
-    def Exit(self, Fighter):
-        pass
-###
-#   Scenario States
-###
+
+
+        def Exit(self):
+            pass
+
+
+    class f_punching_2(State):
+
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.stateTime = 10
+            self.Fighter.pcCooldown = self.Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
+            self.Fighter.frameNum = -1
+
+            self.frames = frames
+
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+
+        def Execute(self, message):
+            self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames+1)
+            if(self.Fighter.frameNum < self.halfQtdFrames):
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum+self.Fighter
+                    .facing*self.halfQtdFrames]
+
+                #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
+                #self.Fighter.pcPx = self.Fighter.px - self.Fighter.facing*self.Fighter.pcDist
+                self.Fighter.pcPx = self.Fighter.px - (self.Fighter.facing)*(self.Fighter.pcDist)
+                self.Fighter.pcPy = self.Fighter.py
+                self.Fighter.drawPx = self.Fighter.pcPx
+                self.Fighter.drawPy = self.Fighter.pcPy
+
+                #checando colisao
+                for coll in self.Fighter.curFrame.getCollisionsRect(self.Fighter.pcPx, self.Fighter.pcPy):
+                    if(coll.collidelist(self.Fighter.enemy.curFrame.getSelfRect(self.Fighter.enemy.drawPx,
+                                                                                 self.Fighter.enemy.drawPy)) > -1):
+
+                        self.Fighter.soco = 1
+                        self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
+            else:
+                #CHANGE STATE
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
+                """if (self.Fighter.machine.isMovingLeft()):
+                    self.Fighter.moviment.mvDir = 1
+                    self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isMovingRight()):
+                    self.Fighter.moviment.mvDir = 0
+                    self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isJumping()):
+                    if (self.Fighter.moviment.jumping == False):
+                        self.Fighter.moviment.jumping = True
+                        self.Fighter.changeState(States.f_jumping_moving())
+                elif(self.Fighter.machine.isPunching()):
+                    self.Fighter.changeState(States.f_punching_3())
+                elif(self.Fighter.machine.isKicking()):
+                    self.Fighter.changeState(States.f_kicking())
+                else:
+                    self.Fighter.changeState(States.f_stopped())"""
+
+        def Exit(self):
+            pass
+
+    class f_punching_3(State):
+
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.stateTime = 10
+            self.Fighter.pcCooldown = self.Fighter.pcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
+            self.Fighter.frameNum = -1
+
+
+            self.frames = frames
+
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+
+        def Execute(self, message):
+            self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames+1)
+            if(self.Fighter.frameNum < self.halfQtdFrames):
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum+self.Fighter
+                    .facing*self.halfQtdFrames]
+
+                #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de socxo.
+                #self.Fighter.pcPx = self.Fighter.px - self.Fighter.facing*self.Fighter.pcDist
+                self.Fighter.pcPx = self.Fighter.px - (self.Fighter.facing)*(self.Fighter.pcDist)
+                self.Fighter.pcPy = self.Fighter.py
+                self.Fighter.drawPx = self.Fighter.pcPx
+                self.Fighter.drawPy = self.Fighter.pcPy
+
+                #checando colisao
+                for coll in self.Fighter.curFrame.getCollisionsRect(self.Fighter.pcPx, self.Fighter.pcPy):
+                    if(coll.collidelist(self.Fighter.enemy.curFrame.getSelfRect(self.Fighter.enemy.drawPx,
+                                                                                 self.Fighter.enemy.drawPy)) > -1):
+                        self.Fighter.soco = 1
+                        self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
+            else:
+                #CHANGE STATE
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
+                """if (self.Fighter.machine.isMovingLeft()):
+                    self.Fighter.moviment.mvDir = 1
+                    self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isMovingRight()):
+                    self.Fighter.moviment.mvDir = 0
+                    self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isJumping()):
+                    if (self.Fighter.moviment.jumping == False):
+                        self.Fighter.moviment.jumping = True
+                        self.Fighter.changeState(States.f_jumping_moving())
+                elif(self.Fighter.machine.isPunching()):
+                    self.Fighter.machine.punch = False
+                elif(self.Fighter.machine.isKicking()):
+                    self.Fighter.changeState(States.f_kicking())
+                else:
+                    self.Fighter.changeState(States.f_stopped())"""
+
+        def Exit(self):
+            pass
+    ###
+    class f_kicking(State):
+
+        def Enter(self, Fighter, frames):
+            self.Fighter = Fighter
+            self.stateTime = 7
+            self.Fighter.kcCooldown = self.Fighter.kcMaxCooldown #ele ira demorar para comecar o soco, ao contrario de mv
+            self.Fighter.frameNum = -1
+
+
+            self.frames = frames
+
+            self.halfQtdFrames = int(len(self.frames)/2)
+            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+
+        def Execute(self, message):
+            self.Fighter.frameNum = (self.Fighter.frameNum + 1)%(self.halfQtdFrames+1)
+            if(self.Fighter.frameNum < self.halfQtdFrames):
+                self.Fighter.curFrame = self.frames[self.Fighter.frameNum+self.Fighter
+                    .facing*self.halfQtdFrames]
+
+                #Caso o char esteja socando apara a esquerda da tela, decrementa pcDist da posicao de soco.
+                #self.Fighter.pcPx = self.Fighter.px - self.Fighter.facing*self.Fighter.pcDist
+                self.Fighter.pcPx = self.Fighter.px - (self.Fighter.facing)*(self.Fighter.pcDist)
+                self.Fighter.pcPy = self.Fighter.py
+                self.Fighter.drawPx = self.Fighter.pcPx
+                self.Fighter.drawPy = self.Fighter.pcPy
+
+                #checando colisao
+                for coll in self.Fighter.curFrame.getCollisionsRect(self.Fighter.pcPx, self.Fighter.pcPy):
+                    if(coll.collidelist(self.Fighter.enemy.curFrame.getSelfRect(self.Fighter.enemy.drawPx,
+                                                                                 self.Fighter.enemy.drawPy)) > -1):
+                        self.Fighter.soco = 1
+                        self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
+            else:
+                #CHANGE STATE
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
+                """if (self.Fighter.machine.isMovingLeft()):
+                    self.Fighter.moviment.mvDir = 1
+                    #self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isMovingRight()):
+                    self.Fighter.moviment.mvDir = 0
+                    #self.Fighter.changeState(States.f_moving())
+                elif(self.Fighter.machine.isJumping()):
+                    if (self.Fighter.moviment.jumping == False):
+                        self.Fighter.moviment.jumping = True
+                        self.Fighter.changeState(States.f_jumping_moving())
+                elif(self.Fighter.machine.isPunching()):
+                    self.Fighter.changeState(States.f_punching())
+                elif(self.Fighter.machine.isKicking()):
+                    self.Fighter.machine.kick = False
+                else:
+                    self.Fighter.changeState(States.f_stopped())"""
+
+
+        def Exit(self):
+            pass
+    ###
+    #   Scenario States
+    ###
 class s_default(States):
 
     def Enter(self, pScene):

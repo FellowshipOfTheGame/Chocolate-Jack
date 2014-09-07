@@ -4,6 +4,8 @@ import threading
 import time
 import math
 from utils import safe_load
+import globals
+
 class names:
     Start, Config= range(2)
 

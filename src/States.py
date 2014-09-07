@@ -319,7 +319,8 @@ class States:
                         self.Fighter.soco = 1
                         self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
 
-                        globals.globAnimations.append(Animations.StartChocoPunchAnimation(globals.globTela,(self.Fighter.pcPx, self.Fighter.pcPy), self.Fighter.player))
+                        globals.globAnimations.append(Animations.StartChocoPunchAnimation(globals.globTela,
+                                                                                          (self.Fighter.pcPx, self.Fighter.pcPy), self.Fighter.player))
             else:
                 #CHANGE STATE
                 self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))

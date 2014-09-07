@@ -11,7 +11,7 @@ class GenericAnimation:
         self.tela = tela
         self.image = None
         self.lifetime = duration
-        self.origin = origin
+        self.origin = [origin[0],origin[1]]
         self.current = self.origin
         self.moviment = destiny
     def execute(self, decrementa):
@@ -77,21 +77,7 @@ class Animations:
                 origin,
                 [0,0]
                 )
-            self.index = 4;
             self.tela = tela
             self.image = safe_load(pygame.image.load, "data/imgs/ChocolateJack/ChocoDrop.png")
         def execute(self, decrementa):
             super().execute(decrementa)
-            if (self.lifetime < 1 and self.index > 1):
-                self.lifetime = 30
-                self.change()
-
-        def change(self):
-            self.index = self.index - 1
-            if (self.index == 3):
-                self.image = safe_load(pygame.image.load, "data/imgs/Screen/2.png")
-            elif (self.index == 2):
-                self.image = safe_load(pygame.image.load, "data/imgs/Screen/1.png")
-            elif (self.index == 1):
-                self.image = safe_load(pygame.image.load, "data/imgs/Screen/fight.png")
-

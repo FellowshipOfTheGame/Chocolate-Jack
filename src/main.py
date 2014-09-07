@@ -12,14 +12,14 @@ def main():
     pygame.init()
     resolucao = (1024,720)
 
-    globals.tela = pygame.display.set_mode(resolucao)
+    globals.globTela = pygame.display.set_mode(resolucao)
 
-    controller = ScreenController(globals.tela)
+    controller = ScreenController(globals.globTela)
     clock = pygame.time.Clock()
     readConfig()
     while controller.execute():
         pygame.display.flip()
-        globals.tela.fill((0,0,0))
+        globals.globTela.fill((0,0,0))
         clock.tick(120)
 
     pygame.quit()

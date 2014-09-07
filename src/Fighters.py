@@ -118,6 +118,7 @@ class Fighter:
         self.combat = CombatAtrr
         self.moviment = MovimentAttr()
         self.states = FighterStates(self)
+        self.lastMessage = 'null'
 
     #troca de estado
     def changeState(self, pNewState):
@@ -150,8 +151,12 @@ class Fighter:
     #act
     def Update(self, message):
         self.facingUpdate()
-        self.curState.Execute(message)
+        if (self.lastMessage != message and message !='null'
+            or (self.lastMessage == 'pcKeyPressed' or  self.lastMessage == 'kcKeyPressed'
+            or self.lastMessage == 'mvUKeyPressed')):
+            self.lastMessage = message
 
+        self.curState.Execute(self.lastMessage)
 
     #draw
     def draw(self, tela):

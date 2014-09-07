@@ -137,7 +137,7 @@ class States:
             self.Fighter.drawPx = self.Fighter.px
             self.Fighter.drawPy = self.Fighter.py
             self.Fighter.mvCooldown = 0
-            self.Fighter.frameNum = -1
+            #self.Fighter.frameNum = -1
             self.frames = frames
 
 #            if (self.Fighter.machine.isMovingLeft()):
@@ -146,7 +146,7 @@ class States:
  #               self.Fighter.moviment.mvDir = 0
 
             self.halfQtdFrames = int(len(self.frames)/2)
-            self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
+            #self.Fighter.curFrame = self.frames[self.Fighter.facing*self.halfQtdFrames]
 
         def Execute(self, message):
             #considerando que a primeira metade tem movimentos facing right e a segunda facing left
@@ -168,8 +168,9 @@ class States:
                    #                                      .__name__,'null'))
                     #self.Fighter.changeState(States.f_stopped())
             else:
+                pass
                 #CHANGE STATE
-                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message, True))
+            self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message, True))
 
         def Exit(self):
             pass
@@ -266,9 +267,8 @@ class States:
                 self.Fighter.py -= self.force
                 self.force = self.force /2
             elif (self.force <=-50):
-                self.Fighter.changeState(self.Fighter.states.getAction(self
-                                                                  .__class__
-                                                         .__name__,'*'))
+                #self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message, True))
+                self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,'*'))
             elif (self.force <0):
                 self.force = self.force *2
                 self.Fighter.py -= self.force

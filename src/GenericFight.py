@@ -26,6 +26,11 @@ class GenericFight(Screen):
         self.messageself2 = 'null'
 #        self.fundo = Scenarios.Training()
         self.fundo = Scenarios.ChocoLake()
+        self.music = pygame.mixer.music.load('data\\audio\\Cjack3.mid')
+
+        self.music = pygame.mixer.music.play(10, 0.0)
+        if not(pygame.mixer.music.get_busy()):
+            pygame.mixer.music.set_volume(1.0)
 
         self.f1 = None
         self.f2 = None

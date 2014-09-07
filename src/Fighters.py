@@ -27,7 +27,7 @@ class FighterStates:
             exit('não pode haver um estado parado com key didferente de null')
         self.states[(thisState, key)] = action
         self.frames[(thisState, key)] = frames
-        self.direction[action] = direction
+        self.direction[(action, key)] = direction
     def getAction(self,thisState, key, optional = False):
         #  if(self.player == 1):
         #print(thisState)
@@ -64,8 +64,8 @@ class FighterStates:
             state = self.states.get(temp)
             frame = self.frames.get(temp)
     
-        if state in self.direction:
-            direction = self.direction [state]
+        if (state, key) in self.direction:
+            direction = self.direction [(state, key)]
         return state, frame, direction    
 
 class VitalAtrr:
@@ -220,22 +220,22 @@ class Fighters:
             self.movFrames = (mvFrameR1,mvFrameR2,mvFrameR3,mvFrameL1,mvFrameL2,mvFrameL3)
 
             self.states.addM('f_stopped','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
+                            self.movFrames, 1)
             self.states.addM('f_moving','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
+                            self.movFrames, 1)
             self.states.addM('f_punching','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
+                            self.movFrames, 1)
             self.states.addM('f_kicking','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
+                            self.movFrames, 1)
 
             self.states.addM('f_stopped','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
+                            self.movFrames, 0)
             self.states.addM('f_moving','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
+                            self.movFrames, 0)
             self.states.addM('f_punching','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
+                            self.movFrames, 0)
             self.states.addM('f_kicking','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
+                            self.movFrames, 0)
 
 
             #criando frames de soco
@@ -592,9 +592,9 @@ class Fighters:
                             self.stopFrames)
 
             self.states.addM('f_stopped','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
-            self.states.addM('f_stopped','mvRKeyPressed','f_moving',
                             self.movFrames, 1)
+            self.states.addM('f_stopped','mvRKeyPressed','f_moving',
+                            self.movFrames, 0)
             self.states.add('f_stopped','mvUKeyPressed','f_jumping_stopped',
                             self.jpFrames)
             self.states.addM('f_stopped','pcKeyPressed','f_punching',
@@ -603,9 +603,9 @@ class Fighters:
                             self.kcFrames)
 
             self.states.addM('f_moving','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
-            self.states.addM('f_moving','mvRKeyPressed','f_moving',
                             self.movFrames, 1)
+            self.states.addM('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames, 0)
             self.states.add('f_moving','mvUKeyPressed','f_jumping_moving',
                             self.movFrames)
             self.states.add('f_moving','pcKeyPressed','f_punching',
@@ -615,14 +615,14 @@ class Fighters:
 
 
             self.states.addM('f_punching','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
-            self.states.addM('f_punching','mvLKeyPressed','f_moving',
                             self.movFrames, 0)
+            self.states.addM('f_punching','mvLKeyPressed','f_moving',
+                            self.movFrames, 1)
 
             self.states.addM('f_kicking','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
-            self.states.addM('f_kicking','mvRKeyPressed','f_moving',
                             self.movFrames, 1)
+            self.states.addM('f_kicking','mvRKeyPressed','f_moving',
+                            self.movFrames, 0)
 
 
             self.states.add('f_jumping_moving','*','f_moving',
@@ -793,26 +793,26 @@ class Fighters:
                             self.stopFrames)
 
             self.states.addM('f_stopped','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
-            self.states.addM('f_moving','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
-            self.states.addM('f_moving','mvRKeyPressed','f_moving',
                             self.movFrames, 1)
+            self.states.addM('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames, 1)
+            self.states.addM('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames, 0)
             self.states.addM('f_punching','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
+                            self.movFrames, 1)
             self.states.addM('f_kicking','mvLKeyPressed','f_moving',
-                            self.movFrames, 0)
+                            self.movFrames, 1)
 
             self.states.addM('f_stopped','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
-            self.states.addM('f_moving','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
-            self.states.addM('f_moving','mvLKeyPressed','f_moving',
                             self.movFrames, 0)
+            self.states.addM('f_moving','mvRKeyPressed','f_moving',
+                            self.movFrames, 0)
+            self.states.addM('f_moving','mvLKeyPressed','f_moving',
+                            self.movFrames, 1)
             self.states.addM('f_punching','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
+                            self.movFrames, 0)
             self.states.addM('f_kicking','mvRKeyPressed','f_moving',
-                            self.movFrames, 1)
+                            self.movFrames, 0)
 
             self.states.add('f_moving','mvUKeyPressed','f_jumping_moving',
                             self.movFrames)

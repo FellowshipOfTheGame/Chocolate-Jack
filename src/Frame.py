@@ -24,9 +24,14 @@ class Frame:
         return self.collision
 
     #essa funcao passa os rects ajustados pela posicao passada por parametro
+    def getSelfRect(self, pPx, pPy):
+        coll =  self.collision[0]
+        rect = pygame.Rect(coll[0]+pPx, coll[1] + pPy, coll[2], coll[3])
+        #print('SELF = ',self,'getting = ',rect)
+        return [rect]
     def getCollisionsRect(self, pPx, pPy):
         rectRet = []
-        for coll in self.collision:
+        for coll in self.collision[1:len(self.collision)]:
             rect = pygame.Rect(coll[0]+pPx, coll[1] + pPy, coll[2], coll[3])
             #print('SELF = ',self,'getting = ',rect)
             rectRet.append(rect)

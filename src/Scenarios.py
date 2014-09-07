@@ -4,6 +4,7 @@ import os
 from States import *
 import Frame
 from utils import safe_load
+import globals
 
 class Scenario:
 

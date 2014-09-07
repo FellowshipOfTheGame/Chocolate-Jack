@@ -16,6 +16,12 @@ import Fights
 from Animations import *
 from Screen import *
 from Config import *
+import globals
+
+class AnimationList:
+    def __init__(self, animations): self.animations = animations
+    def get(self):    return self.animations
+    def set(self, animations):      self.animations = animations
 class GenericFight(Screen):
     def __init__(self, controller, tela):
         self.keys = readConfig()
@@ -37,8 +43,8 @@ class GenericFight(Screen):
         self.buttons.append(ButtonInter(500, 500, 400, 73, 0, "Sair"))
 
         self.startAnimation = Animations.StartAnimation(self.tela)
-        self.animations = [self.startAnimation]
-    
+        globals.globAnimations = [self.startAnimation]
+
     def setFighters(self, f1, f2):
         self.f1 = f1(self.fundo.floorPy, 0, 1)
         self.f2 = f2(self.fundo.floorPy, 1, 2)
@@ -96,11 +102,13 @@ class GenericFight(Screen):
         self.f2.draw(self.tela)
         self.f1.draw(self.tela)
         #executa as animaçoes
-        for animation in self.animations:
+
+        for animation in globals.globAnimations:
             animation.execute(not self.pause);
             animation.desenha();
         #remove as animações mortas
-        self.animations = [animation for animation in self.animations if animation.isAlive()]
+        globals.globAnimations = [animation for animation in globals.globAnimations if animation.isAlive()]
+
         if (self.startAnimation != None and not self.startAnimation.isAlive()):
             self.startAnimation = None
 

@@ -1,23 +1,26 @@
 #coding: utf-8
 import pygame
 import sys
-
+import globals
 from Control import *
+import globals
 ###
 #   Main
 ###
+
 def main():
     pygame.init()
     resolucao = (1024,720)
-    tela = pygame.display.set_mode(resolucao)
 
-    controller = ScreenController(tela)
+    globals.tela = pygame.display.set_mode(resolucao)
+
+    controller = ScreenController(globals.tela)
     clock = pygame.time.Clock()
     readConfig()
     while controller.execute():
         pygame.display.flip()
-        tela.fill((0,0,0))
-        clock.tick(60)
+        globals.tela.fill((0,0,0))
+        clock.tick(120)
 
     pygame.quit()
 

@@ -5,6 +5,8 @@ import threading
 import time
 import math
 from Button import *
+import globals
+
 class ButtonInter(Button):
     def __init__(self, x=0, y=0, lx=0, ly=0, screenCod=0, text=None, screen=None):
         super().__init__(x, y, lx, ly, screenCod, text)

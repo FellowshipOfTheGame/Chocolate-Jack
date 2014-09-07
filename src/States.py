@@ -1,8 +1,10 @@
 #coding: utf-8
+import builtins
 import pygame
 import sys
 import Fighters
-
+import globals
+from Animations import *
 
 class StateMachine:
     def __init__(self):
@@ -177,7 +179,7 @@ class States:
 
     class f_jumping_stopped(State):
 
-        def Enter(self, Fighter, frames):
+        def Enter(self, Fighter, zframes):
             self.Fighter = Fighter
             '''
             print ("pulando")
@@ -316,6 +318,8 @@ class States:
                                                                                  self.Fighter.enemy.drawPy)) > -1):
                         self.Fighter.soco = 1
                         self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
+
+                        globals.globAnimations.append(Animations.StartChocoPunchAnimation(globals.globTela,(self.Fighter.pcPx, self.Fighter.pcPy), self.Fighter.player))
             else:
                 #CHANGE STATE
                 self.Fighter.changeState(self.Fighter.states.getAction(self.__class__.__name__,message))
@@ -372,6 +376,9 @@ class States:
                 for coll in self.Fighter.curFrame.getCollisionsRect(self.Fighter.pcPx, self.Fighter.pcPy):
                     if(coll.collidelist(self.Fighter.enemy.curFrame.getCollisionsRect(self.Fighter.enemy.drawPx,
                                                                                  self.Fighter.enemy.drawPy)) > -1):
+                        #declarando que usara a tela global
+                        tela # ignore que é global
+
                         self.Fighter.soco = 1
                         self.Fighter.enemy.hp = self.Fighter.enemy.hp - (self.Fighter.attack - self.Fighter.enemy.defense)
             else:

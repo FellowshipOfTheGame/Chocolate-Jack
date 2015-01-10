@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pack>
+    <music atlasID="0" desc="" id="5" loop="true" name="BattleSound" oid="-1" pan="0" shared="false" stream="true" type="mp3" volume="1"/>
+    <actor adamp="0.0" ascale="true" atlasID="0" bodytype="2" continuous="true" desc="" eventsnippetid="5" fixedrot="false" fric="0.2" gid="3" id="6" ignoreg="false" inertia="1.0" ldamp="0.0" mass="1.0" name="BrocolisNinja" oid="-1" pausable="true" physicsMode="0" rest="0.0" shared="false" sprite="7" static="false">
+        <snippets>
+            <s enabled="true" id="4">
+                <prop id="1" list="0" val="No Control"/>
+                <prop id="2" list="0" val=""/>
+                <prop id="3" list="0" val="No Control"/>
+                <prop id="4" list="0" val=""/>
+                <prop id="5" list="0" val=""/>
+                <prop id="6" list="0" val="false"/>
+                <prop id="2147483647" list="0" val="thisactor"/>
+            </s>
+        </snippets>
+    </actor>
+    <sprite atlasID="0" default="0" defaultAnimation="0" desc="" height="150" id="7" name="BrocolisNinja" shared="false" width="200">
+        <anim across="1" down="1" durations="100" height="150" id="0" loop="true" name="idleR" numframes="1" originx="0" originy="0" sync="false" version="2" width="200">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 0" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="1" down="1" durations="100" height="150" id="1" loop="true" name="idleL" numframes="1" originx="0" originy="0" sync="false" version="2" width="200">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="idleL" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="1" durations="100,100" height="150" id="2" loop="true" name="walkR" numframes="2" originx="0" originy="0" sync="false" version="2" width="400">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 2" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="1" durations="100,100" height="150" id="3" loop="true" name="walkL" numframes="2" originx="0" originy="0" sync="false" version="2" width="400">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="walkL" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="2" durations="50,50,50,50" height="300" id="4" loop="true" name="attackR" numframes="4" originx="0" originy="0" sync="false" version="2" width="400">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 4" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="2" durations="50,50,50,50" height="300" id="5" loop="true" name="attackL" numframes="4" originx="0" originy="0" sync="false" version="2" width="400">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="attackL" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="2" durations="80,80,80" height="300" id="6" loop="true" name="attackLowR" numframes="3" originx="0" originy="0" sync="false" version="2" width="400">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 6" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="2" durations="80,80,80" height="300" id="7" loop="true" name="attackLowL" numframes="3" originx="0" originy="0" sync="false" version="2" width="400">
+            <poly data="4,0,0,200,0,200,150,0,150" density="0.1" fric="0.2" gid="-1000" id="0" name="attackLowL" rest="0.0" sensor="false"/>
+        </anim>
+    </sprite>
+    <actor adamp="0.0" ascale="true" atlasID="0" bodytype="2" continuous="true" desc="" eventsnippetid="0" fixedrot="true" fric="0.2" gid="3" id="0" ignoreg="false" inertia="1.0" ldamp="0.0" mass="80.0" name="ChocoJack" oid="-1" pausable="true" physicsMode="0" rest="0.0" shared="false" sprite="1" static="false">
+        <snippets>
+            <s enabled="true" id="4">
+                <prop id="1" list="0" val="right"/>
+                <prop id="2" list="0" val="walkR"/>
+                <prop id="3" list="0" val="left"/>
+                <prop id="4" list="0" val="walkL"/>
+                <prop id="5" list="0" val="idleR"/>
+                <prop id="6" list="0" val="false"/>
+                <prop id="2147483647" list="0" val="thisactor"/>
+            </s>
+        </snippets>
+    </actor>
+    <sprite atlasID="0" default="0" defaultAnimation="0" desc="" height="128" id="1" name="ChocoJack" shared="false" width="94">
+        <anim across="1" down="1" durations="100" height="128" id="0" loop="true" name="idleR" numframes="1" originx="0" originy="0" sync="false" version="2" width="94">
+            <poly data="4,0,0,94,0,94,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 0" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="1" down="1" durations="100" height="128" id="1" loop="true" name="idleL" numframes="1" originx="0" originy="0" sync="false" version="2" width="94">
+            <poly data="4,0,0,94,0,94,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 1" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="1" down="1" durations="100" height="128" id="2" loop="true" name="jumpR" numframes="1" originx="0" originy="0" sync="false" version="2" width="94">
+            <poly data="4,0,0,94,0,94,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 2" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="1" down="1" durations="100" height="128" id="3" loop="true" name="jumpL" numframes="1" originx="0" originy="0" sync="false" version="2" width="94">
+            <poly data="4,0,0,94,0,94,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="jumpL" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="1" down="1" durations="100" height="128" id="4" loop="true" name="punchR" numframes="1" originx="0" originy="0" sync="false" version="2" width="128">
+            <poly data="4,0,0,128,0,128,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 4" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="1" down="1" durations="100" height="128" id="5" loop="true" name="punchL" numframes="1" originx="0" originy="0" sync="false" version="2" width="128">
+            <poly data="4,0,0,128,0,128,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="punchL" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="2" durations="100,100,100" height="256" id="6" loop="true" name="kickR" numframes="3" originx="0" originy="0" sync="false" version="2" width="190">
+            <poly data="4,0,0,95,0,95,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="Animation 6" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="2" down="2" durations="100,100,100" height="256" id="7" loop="true" name="kickL" numframes="3" originx="0" originy="0" sync="false" version="2" width="190">
+            <poly data="4,0,0,95,0,95,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="kickL" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="3" down="2" durations="100,100,100,100,100,100" height="256" id="8" loop="true" name="walkR" numframes="6" originx="0" originy="0" sync="false" version="2" width="252">
+            <poly data="4,0,0,84,0,84,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="walkR" rest="0.0" sensor="false"/>
+        </anim>
+        <anim across="3" down="2" durations="100,100,100,100,100,100" height="256" id="9" loop="true" name="walkL" numframes="6" originx="0" originy="0" sync="false" version="2" width="252">
+            <poly data="4,0,0,84,0,84,128,0,128" density="0.1" fric="0.2" gid="-1000" id="0" name="walkL" rest="0.0" sensor="false"/>
+        </anim>
+    </sprite>
+    <background atlasID="0" desc="" durations="500,500" dx="-0.0" dy="-0.0" height="720" id="3" name="ChocoLake" numframes="2" oid="-1" repeats="false" resized="false" shared="false" width="1024" xpf="1.0" ypf="1.0"/>
+    <background atlasID="0" desc="" durations="100" dx="-0.0" dy="-0.0" height="720" id="2" name="MenuB" numframes="1" oid="-1" repeats="false" resized="false" shared="false" width="1024" xpf="1.0" ypf="1.0"/>
+    <music atlasID="0" desc="" id="4" loop="true" name="MenuSound" oid="-1" pan="0" shared="false" stream="true" type="mp3" volume="1"/>
+</pack>

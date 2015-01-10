@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scene depth="1" desc="" eventsnippetid="1" extheight="784" extwidth="1088" extx="-32" exty="-32" format="3.2.0" gravx="-0.0" gravy="0.0" height="720" id="0" name="Menu" revision="" savecount="0" tiled="1" tileh="32" tilew="32" type="standard" width="1024">
+    <layers>
+        <color-bg blue="255" green="255" red="255"/>
+        <layer blendMode="normal" color="100,168,234" id="0" locked="false" name="Layer 0" opacity="100" order="1" scrollFactorX="1.0" scrollFactorY="1.0" visible="true"/>
+        <background blendMode="normal" customScrollFactor="false" id="1" locked="true" name="MenuB" opacity="100" order="0" rid="2" scrollFactorX="1.0" scrollFactorY="1.0" visible="true"/>
+    </layers>
+    <joints/>
+    <regions>
+        <region b="64" g="64" h="106" id="0" name="Region 0" pts="4,367.0,0.0,367.0,106.0,0.0,106.0,0.0,0.0" r="64" type="box" w="367" x="621" y="410"/>
+        <region b="64" g="64" h="124" id="1" name="Region 1" pts="4,67.0,0.0,67.0,124.0,0.0,124.0,0.0,0.0" r="64" type="box" w="67" x="618" y="559"/>
+    </regions>
+    <terrainRegions/>
+    <actors/>
+    <snippets>
+        <s enabled="true" id="3"/>
+    </snippets>
+    <terrain/>
+    <atlases members="" retainAtlases="true"/>
+</scene>

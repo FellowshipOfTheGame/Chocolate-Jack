@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pack>
+    <snippet attachedevent="true" class="scripts.ActorEvents_0" classname="scripts.ActorEvents_0" desc="Actor Specific Events" description="Actor Specific Events" design="true" drawOrder="0" id="0" language="" name="ActorEvents_0" oid="-1" package="scripts." scenespecific="false" shared="false" type="actor">
+        <blocks/>
+        <events>
+            <event displayName="Created" enabled="true" id="1" name="init" order="1" repeats="true"/>
+        </events>
+    </snippet>
+    <snippet attachedevent="true" class="scripts.SceneEvents_0" classname="scripts.SceneEvents_0" desc="Scene Specific Events" description="Scene Specific Events" design="true" drawOrder="0" id="1" language="" name="SceneEvents_0" oid="-1" package="scripts." sceneid="0" scenespecific="true" shared="false" type="scene">
+        <blocks/>
+        <events>
+            <event displayName="Created" enabled="true" id="1" name="init" order="1" repeats="true"/>
+        </events>
+    </snippet>
+    <snippet attachedevent="true" class="scripts.SceneEvents_1" classname="scripts.SceneEvents_1" desc="Scene Specific Events" description="Scene Specific Events" design="true" drawOrder="0" id="2" language="" name="SceneEvents_1" oid="-1" package="scripts." sceneid="1" scenespecific="true" shared="false" type="scene">
+        <blocks/>
+        <events>
+            <event displayName="Created" enabled="true" id="1" name="init" order="1" repeats="true"/>
+        </events>
+    </snippet>
+    <snippet attachedevent="false" class="scripts.Design_3_3_InitBattle" classname="scripts.Design_3_3_InitBattle" desc="" description="" design="true" drawOrder="0" id="3" language="" name="InitBattle" oid="-1" package="scripts" scenespecific="false" shared="false" type="scene">
+        <blocks/>
+        <events>
+            <event displayName="Click" enabled="true" id="1" name="event-mouse-press-release" order="1" repeats="true"/>
+        </events>
+    </snippet>
+    <snippet attachedevent="false" class="scripts.Design_4_4_Walking" classname="scripts.Design_4_4_Walking" desc="" description="" design="true" drawOrder="0" id="4" language="" name="Walking" oid="-1" package="scripts" scenespecific="false" shared="false" type="actor">
+        <control default="" defaultValue="" desc="" dropdown="" fullname="rightB" hidden="false" id="1" name="_rightB" order="1"/>
+        <animation default="" defaultValue="" desc="" dropdown="" fullname="walkRA" hidden="false" id="2" name="_walkRA" order="2"/>
+        <control default="" defaultValue="" desc="" dropdown="" fullname="leftB" hidden="false" id="3" name="_leftB" order="3"/>
+        <animation default="" defaultValue="" desc="" dropdown="" fullname="walkLA" hidden="false" id="4" name="_walkLA" order="4"/>
+        <animation default="" defaultValue="" desc="" dropdown="" fullname="idleRA" hidden="false" id="5" name="_idleRA" order="5"/>
+        <boolean default="false" defaultValue="false" desc="" dropdown="" fullname="walking" hidden="false" id="6" name="_walking" order="6"/>
+        <actor default="thisactor" defaultValue="thisactor" desc="" dropdown="" fullname="Actor" hidden="true" id="2147483647" name="actor" order="0"/>
+        <blocks/>
+        <events>
+            <event displayName="Updated" enabled="true" id="1" name="step" order="1" repeats="true"/>
+        </events>
+    </snippet>
+    <snippet attachedevent="true" class="scripts.ActorEvents_6" classname="scripts.ActorEvents_6" desc="Actor Specific Events" description="Actor Specific Events" design="true" drawOrder="0" id="5" language="" name="ActorEvents_6" oid="-1" package="scripts." scenespecific="false" shared="false" type="actor">
+        <blocks/>
+        <events/>
+    </snippet>
+</pack>
